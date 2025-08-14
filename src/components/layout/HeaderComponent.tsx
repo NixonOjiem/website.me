@@ -74,7 +74,7 @@ const App = () => {
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: #c0ad03ff; /* accent fill */
+            background-color: #02005aff; /* accent fill */
             clip-path: circle(0% at var(--x) var(--y));
             transition: clip-path 0.4s ease-out;
           }
