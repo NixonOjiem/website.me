@@ -1,12 +1,13 @@
 import React from "react";
 import HeaderComponent from "@/components/layout/HeaderComponent";
-import HeroSection from "@/components/HeroSection";
-export default function Home() {
+
+function page() {
   return (
     <div className="">
       <HeaderComponent />
-      <HeroSection />
-      <div className="h-[200vh] w-[100vw]">Home Page</div>
+      <div className="h-[200vh] w-[100w]">contact</div>
     </div>
   );
 }
+
+export default page;
