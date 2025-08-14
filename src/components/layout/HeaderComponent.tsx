@@ -1,18 +1,14 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-// A simple throttle function to limit how often a function is called.
-// This improves performance by preventing the scroll handler from running
-// hundreds of times per second.
+// Throttle function (unchanged)
 const throttle = <T extends (...args: unknown[]) => void>(
   fn: T,
   delay: number
 ) => {
   let timeoutId: ReturnType<typeof setTimeout> | null = null;
   return (...args: Parameters<T>) => {
-    if (timeoutId) {
-      return;
-    }
+    if (timeoutId) return;
     timeoutId = setTimeout(() => {
       fn(...args);
       timeoutId = null;
@@ -21,48 +17,74 @@ const throttle = <T extends (...args: unknown[]) => void>(
 };
 
 const App = () => {
-  // useState hook to manage the header's height. 'isScrolled' will be true if the user
-  // has scrolled past a certain point, and false otherwise.
   const [isScrolled, setIsScrolled] = useState(false);
+  const [pos, setPos] = useState({ x: 0, y: 0 });
 
-  // useEffect hook to add and remove the throttled scroll event listener.
-  // The listener is properly cleaned up when the component unmounts.
   useEffect(() => {
-    // This function will be called on every scroll event, but the throttled
-    // version will only execute once every 100ms.
     const handleScroll = () => {
-      // Check if the vertical scroll position (window.scrollY) is greater than 80px.
-      // This value matches the initial height of the header.
-      if (window.scrollY > 80) {
-        setIsScrolled(true);
-      } else {
-        setIsScrolled(false);
-      }
+      setIsScrolled(window.scrollY > 80);
     };
-
-    // Create a throttled version of our handleScroll function.
     const throttledHandleScroll = throttle(handleScroll, 100);
-
-    // Add the throttled event listener for the 'scroll' event.
     window.addEventListener("scroll", throttledHandleScroll);
-
-    // This return function is the cleanup function for useEffect.
     return () => {
       window.removeEventListener("scroll", throttledHandleScroll);
     };
-  }, []); // The empty dependency array [] means this effect runs only once after the initial render.
+  }, []);
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    setPos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
   return (
-    <div className="min-h-screen bg-[#0e100f] text-[#fffce1] font-[Mori]">
-      {/* The height is 'h-[80px]' by default, and 'h-[60px]' when scrolled. */}
+    <>
       <header
-        className={`fixed top-0 left-0 w-full flex items-center justify-center bg-[#fffce1] text-[#0e100f] transition-all duration-300 shadow-md ${
-          isScrolled ? "h-[60px]" : "h-[80px]"
-        }`}
+        onMouseMove={handleMouseMove}
+        style={
+          {
+            "--x": `${pos.x}px`,
+            "--y": `${pos.y}px`,
+          } as React.CSSProperties
+        }
+        className={`fixed top-[10px] left-1/2 -translate-x-1/2 
+                   w-[70vw] md:w-[70vw] lg:w-[50vw]
+                   flex items-center justify-center 
+                   text-[#212722] rounded-2xl shadow-md
+                   transition-all duration-300 ease-in-out
+                   ${isScrolled ? "h-[60px]" : "h-[80px]"}`}
       >
-        <h1 className="text-xl font-medium">Responsive Header</h1>
+        <div className="w-full h-full flex items-center justify-center rounded-2xl header-bg overflow-hidden relative">
+          <h1 className="text-xl font-medium relative z-10 text-white">
+            Responsive Header
+          </h1>
+        </div>
+
+        <style jsx>{`
+          .header-bg {
+            background-color: #000; /* light base */
+          }
+
+          .header-bg::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #c0ad03ff; /* accent fill */
+            clip-path: circle(0% at var(--x) var(--y));
+            transition: clip-path 0.4s ease-out;
+          }
+
+          .header-bg:hover::before {
+            clip-path: circle(150% at var(--x) var(--y));
+          }
+        `}</style>
       </header>
-    </div>
+    </>
   );
 };
 

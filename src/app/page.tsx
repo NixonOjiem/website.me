@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <div className="">
       <HeaderComponent />
-      {/* <div className="h-[200vh] w-[100w]"></div> */}
+      <div className="h-[200vh] w-[100w]"></div>
     </div>
   );
 }
