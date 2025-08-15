@@ -721,7 +721,7 @@ function TestComponent() {
     // INITIAL SPAWN: Create at least 3 creatures at different positions
     const positions = [
       stageSize.w * 0.25,
-      //   stageSize.w * 0.15,
+      //    stageSize.w * 0.15,
       stageSize.w * 0.75,
     ];
 
@@ -784,15 +784,32 @@ function TestComponent() {
           margin: 0;
           overflow-x: hidden;
         }
+        /* --- ADDED CSS FOR CLOUDS --- */
+        @keyframes moveClouds {
+          0% {
+            background-position: 0px 50px, 0px 100px, 0px 150px;
+          }
+          100% {
+            background-position: -1000px 50px, -800px 100px, -600px 150px;
+          }
+        }
         .stage {
           outline: 2px solid black;
-          background: lightblue;
+          background-color: lightblue;
           position: absolute;
           inset: 0;
           margin: 0 auto;
           overflow: hidden;
           height: 70vh;
+          /* Cloud SVG as a data URI for multiple layers */
+          background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3e%3cpath fill='rgba(255,255,255,0.8)' d='M415.7,192.3c0-79.5-64.4-143.9-143.9-143.9c-64.6,0-119.3,42.8-137.5,100.9c-4.4-1-8.9-1.6-13.5-1.6c-49.5,0-89.8,40.3-89.8,89.8c0,49.5,40.3,89.8,89.8,89.8h281.4c49.5,0,89.8-40.3,89.8-89.8C505.5,232.6,465.2,192.3,415.7,192.3z'/%3e%3c/svg%3e"),
+            url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3e%3cpath fill='rgba(255,255,255,0.7)' d='M415.7,192.3c0-79.5-64.4-143.9-143.9-143.9c-64.6,0-119.3,42.8-137.5,100.9c-4.4-1-8.9-1.6-13.5-1.6c-49.5,0-89.8,40.3-89.8,89.8c0,49.5,40.3,89.8,89.8,89.8h281.4c49.5,0,89.8-40.3,89.8-89.8C505.5,232.6,465.2,192.3,415.7,192.3z'/%3e%3c/svg%3e"),
+            url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3e%3cpath fill='rgba(255,255,255,0.6)' d='M415.7,192.3c0-79.5-64.4-143.9-143.9-143.9c-64.6,0-119.3,42.8-137.5,100.9c-4.4-1-8.9-1.6-13.5-1.6c-49.5,0-89.8,40.3-89.8,89.8c0,49.5,40.3,89.8,89.8,89.8h281.4c49.5,0,89.8-40.3,89.8-89.8C505.5,232.6,465.2,192.3,415.7,192.3z'/%3e%3c/svg%3e");
+          background-repeat: repeat-x;
+          background-size: 350px, 250px, 150px;
+          animation: moveClouds 60s linear infinite;
         }
+        /* --- END OF ADDED CSS --- */
         .instruction {
           position: absolute;
           top: 50vh;
