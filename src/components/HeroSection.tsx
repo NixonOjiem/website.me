@@ -49,11 +49,15 @@ function HeroSection() {
         className="z-1 flex h-[90vh] w-full items-center overflow-hidden bg-gray-200"
       >
         {/* LEFT: Intro + Skills "mask" container */}
-        <div className="flex-1 overflow-hidden px-6 md:pl-16 mt-[50rem]">
+        <div className="flex-1 overflow-hidden px-6 md:pl-16">
+          {" "}
+          {/* Removed mt-[50rem] */}
           {/* This is the scrolling "track" that contains both slides */}
           <div id="scroll-content">
-            {/* SLIDE 1: Intro Content */}
-            <div className="flex h-[80vh] flex-col justify-center">
+            {/* SLIDE 1: Intro Content (Aligned to Bottom) */}
+            <div className="flex h-[80vh] flex-col justify-end pb-8">
+              {" "}
+              {/* Changed to justify-end */}
               <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
                 I am a Full-Stack Developer
               </h1>
@@ -64,8 +68,10 @@ function HeroSection() {
               </p>
             </div>
 
-            {/* SLIDE 2: Skills Grid */}
-            <div className="flex h-[80vh] flex-col justify-center">
+            {/* SLIDE 2: Skills Grid (Aligned to Top) */}
+            <div className="flex h-[80vh] flex-col justify-start pt-8">
+              {" "}
+              {/* Changed to justify-start */}
               <div className="grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2">
                 <div className="rounded-lg bg-white/90 p-4 shadow-md backdrop-blur">
                   <h3 className="font-semibold text-gray-800">Frontend</h3>
