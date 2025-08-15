@@ -189,13 +189,13 @@ const App = () => {
         {/* Styles */}
         <style jsx>{`
           .header-bg {
-            background-color: #000;
+            background-color: #2b6879ff;
           }
           .header-bg::before {
             content: "";
             position: absolute;
             inset: 0;
-            background-color: #02005aff;
+            background-color: #8b718aff;
             clip-path: circle(0% at var(--x) var(--y));
             transition: clip-path 0.4s ease-out;
           }
