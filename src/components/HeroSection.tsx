@@ -1,11 +1,14 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function HeroSection() {
+  const boxRef = useRef(null);
+
   useEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -13,8 +16,11 @@ function HeroSection() {
         pin: true,
         scrub: 1,
         start: "top top",
-        endTrigger: "#pin-windmill-wrap",
-        end: "bottom bottom",
+        // FIX: Define duration relative to viewport height.
+        // This makes the animation last for a scroll distance of 100% of the viewport height.
+        end: "+=100%",
+        // (Optional but recommended) Prevents the next section from overlapping during the pin.
+        pinSpacing: false,
       },
     });
 
@@ -33,6 +39,22 @@ function HeroSection() {
       },
       0 // Start at the same time as the previous animation
     );
+    // Green box animation with ScrollTrigger
+    gsap.to(boxRef.current, {
+      rotation: 360,
+      x: "100vw",
+      xPercent: -100,
+      duration: 2,
+      repeat: 2,
+      yoyo: true,
+      scrollTrigger: {
+        trigger: boxRef.current,
+        start: "top bottom", // Start when top of box hits bottom of viewport
+        end: "bottom center", // End when bottom of box hits center of viewport
+        toggleActions: "play none none none", // Only play once
+        markers: false, // Set to true for debugging
+      },
+    });
 
     // Cleanup function
     return () => {
@@ -42,7 +64,8 @@ function HeroSection() {
   }, []);
 
   return (
-    <section id="pin-windmill-wrap" className="relative w-full">
+    // FIX: Removed the id="pin-windmill-wrap" as it's no longer needed for the end trigger
+    <section className="relative w-full">
       {/* HERO (pinned area) */}
       <div
         id="pin-windmill"
@@ -50,16 +73,19 @@ function HeroSection() {
       >
         {/* LEFT: Intro + Skills "mask" container */}
         <div className="flex-1 overflow-hidden px-6 md:pl-16">
-          {" "}
-          {/* Removed mt-[50rem] */}
           {/* This is the scrolling "track" that contains both slides */}
           <div id="scroll-content">
             {/* SLIDE 1: Intro Content (Aligned to Bottom) */}
             <div className="flex h-[80vh] flex-col justify-end pb-8">
-              {" "}
-              {/* Changed to justify-end */}
-              <h1 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
-                I am a Full-Stack Developer
+              <Image
+                src="/images/profilephoto.jpg"
+                alt="Nick's Image"
+                className="mb-2 h-40 w-40 rounded-full object-cover"
+                width={128}
+                height={128}
+              />
+              <h1 className="mb-4 mt-8 text-4xl font-bold text-gray-900 md:text-5xl">
+                Hi Im Nick, a Full Stack Developer
               </h1>
               <p className="max-w-xl text-base text-gray-700 md:text-lg">
                 Building responsive, interactive, and visually polished
@@ -70,19 +96,18 @@ function HeroSection() {
 
             {/* SLIDE 2: Skills Grid (Aligned to Top) */}
             <div className="flex h-[80vh] flex-col justify-start pt-8">
-              {" "}
-              {/* Changed to justify-start */}
               <div className="grid max-w-2xl grid-cols-1 gap-6 sm:grid-cols-2">
                 <div className="rounded-lg bg-white/90 p-4 shadow-md backdrop-blur">
                   <h3 className="font-semibold text-gray-800">Frontend</h3>
                   <p className="text-sm text-gray-600">
-                    React, Vue, TypeScript, Tailwind, GSAP
+                    React, Vue, TypeScript, Tailwind, GSAP, HTML, & CSS
                   </p>
                 </div>
                 <div className="rounded-lg bg-white/90 p-4 shadow-md backdrop-blur">
                   <h3 className="font-semibold text-gray-800">Backend</h3>
                   <p className="text-sm text-gray-600">
-                    Node.js, Express, JWT, API Design
+                    Node.js, Laravel, REST API, GraphQL, Express, JWT, API
+                    Design
                   </p>
                 </div>
                 <div className="rounded-lg bg-white/90 p-4 shadow-md backdrop-blur">
@@ -92,18 +117,22 @@ function HeroSection() {
                   </p>
                 </div>
                 <div className="rounded-lg bg-white/90 p-4 shadow-md backdrop-blur">
-                  <h3 className="font-semibold text-gray-800">Architecture</h3>
+                  <h3 className="font-semibold text-gray-800">Databases</h3>
                   <p className="text-sm text-gray-600">
-                    Scalable code, reusable utilities, centralized error
-                    handling
+                    MySQL, MongoDB, PostgreSQL, Redis, & Firebase
                   </p>
                 </div>
               </div>
             </div>
+
+            <div
+              ref={boxRef}
+              className="box green w-20 h-20 bg-green-500 rounded-lg"
+            ></div>
           </div>
         </div>
 
-        {/* RIGHT: Animated Gradient SVG */}
+        {/* RIGHT: Animated Gradient SVG (Unchanged) */}
         <div className="flex h-full w-[280px] items-center justify-end overflow-hidden pr-6 md:w-[320px] md:pr-16">
           <svg
             id="turbine-shape"
@@ -149,9 +178,6 @@ function HeroSection() {
           </svg>
         </div>
       </div>
-
-      {/* Spacer/next section to give ScrollTrigger an end target */}
-      <div className="h-[120vh] bg-transparent" />
     </section>
   );
 }
