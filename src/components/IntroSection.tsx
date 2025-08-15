@@ -63,31 +63,31 @@ function IntroSection() {
     {
       title: "Backend",
       icon: "💻",
-      items: ["Node.js", "Express", "Python", "Django", "REST APIs"],
+      items: ["Node.js", "Express", "Laravel", "GraphQL", "REST APIs"],
       color: "#3b82f6", // Blue
     },
     {
       title: "Frontend",
       icon: "🎨",
-      items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Redux"],
+      items: ["React", "Next.js", "Vue", "TypeScript", "Tailwind CSS", "Redux"],
       color: "#8b5cf6", // Purple
     },
     {
       title: "Databases",
       icon: "🗄️",
-      items: ["MongoDB", "PostgreSQL", "Firebase", "Redis", "SQL"],
+      items: ["MongoDB", "PostgreSQL", "Firebase", "Redis", "MySQL"],
       color: "#10b981", // Green
     },
     {
       title: "DevOps & Tools",
       icon: "🛠️",
-      items: ["Docker", "CI/CD", "Git", "AWS", "Testing"],
+      items: ["Docker", "CI/CD", "Git", "AWS/Azure", "Testing"],
       color: "#f59e0b", // Amber
     },
   ];
 
   return (
-    <div className="intro-section mt-[70vh] min-h-[70vh]">
+    <div className="intro-section mt-[70vh] h-auto">
       <section className="container mx-auto px-4">
         <h1
           ref={headingRef}
