@@ -4,6 +4,7 @@ import { gsap } from "gsap";
 import { Draggable } from "gsap/Draggable";
 import { InertiaPlugin } from "gsap/InertiaPlugin";
 import { Physics2DPlugin } from "gsap/Physics2DPlugin";
+import { SplitText } from "gsap/SplitText"; // Added SplitText import
 
 interface StageSize {
   w: number;
@@ -43,9 +44,10 @@ interface CreatureGroupProps {
 
 function TestComponent() {
   const stageRef = useRef<HTMLDivElement>(null);
+  const instructionRef = useRef<HTMLParagraphElement>(null); // Ref for instruction text
 
   useEffect(() => {
-    gsap.registerPlugin(Draggable, InertiaPlugin, Physics2DPlugin);
+    gsap.registerPlugin(Draggable, InertiaPlugin, Physics2DPlugin, SplitText);
 
     const $stage = stageRef.current;
     if (!$stage) return;
@@ -721,6 +723,24 @@ function TestComponent() {
       });
     });
 
+    // ===== INSTRUCTION TEXT ANIMATION =====
+    let animation: gsap.core.Timeline | null = null;
+    if (instructionRef.current) {
+      const split = new SplitText(instructionRef.current, {
+        type: "words",
+        wordsClass: "instruction-word",
+      });
+
+      animation = gsap.from(split.words, {
+        y: -100,
+        opacity: 0,
+        rotation: "random(-80, 80)",
+        duration: 0.7,
+        ease: "back",
+        stagger: 0.15,
+      });
+    }
+
     return () => {
       resizeObserver.disconnect();
       const elementsToRemove = $stage.querySelectorAll(
@@ -728,13 +748,21 @@ function TestComponent() {
       );
       elementsToRemove.forEach((el) => el.remove());
       Draggable.get($stage.querySelector(".dragger"))?.kill();
+      if (animation) {
+        animation.revert();
+        animation.kill();
+      }
+      const words = document.querySelectorAll(".instruction-word");
+      words.forEach((word) => word.remove());
     };
   }, []);
 
   return (
     <>
       <div className="stage" ref={stageRef}>
-        <p className="instruction">Drag and drop the creatures!</p>
+        <p className="instruction" ref={instructionRef}>
+          Drag and drop the creatures!
+        </p>
       </div>
       <style jsx global>{`
         * {
@@ -756,7 +784,7 @@ function TestComponent() {
         }
         .instruction {
           position: absolute;
-          top: 220px;
+          top: 40vh;
           left: 50%;
           transform: translateX(-50%);
           font-size: 1.5rem;
