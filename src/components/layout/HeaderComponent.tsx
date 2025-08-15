@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 // Throttle function (unchanged)
 const throttle = <T extends (...args: unknown[]) => void>(
@@ -22,6 +24,12 @@ const App = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    AOS.init({
+      once: true, // Whether animation should happen only once
+    });
+  }, []);
 
   // Scroll handler
   useEffect(() => {
@@ -69,6 +77,9 @@ const App = () => {
                    text-[#212722] rounded-2xl shadow-md
                    transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                    ${baseHeightClass} ${desktopHeightClass}`}
+        data-aos="fade-down"
+        data-aos-easing="linear"
+        data-aos-duration="1000"
       >
         {/* Effect container */}
         <div className="w-full h-full rounded-2xl header-bg overflow-hidden relative">
