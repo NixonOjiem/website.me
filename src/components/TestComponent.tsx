@@ -100,8 +100,8 @@ function TestComponent() {
       const $el = document.createElement("div");
       $el.classList.add(className);
       $el.innerText = text;
-      Object.keys(cssVars).forEach((key) => {
-        $el.style[key as any] = cssVars[key];
+      Object.entries(cssVars).forEach(([key, value]) => {
+        $el.style.setProperty(key, value);
       });
 
       gsap.set($el, {
@@ -351,7 +351,9 @@ function TestComponent() {
         gsap.ticker.add(this.tick);
 
         const tl = gsap.timeline({
-          onComplete: () => (this.lockStretch = false),
+          onComplete: () => {
+            this.lockStretch = false;
+          },
         });
 
         this.lockStretch = true;
@@ -575,7 +577,9 @@ function TestComponent() {
           size: size.toString(),
           leg: leg.toString(),
         });
-        $stage.appendChild(this.$group);
+        if ($stage) {
+          $stage.appendChild(this.$group);
+        }
 
         this.$dragger = this.$group.querySelector(".dragger") as HTMLDivElement;
         this.$el = this.$group.querySelector(".creature") as HTMLDivElement;
@@ -615,6 +619,7 @@ function TestComponent() {
         })[0] as Draggable;
 
         this.states = {
+          [CreatureStates.spawning]: new CreatureIdleState(this), // temporary
           [CreatureStates.idle]: new CreatureIdleState(this),
           [CreatureStates.pulling]: new CreaturePullingState(this),
           [CreatureStates.dragging]: new CreatureDraggingState(this),
@@ -637,6 +642,7 @@ function TestComponent() {
         }
 
         this.previousState = this.state;
+        // eslint-disable-next-line react/no-direct-mutation-state
         this.state = state;
       }
 
@@ -683,6 +689,11 @@ function TestComponent() {
       ]),
       size = gsap.utils.random(40, 180, 1),
       leg = size * gsap.utils.random(0.1, 0.8, 0.1),
+    }: {
+      startX?: number;
+      color?: string;
+      size?: number;
+      leg?: number;
     } = {}): void => {
       creatureCount++;
       const creature = new Creature(
@@ -724,14 +735,14 @@ function TestComponent() {
     });
 
     // ===== INSTRUCTION TEXT ANIMATION =====
-    let animation: gsap.core.Timeline | null = null;
+    let animation: gsap.core.Timeline | null;
     if (instructionRef.current) {
       const split = new SplitText(instructionRef.current, {
         type: "words",
         wordsClass: "instruction-word",
       });
 
-      animation = gsap.from(split.words, {
+      animation = gsap.timeline().from(split.words, {
         y: -100,
         opacity: 0,
         rotation: "random(-80, 80)",
@@ -784,7 +795,7 @@ function TestComponent() {
         }
         .instruction {
           position: absolute;
-          top: 40vh;
+          top: 50vh;
           left: 50%;
           transform: translateX(-50%);
           font-size: 1.5rem;

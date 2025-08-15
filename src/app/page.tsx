@@ -9,7 +9,7 @@ export default function Home() {
       {/* <HeroSection /> */}
       <TestComponent />
       {/* This is just a placeholder to ensure the page has enough height for scrolling */}
-      <div className="h-[200vh] w-[100vw]">Home Page</div>
+      <div className="h-[200vh] w-[100vw]"></div>
     </div>
   );
 }
