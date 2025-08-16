@@ -5,13 +5,15 @@ import HeroSection from "@/components/HeroSection";
 import IntroSection from "@/components/IntroSection";
 import WorkExperience from "@/components/WorkExperience";
 import EducationComponent from "@/components/EducationComponent";
+import TestComponent from "@/components/TestComponent";
 export default function Home() {
   return (
     <div className="">
       <HeaderComponent />
       <HeroSection />
       <IntroSection />
-      <WorkExperience />
+      <TestComponent />
+      {/* <WorkExperience /> */}
       <EducationComponent />
       {/* Add more sections as needed */}
       {/* This is just a placeholder to ensure the page has enough height for scrolling */}

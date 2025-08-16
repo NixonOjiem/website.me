@@ -59,6 +59,7 @@ function WorkExperience() {
       color: "#C7CEEA", // Pastel Blue
     },
   ];
+  const pinContainerRef = useRef<HTMLDivElement>(null);
 
   const headingText = "Work Experience";
   const letters = headingText.split("").map((char, i) => (
@@ -70,7 +71,6 @@ function WorkExperience() {
   useEffect(() => {
     // Clear the console for a clean view
     console.clear();
-
     // Register all necessary GSAP plugins
     gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
     gsap.defaults({ ease: "none" });
@@ -97,12 +97,12 @@ function WorkExperience() {
       .timeline({
         defaults: { duration: 1 },
         scrollTrigger: {
-          trigger: "#svg-stage",
+          trigger: pinContainerRef.current,
           scrub: true,
+          pin: true,
           start: "top center",
           end: "bottom center",
           onUpdate: (self) => {
-            // Calculate active index based on scroll progress
             const progress = self.progress;
             let newIndex = 0;
 
@@ -112,12 +112,9 @@ function WorkExperience() {
             else if (progress < 0.61) newIndex = 3;
             else newIndex = 4;
 
-            // Only update when index changes
             if (newIndex !== activeIndexRef.current) {
               activeIndexRef.current = newIndex;
               setActiveIndex(newIndex);
-
-              // Animate content updates
               if (contentRef.current) {
                 gsap.fromTo(
                   contentRef.current,
@@ -149,46 +146,8 @@ function WorkExperience() {
       )
       .add(pulses, 0);
 
-    // Cleanup function to kill the timeline when the component unmounts
     return () => {
       main.kill();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (!headingRef.current) return;
-
-    const letterSpans = headingRef.current!.querySelectorAll("span");
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const anim = gsap.fromTo(
-      letterSpans,
-      {
-        rotationX: 180,
-        opacity: 0,
-        transformOrigin: "top center",
-      },
-      {
-        rotationX: 0,
-        opacity: 1,
-        duration: 0.8,
-        ease: "back.out(2)",
-        stagger: {
-          each: 0.05,
-          from: "random",
-        },
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-      }
-    );
-
-    return () => {
-      anim.scrollTrigger?.kill();
-      anim.kill();
     };
   }, []);
 

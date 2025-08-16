@@ -100,7 +100,7 @@ function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
   );
 }
 
-function WorkExperience() {
+function TestComponent() {
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -300,83 +300,97 @@ function WorkExperience() {
         {letters}
       </h1>
 
-      {/* MODIFIED: The main container is now a 2-column grid on XL screens and has horizontal padding. */}
-      <div className="grid grid-cols-1 xl:grid-cols-2 xl:gap-12 items-start px-[5vw]">
-        {/* --- Column 1: SVG Timeline --- */}
-        <svg
-          id="svg-stage"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 600 1200"
-          // MODIFIED: Simplified classes to align left within its grid column.
-          className="w-full max-w-lg justify-self-start"
-        >
-          {/* SVG path content remains the same... */}
-          <path className="line01 line" d="M 10 200 600 200"></path>
-          <path className="line02 line" d="M 10 400 600 400"></path>
-          <path className="line03 line" d="M 10 600 600 600"></path>
-          <path className="line04 line" d="M 10 800 600 800"></path>
-          <path className="line05 line" d="M 10 1000 600 1000"></path>
-          <text className="text01" x="30" y="190">
-            2021
-          </text>
-          <text className="text02" x="30" y="390">
-            2022
-          </text>
-          <text className="text03" x="30" y="590">
-            2023
-          </text>
-          <text className="text04" x="30" y="790">
-            2024
-          </text>
-          <text className="text05" x="30" y="990">
-            2025
-          </text>
-          <path
-            className="theLine"
-            d="M -5,0 Q 450 230 300 450 T 130 750 Q 100 850 300 1000 T 150 1200"
-            fill="none"
-            strokeWidth="10px"
-          />
-          <circle className="ball ball01" r="20" cx="50" cy="100"></circle>
-          <circle className="ball ball02" r="20" cx="278" cy="201"></circle>
-          <circle className="ball ball03" r="20" cx="327" cy="401"></circle>
-          <circle className="ball ball04" r="20" cx="203" cy="601"></circle>
-          <circle className="ball ball05" r="20" cx="130" cy="801"></circle>
-          <circle className="ball ball06" r="20" cx="300" cy="1001"></circle>
-        </svg>
-
-        {/* --- Column 2: Sticky Content (Card + Tech Stack) --- */}
-        {/* MODIFIED: This wrapper div groups the card and tech stack together in the second column. */}
-        <div className="flex flex-row gap-8 items-start">
-          <div
-            ref={contentRef}
-            className="sticky top-24 z-10 p-6 md:p-8 rounded-xl shadow-lg w-full max-w-md transition-all duration-500 -mt-24 xl:mt-0"
-            style={{
-              backgroundColor: workData[activeIndex].color,
-            }}
+      {/* NEW: Container for the pinned section */}
+      <div className="relative min-h-[1200px] md:min-h-[1400px]">
+        {" "}
+        {/* Adjust height as needed */}
+        {/* CHANGED: Container now uses absolute positioning */}
+        <div className="grid md:flex md:flex-row md:items-start md:gap-x-12 absolute top-0 left-0 w-full">
+          <svg
+            id="svg-stage"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 600 1200"
+            className="w-full max-w-[600px] col-start-1 row-start-1 justify-self-center"
           >
-            {/* Info Card content remains the same... */}
-            <div className="mb-4 flex items-center">
-              <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
-                {workData[activeIndex].year}
-              </div>
-              <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
-              <div className="text-sm font-medium text-[#140202]">
-                {workData[activeIndex].company}
-              </div>
-            </div>
-            <h3 className="text-2xl font-bold text-[#140202] mb-3">
-              {workData[activeIndex].title}
-            </h3>
-            <p className="text-[#140202]/90 leading-relaxed">
-              {workData[activeIndex].description}
-            </p>
-          </div>
-
-          <div className="hidden xl:block sticky top-24">
-            <TechStackDisplay
-              technologies={workData[activeIndex].technologies}
+            {/* SVG path lines for the timeline */}
+            <path className="line01 line" d="M 10 200 600 200"></path>
+            <path className="line02 line" d="M 10 400 600 400"></path>
+            <path className="line03 line" d="M 10 600 600 600"></path>
+            <path className="line04 line" d="M 10 800 600 800"></path>
+            <path className="line05 line" d="M 10 1000 600 1000"></path>
+            {/* Text elements for the years */}
+            <text className="text01" x="30" y="190">
+              2021
+            </text>
+            <text className="text02" x="30" y="390">
+              2022
+            </text>
+            <text className="text03" x="30" y="590">
+              2023
+            </text>
+            <text className="text04" x="30" y="790">
+              2024
+            </text>
+            <text className="text05" x="30" y="990">
+              2025
+            </text>
+            {/* The main motion path for the ball */}
+            <path
+              className="theLine"
+              d="M -5,0
+    Q 450 230 300 450
+    T 130 750
+    Q 100 850 300 1000
+    T 150 1200"
+              fill="none"
+              strokeWidth="10px"
             />
+            {/* Circles representing each year */}
+            <circle className="ball ball01" r="20" cx="50" cy="100"></circle>
+            <circle className="ball ball02" r="20" cx="278" cy="201"></circle>
+            <circle className="ball ball03" r="20" cx="327" cy="401"></circle>
+            <circle className="ball ball04" r="20" cx="203" cy="601"></circle>
+            <circle className="ball ball05" r="20" cx="130" cy="801"></circle>
+            <circle className="ball ball06" r="20" cx="300" cy="1001"></circle>
+          </svg>
+          {/* CHANGED: Added flex container for card and tech stack */}
+          <div className="flex flex-row gap-8 items-start">
+            {/* Card with increased size */}
+            <div
+              ref={contentRef}
+              className="sticky top-24 z-10 col-start-1 row-start-1 self-start justify-self-center p-7 md:p-9 rounded-xl shadow-lg w-full max-w-lg transition-all duration-500" // CHANGED: Increased padding and max-width
+              style={{
+                backgroundColor: workData[activeIndex].color,
+              }}
+            >
+              <div className="mb-4 flex items-center">
+                <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
+                  {workData[activeIndex].year}
+                </div>
+                <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
+                <div className="text-sm font-medium text-[#140202]">
+                  {workData[activeIndex].company}
+                </div>
+              </div>
+
+              <h3 className="text-2xl md:text-3xl font-bold text-[#140202] mb-3">
+                {" "}
+                {/* CHANGED: Increased font size */}
+                {workData[activeIndex].title}
+              </h3>
+
+              <p className="text-[#140202]/90 leading-relaxed text-base md:text-lg">
+                {" "}
+                {/* CHANGED: Increased font size */}
+                {workData[activeIndex].description}
+              </p>
+            </div>
+            {/* Tech stack display - positioned to the left of the card */}
+            <div className="hidden xl:block sticky top-24">
+              <TechStackDisplay
+                technologies={workData[activeIndex].technologies}
+              />
+            </div>
           </div>
         </div>
       </div>
@@ -425,9 +439,12 @@ function WorkExperience() {
         .theLine {
           stroke: var(--light);
         }
+        .pin-spacer {
+          height: auto !important;
+        }
       `}</style>
     </>
   );
 }
 
-export default WorkExperience;
+export default TestComponent;
