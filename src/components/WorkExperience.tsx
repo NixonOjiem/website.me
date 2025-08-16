@@ -202,7 +202,7 @@ function WorkExperience() {
       </h1>
 
       {/* CHANGED: Container is now a grid on mobile to allow overlapping */}
-      <div className="grid md:flex md:flex-row md:items-start md:gap-x-12 mt-8 md:mt-24">
+      <div className="grid md:flex md:flex-row md:items-start md:gap-x-12">
         <svg
           id="svg-stage"
           xmlns="http://www.w3.org/2000/svg"
@@ -255,7 +255,7 @@ function WorkExperience() {
           ref={contentRef}
           // CHANGED: The card is now sticky on all screen sizes and layered on top with z-index.
           // It's centered horizontally and aligned to the top of the container on mobile.
-          className="sticky top-24 z-10 col-start-1 row-start-1 self-start justify-self-center p-6 md:p-8 rounded-xl shadow-lg w-[90%] max-w-md transition-all duration-500"
+          className="sticky top-24 z-10 col-start-1 row-start-1 self-start justify-self-center p-6 md:p-8 rounded-xl shadow-lg w-full max-w-md transition-all duration-500"
           style={{
             backgroundColor: workData[activeIndex].color,
           }}
@@ -279,6 +279,7 @@ function WorkExperience() {
           </p>
         </div>
       </div>
+
       <style jsx global>{`
         /* Global CSS styles */
         @font-face {
