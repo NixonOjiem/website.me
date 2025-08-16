@@ -8,6 +8,7 @@ type WorkExperience = {
   title: string;
   company: string;
   description: string;
+  color: string; // Added color property to each experience
 };
 
 function WorkExperience() {
@@ -23,6 +24,7 @@ function WorkExperience() {
       company: "Tech Innovations Inc.",
       description:
         "Developed responsive web applications using React and TypeScript. Implemented state management solutions and optimized performance.",
+      color: "#FFD1DC", // Pastel Pink
     },
     {
       year: "2022",
@@ -30,6 +32,7 @@ function WorkExperience() {
       company: "Digital Solutions Co.",
       description:
         "Created interactive user interfaces with modern CSS techniques. Collaborated with UX designers to implement design systems.",
+      color: "#FFDFBA", // Pastel Orange
     },
     {
       year: "2023",
@@ -37,6 +40,7 @@ function WorkExperience() {
       company: "WebCraft Studios",
       description:
         "Led frontend team in building complex applications. Implemented CI/CD pipelines and mentored junior developers.",
+      color: "#BAFCA2", // Pastel Green
     },
     {
       year: "2024",
@@ -44,6 +48,7 @@ function WorkExperience() {
       company: "Cloud Nexus",
       description:
         "Developed full-stack applications using Next.js and Node.js. Designed RESTful APIs and managed database integrations.",
+      color: "#B5EAD7", // Pastel Mint
     },
     {
       year: "2025",
@@ -51,6 +56,7 @@ function WorkExperience() {
       company: "FutureTech Labs",
       description:
         "Oversaw architecture decisions for multiple projects. Implemented accessibility standards and performance optimizations.",
+      color: "#C7CEEA", // Pastel Blue
     },
   ];
 
@@ -195,12 +201,14 @@ function WorkExperience() {
         {letters}
       </h1>
 
-      <div className="flex flex-col md:flex-row md:gap-x-12 mt-8 md:mt-24">
+      {/* CHANGED: Container is now a grid on mobile to allow overlapping */}
+      <div className="grid md:flex md:flex-row md:items-start md:gap-x-12 mt-8 md:mt-24">
         <svg
           id="svg-stage"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 600 1200"
-          className="w-full max-w-[600px]"
+          // CHANGED: Positioned within the grid
+          className="w-full max-w-[600px] col-start-1 row-start-1 justify-self-center"
         >
           {/* SVG path lines for the timeline */}
           <path className="line01 line" d="M 10 200 600 200"></path>
@@ -228,10 +236,10 @@ function WorkExperience() {
           <path
             className="theLine"
             d="M -5,0
-     Q 450 230 300 450
-     T 130 750
-     Q 100 850 300 1000
-     T 150 1200"
+      Q 450 230 300 450
+      T 130 750
+      Q 100 850 300 1000
+      T 150 1200"
             fill="none"
             strokeWidth="10px"
           />
@@ -245,7 +253,12 @@ function WorkExperience() {
         </svg>
         <div
           ref={contentRef}
-          className="md:sticky md:top-24 self-start p-6 md:p-8 bg-white/90 backdrop-blur-sm rounded-xl shadow-lg mt-8 w-full max-w-md transition-all duration-300"
+          // CHANGED: The card is now sticky on all screen sizes and layered on top with z-index.
+          // It's centered horizontally and aligned to the top of the container on mobile.
+          className="sticky top-24 z-10 col-start-1 row-start-1 self-start justify-self-center p-6 md:p-8 rounded-xl shadow-lg w-[90%] max-w-md transition-all duration-500"
+          style={{
+            backgroundColor: workData[activeIndex].color,
+          }}
         >
           <div className="mb-4 flex items-center">
             <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
