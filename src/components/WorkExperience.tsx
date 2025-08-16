@@ -1,9 +1,17 @@
 "use client";
-import React, { useEffect } from "react"; // 1. Import useEffect
+import React, { useEffect, useRef } from "react"; // 1. Import useEffect
 import { gsap } from "gsap";
 import { ScrollTrigger, DrawSVGPlugin, MotionPathPlugin } from "gsap/all";
 
 function WorkExperience() {
+  const headingRef = useRef<HTMLHeadingElement>(null);
+
+  const headingText = "Work Experience";
+  const letters = headingText.split("").map((char, i) => (
+    <span key={i} className="inline-block">
+      {char === " " ? "\u00A0" : char}
+    </span>
+  ));
   // 2. Wrap all GSAP logic in a useEffect hook
   useEffect(() => {
     console.clear();
@@ -62,11 +70,51 @@ function WorkExperience() {
     };
   }, []); // 4. Use an empty dependency array
 
+  useEffect(() => {
+    if (!headingRef.current) return;
+
+    const letterSpans = headingRef.current.querySelectorAll("span");
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const anim = gsap.fromTo(
+      letterSpans,
+      {
+        rotationX: 180,
+        opacity: 0,
+        transformOrigin: "top center",
+      },
+      {
+        rotationX: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "back.out(2)",
+        stagger: {
+          each: 0.05,
+          from: "random",
+        },
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: "top 80%",
+          toggleActions: "play none none none",
+        },
+      }
+    );
+
+    return () => {
+      anim.scrollTrigger?.kill();
+      anim.kill();
+    };
+  }, []);
+
   return (
     <>
       <div>
-        <h1 className="header-section text-4xl md:text-5xl font-bold text-[#ADD8E6]">
-          Work Experience
+        <h1
+          ref={headingRef}
+          className="header-section text-4xl md:text-5xl font-bold text-[#ADD8E6]"
+        >
+          {letters}
         </h1>
         <svg
           id="svg-stage"
@@ -133,7 +181,7 @@ function WorkExperience() {
         #svg-stage {
           max-width: 600px;
           overflow: visible;
-          margin-top: 60vh;
+          margin-top: 15vh;
         }
 
         .ball {
