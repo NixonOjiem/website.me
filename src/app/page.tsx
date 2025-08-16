@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import HeaderComponent from "@/components/layout/HeaderComponent";
 import HeroSection from "@/components/HeroSection";
