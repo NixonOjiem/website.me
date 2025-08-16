@@ -1,0 +1,51 @@
+/* WorkExperience.css */
+
+.work-experience-section {
+  position: relative;
+  padding: 5rem 2rem;
+  background-color: #f0f0f0; /* Add a background color to the section */
+}
+
+/* Container for the SVG to position it */
+.svg-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 869px; /* Match SVG width for better control */
+  height: 100%;
+  z-index: 1;
+  pointer-events: none; /* Allows clicking through the SVG to content behind it */
+}
+
+#linesvg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Styling for the text content */
+.work-content {
+  position: relative;
+  z-index: 2; /* Ensure content is on top of the SVG */
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.job {
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.85); /* Semi-transparent background */
+  backdrop-filter: blur(5px); /* Frosted glass effect */
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 50vh; /* CRITICAL: Adds lots of space between items to create a long scroll area */
+}
+
+.job:last-child {
+  margin-bottom: 0;
+}
+
+.job h2 {
+  margin-top: 0;
+  color: #333;
+}
