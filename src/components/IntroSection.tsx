@@ -88,20 +88,19 @@ function IntroSection() {
 
   return (
     <div className="intro-section mt-[70vh] h-auto">
-      <section className="container mx-auto px-4">
-        <h1
-          ref={headingRef}
-          className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] pt-10 overflow-hidden ml-5"
-        >
-          Hi, I&apos;m <span className="inline-block">Nixon Ojiem,</span>
-        </h1>
-        <p
-          className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] overflow-hidden ml-5 mb-16"
-          ref={subheadingRef}
-        >
-          A Fullstack Developer
-        </p>
-
+      <h1
+        ref={headingRef}
+        className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] pt-10 overflow-hidden ml-[5vw]"
+      >
+        Hi, I&apos;m <span className="inline-block">Nixon Ojiem,</span>
+      </h1>
+      <p
+        className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] overflow-hidden mb-16 ml-[5vw]"
+        ref={subheadingRef}
+      >
+        A Fullstack Developer
+      </p>
+      <section className="container mx-auto">
         {/* Skills cards container */}
         <div
           ref={cardsRef}

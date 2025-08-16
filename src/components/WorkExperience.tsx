@@ -190,7 +190,7 @@ function WorkExperience() {
     <>
       <h1
         ref={headingRef}
-        className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] pt-10 overflow-hidden ml-8"
+        className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] pt-10 overflow-hidden ml-[5vw]"
       >
         {letters}
       </h1>
@@ -278,7 +278,7 @@ function WorkExperience() {
         }
 
         body {
-          --light: #140202ff;
+          --light: #6c9cacff;
           width: 100%;
           height: 400vh;
           background: #fff;
