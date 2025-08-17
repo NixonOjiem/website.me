@@ -21,11 +21,50 @@ type WorkExperience = {
 
 // A simple library of SVG icons for the tech stack
 const TechIcons: { [key: string]: JSX.Element } = {
-  React: (/* existing */),
-  TypeScript: (/* existing */),
-  NodeJS: (/* existing */),
-  NextJS: (/* existing */),
-  GSAP: (/* existing */),
+  React: (
+    <svg viewBox="0 0 1139 1024" fill="currentColor">
+      {" "}
+      <path d="M634 512c0-11 4-22 12-30 8-8 19-12 30-12s22 4 30 12c8 8 12 19 12 30s-4 22-12 30c-8 8-19 12-30 12s-22-4-30-12c-8-8-12-19-12-30zm-122 0c0-48 18-91 53-125 35-35 78-53 125-53s90 18 125 53c35 34 53 77 53 125s-18 91-53 125c-35 35-78 53-125 53s-90-18-125-53c-35-34-53-77-53-125zm122 396c-134-2-250-52-348-151s-148-214-148-348 50-250 148-348c98-99 214-149 348-151v151c-100 2-186 38-259 109s-109 159-109 259 36 186 109 259c73 71 159 107 259 109v151zm0-320c-55 0-104 20-143 58-39 39-58 87-58 143s19 104 58 143c39 38 88 58 143 58v-32c-47 0-88-16-124-48s-53-71-53-119 18-87 53-119c36-31 77-47 124-47v-32zm396 320c134-2 250-52 348-151s148-214 148-348-50-250-148-348c-98-99-214-149-348-151v151c100 2 186 38 259 109s109 159 109 259-36 186-109 259c-73 71-159 107-259 109v151zm0-320c55 0 104 20 143 58 39 39 58 87 58 143s-19 104-58 143c-39 38-88 58-143 58v-32c47 0 88-16 124-48s53-71 53-119-18-87-53-119c-36-31-77-47-124-47v-32z" />{" "}
+    </svg>
+  ),
+  TypeScript: (
+    <svg viewBox="0 0 128 128" fill="none">
+      {" "}
+      <path fill="#007ACC" d="M0 0h128v128H0z" />{" "}
+      <path fill="#fff" d="M26 26h76v76H26z" />{" "}
+      <path fill="#007ACC" d="M91 34H37v51h15V55h24v30h15V34z" />{" "}
+      <path
+        fill="#fff"
+        d="M83.5 101h-5l-4-9h-16l-4 9h-5l14.5-31h5L83.5 101zm-14.5-13.5h9l-4.5-10-4.5 10z"
+      />{" "}
+    </svg>
+  ),
+  NodeJS: (
+    <svg viewBox="0 0 24 24" fill="currentColor">
+      {" "}
+      <path d="M9 22.54a1.27 1.27 0 01-1.27-1.27v-3.3a1.88 1.88 0 00-.73-1.48 9.38 9.38 0 01-2.48-2.65 8.1 8.1 0 01-1-3.61V8.16a1.27 1.27 0 011.27-1.27h.84a1.27 1.27 0 011.27 1.27v7.07a4.67 4.67 0 00.51 2.22 4.41 4.41 0 001.35 1.73 4.2 4.2 0 002 .89v.33a1.27 1.27 0 01-1.27 1.27zm10.7-16.6a1.27 1.27 0 00-1.27-1.27h-.84a1.27 1.27 0 00-1.27 1.27v11.37a1.27 1.27 0 01-1.27 1.27H13.8a1.27 1.27 0 01-1.27-1.27V5.94a1.27 1.27 0 00-1.27-1.27h-.84a1.27 1.27 0 00-1.27 1.27v11.37a1.27 1.27 0 01-1.27 1.27h-1.3a1.27 1.27 0 01-1.27-1.27V9.73a1.27 1.27 0 00-1.27-1.27H3.27A1.27 1.27 0 002 9.73v4.54a7.53 7.53 0 001.43 4.58 10.38 10.38 0 004.28 3.82 5.58 5.58 0 003.35.6v.33a1.27 1.27 0 001.27 1.27h1.31a1.27 1.27 0 001.27-1.27v-.33a5.57 5.57 0 004.62-4.42 5.37 5.37 0 00.41-2V5.94z" />{" "}
+    </svg>
+  ),
+  NextJS: (
+    <svg viewBox="0 0 128 128" fill="none">
+      {" "}
+      <path
+        fill="#000"
+        d="M114 128H14A14 14 0 010 114V14A14 14 0 0114 0h100a14 14 0 0114 14v100a14 14 0 01-14 14z"
+      />{" "}
+      <path
+        fill="#fff"
+        d="M53.4 104.5V45.2h10l25 35.8V45.2H99v59.3H89L64 68.7v35.8H53.4zM28.6 104.5V23.5h10.1v81H28.6z"
+      />{" "}
+    </svg>
+  ),
+  GSAP: (
+    <svg viewBox="0 0 200 200" fill="currentColor">
+      {" "}
+      <path d="M129.5,41.2c-31.6,0-57.2,25.6-57.2,57.2c0,31.6,25.6,57.2,57.2,57.2c31.6,0,57.2-25.6,57.2-57.2C186.7,66.8,161.1,41.2,129.5,41.2z M129.5,142.3c-24,0-43.5-19.5-43.5-43.5s19.5-43.5,43.5-43.5s43.5,19.5,43.5,43.5S153.5,142.3,129.5,142.3z" />{" "}
+      <path d="M13.3,155.6h55.9c3.7,0,6.7-3,6.7-6.7V51.7c0-3.7-3-6.7-6.7-6.7H13.3c-3.7,0-6.7,3-6.7,6.7v97.2C6.7,152.6,9.6,155.6,13.3,155.6z" />{" "}
+    </svg>
+  ),
 
   VueJS: (
     <svg viewBox="0 0 128 128" fill="currentColor">
@@ -40,13 +79,26 @@ const TechIcons: { [key: string]: JSX.Element } = {
   ),
   GraphQL: (
     <svg viewBox="0 0 128 128" fill="currentColor">
-      <circle cx="64" cy="64" r="60" stroke="currentColor" strokeWidth="8" fill="none" />
-      <path d="M64 10v108M10 64h108M30 30l68 68M98 30L30 98" stroke="currentColor" strokeWidth="4" />
+      <circle
+        cx="64"
+        cy="64"
+        r="60"
+        stroke="currentColor"
+        strokeWidth="8"
+        fill="none"
+      />
+      <path
+        d="M64 10v108M10 64h108M30 30l68 68M98 30L30 98"
+        stroke="currentColor"
+        strokeWidth="4"
+      />
     </svg>
   ),
   Express: (
     <svg viewBox="0 0 128 128" fill="currentColor">
-      <text x="10" y="70" fontSize="48" fontFamily="Arial">Ex</text>
+      <text x="10" y="70" fontSize="48" fontFamily="Arial">
+        Ex
+      </text>
     </svg>
   ),
   Tailwind: (
@@ -56,7 +108,14 @@ const TechIcons: { [key: string]: JSX.Element } = {
   ),
   Redux: (
     <svg viewBox="0 0 128 128" fill="currentColor">
-      <circle cx="64" cy="64" r="60" stroke="currentColor" strokeWidth="8" fill="none" />
+      <circle
+        cx="64"
+        cy="64"
+        r="60"
+        stroke="currentColor"
+        strokeWidth="8"
+        fill="none"
+      />
       <path d="M64 64c-20-20-40 0-20 20s40 0 20-20z" />
     </svg>
   ),
@@ -96,7 +155,6 @@ const TechIcons: { [key: string]: JSX.Element } = {
     </svg>
   ),
 };
-
 
 function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -154,62 +212,80 @@ function WorkExperience() {
       title: "Intern: Frontend Developer",
       company: "Information Communication Technology Authority",
       description:
-        "Developed responsive web applications using React and TypeScript. Implemented state management solutions and optimized performance.",
+        "Contributed to the development of responsive and accessible web applications using React, TypeScript, and VueJS. Implemented efficient state management solutions with Redux and Vuex, improving application scalability and maintainability. Collaborated with senior developers to refactor legacy codebases, enhance performance, and align with modern frontend best practices. Gained hands-on experience in debugging, version control with Git, and agile development workflows.",
       color: "#FFD1DC",
       technologies: [
         { name: "React", icon: TechIcons.React },
         { name: "TypeScript", icon: TechIcons.TypeScript },
-        { name: "GSAP", icon: TechIcons.GSAP },
+        { name: "VueJS", icon: TechIcons.VueJS },
       ],
     },
+
     {
       year: "2022",
       title: "Frontend Developer",
       company: "Upwork",
       description:
-        "Created interactive user interfaces with modern CSS techniques. Collaborated with UX designers to implement design systems for various clients.",
+        "Developed dynamic and responsive user interfaces using React, VueJS, and NextJS, leveraging advanced CSS methodologies including Flexbox, Grid, and utility-first frameworks. Integrated reusable components and design systems in collaboration with UX designers to ensure consistency across diverse client projects. Utilized TypeScript for type-safe development and Docker for containerized local environments, streamlining deployment and cross-platform compatibility.",
       color: "#FFDFBA",
       technologies: [
         { name: "React", icon: TechIcons.React },
-        { name: "GSAP", icon: TechIcons.GSAP },
+        { name: "TypeScript", icon: TechIcons.TypeScript },
+        { name: "VueJS", icon: TechIcons.VueJS },
+        { name: "NextJS", icon: TechIcons.NextJS },
+        { name: "Docker", icon: TechIcons.Docker },
+        { name: "git", icon: TechIcons.Git },
       ],
     },
     {
       year: "2023",
-      title: "Senior React Developer",
-      company: "WebCraft Studios",
+      title: "FullStack Developer",
+      company: "Timely Coders",
       description:
-        "Led frontend team in building complex applications. Implemented CI/CD pipelines and mentored junior developers.",
+        "Led the frontend team in architecting and delivering scalable web applications using React and Next.js. Spearheaded the implementation of CI/CD pipelines with GitHub Actions, enhancing deployment efficiency and reliability. Collaborated cross-functionally with backend engineers to integrate RESTful APIs and optimize performance. Mentored junior developers through code reviews and pair programming, fostering a culture of growth and technical excellence.",
       color: "#BAFCA2",
       technologies: [
         { name: "React", icon: TechIcons.React },
         { name: "TypeScript", icon: TechIcons.TypeScript },
+        { name: "VueJS", icon: TechIcons.VueJS },
+        { name: "NodeJS", icon: TechIcons.NodeJS },
+        { name: "Express", icon: TechIcons.Express },
+        { name: "PostgreSQL", icon: TechIcons.PostgreSQL },
+        { name: "Jira", icon: TechIcons.Jira },
+        { name: "git", icon: TechIcons.Git },
       ],
     },
     {
       year: "2024",
-      title: "Full Stack Engineer",
-      company: "Cloud Nexus",
+      title: "Full Stack Developer",
+      company: "Paladium Kenya",
       description:
-        "Developed full-stack applications using Next.js and Node.js. Designed RESTful APIs and managed database integrations.",
+        "Engineered full-stack solutions for healthcare providers, including enhancements to KenyaEMR and the development of a community forum platform. Utilized Next.js and Node.js to build scalable, secure applications tailored to clinical workflows and user engagement. Designed and integrated RESTful APIs with Express, ensuring seamless communication between frontend and backend services. Managed MySQL databases for structured health data storage and implemented Git-based workflows for version control and team collaboration. Focused on usability, interoperability, and performance optimization to support mission-critical health systems.",
       color: "#B5EAD7",
       technologies: [
         { name: "Next.js", icon: TechIcons.NextJS },
         { name: "Node.js", icon: TechIcons.NodeJS },
         { name: "TypeScript", icon: TechIcons.TypeScript },
+        { name: "NodeJS", icon: TechIcons.NodeJS },
+        { name: "Express", icon: TechIcons.Express },
+        { name: "MySQL", icon: TechIcons.MySQL },
+        { name: "git", icon: TechIcons.Git },
       ],
     },
     {
       year: "2025",
-      title: "Technical Lead",
-      company: "FutureTech Labs",
+      title: "FullStack Developer",
+      company: "LoveHomeMart",
       description:
-        "Oversaw architecture decisions for multiple projects. Implemented accessibility standards and performance optimizations.",
+        "Led the end-to-end development of a fully functional e-commerce platform from scratch, overseeing architecture decisions across multiple projects. Utilized React and Next.js for a responsive, SEO-optimized frontend, and Laravel with GraphQL for efficient backend operations and data querying. Integrated MySQL and MongoDB to manage structured and unstructured product and user data. Implemented accessibility standards to ensure inclusive user experiences and applied performance optimizations for fast load times and smooth navigation. Collaborated with cross-functional teams to deliver scalable, maintainable solutions aligned with business goals.",
       color: "#C7CEEA",
       technologies: [
         { name: "React", icon: TechIcons.React },
         { name: "Next.js", icon: TechIcons.NextJS },
-        { name: "Node.js", icon: TechIcons.NodeJS },
+        { name: "Laravel", icon: TechIcons.Laravel },
+        { name: "MySQL", icon: TechIcons.MySQL },
+        { name: "GraphQL", icon: TechIcons.GraphQL },
+        { name: "MongoDB", icon: TechIcons.MongoDB },
       ],
     },
   ];
