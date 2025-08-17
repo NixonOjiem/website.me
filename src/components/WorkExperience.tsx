@@ -54,7 +54,7 @@ const TechIcons: { [key: string]: JSX.Element } = {
       />{" "}
       <path
         fill="#fff"
-        d="M53.4 104.5V45.2h10l25 35.8V45.2H99v59.3H89L64 68.7v35.8H53.4zM28.6 104.5V23.5h10.1v81H28.6z"
+        d="M53.4 104.5V45.2h10l25 35.8V45.2H99v59.3H89L64 68.7v35.8H53.4zm-24.8 0V23.5h10.1v81H28.6z"
       />{" "}
     </svg>
   ),
@@ -200,9 +200,6 @@ function WorkExperience() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeIndexRef = useRef(0);
 
-  // NOTE: cardPositions and floatingContentRef are no longer needed for positioning
-  // as `position: sticky` handles it.
-
   const workData: WorkExperience[] = [
     {
       year: "2021",
@@ -344,9 +341,6 @@ function WorkExperience() {
                   { autoAlpha: 1, y: 0, duration: 0.5 }
                 );
               }
-
-              // REMOVED: The GSAP animation for the `y` position of the
-              // floating container. CSS `sticky` handles this now.
             }
           },
         },
@@ -418,17 +412,39 @@ function WorkExperience() {
         {letters}
       </h1>
 
-      {/* CHANGED: Switched to a grid layout for better alignment and sticky behavior */}
+      {/* Mobile Floating Card */}
+      <div className="md:hidden fixed top-4 left-0 right-0 z-50 px-4">
+        <div
+          className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-4 max-w-md mx-auto transition-all duration-300"
+          style={{
+            opacity: 0.9,
+            transform: `translateY(${activeIndex * 5}px)`,
+          }}
+        >
+          <div className="flex items-center justify-between">
+            <div className="bg-gray-800 text-white text-xs font-bold py-1 px-2 rounded-full">
+              {workData[activeIndex].year}
+            </div>
+            <div className="text-sm font-medium text-gray-800 truncate ml-2">
+              {workData[activeIndex].company}
+            </div>
+          </div>
+          <h3 className="text-sm font-bold text-gray-800 mt-1 truncate">
+            {workData[activeIndex].title}
+          </h3>
+        </div>
+      </div>
+
+      {/* Main Content */}
       <div className="relative md:grid md:grid-cols-2 md:gap-x-12">
-        {/* --- COLUMN 1: SVG TIMELINE --- */}
-        <div className="md:col-span-1">
+        {/* SVG Timeline */}
+        <div className="md:col-span-1 mt-16 md:mt-0">
           <svg
             id="svg-stage"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 600 1200"
-            className="w-full max-w-[600px] mx-auto" // Center on mobile
+            className="w-full max-w-[600px] mx-auto"
           >
-            {/* SVG content remains the same */}
             <path className="line01 line" d="M 10 200 600 200"></path>
             <path className="line02 line" d="M 10 400 600 400"></path>
             <path className="line03 line" d="M 10 600 600 600"></path>
@@ -464,19 +480,13 @@ function WorkExperience() {
           </svg>
         </div>
 
-        {/* --- COLUMN 2: STICKY CONTENT --- */}
-        <div className="md:col-span-1">
-          {/* NEW: This is the STICKY container that stays in the viewport */}
+        {/* Desktop Card */}
+        <div className="hidden md:block md:col-span-1">
           <div className="sticky top-24">
             <div className="flex flex-row gap-8 items-start">
-              {/* Tech stack display */}
-              <div className="hidden xl:block">
-                <TechStackDisplay
-                  technologies={workData[activeIndex].technologies}
-                />
-              </div>
-
-              {/* Card content */}
+              <TechStackDisplay
+                technologies={workData[activeIndex].technologies}
+              />
               <div
                 ref={contentRef}
                 className="z-10 p-7 md:p-9 rounded-xl shadow-lg w-full max-w-lg transition-colors duration-500"
@@ -505,8 +515,33 @@ function WorkExperience() {
         </div>
       </div>
 
+      {/* Mobile Full Card */}
+      <div className="md:hidden mt-8 px-4">
+        <div
+          className="z-10 p-6 rounded-xl shadow-lg transition-colors duration-500"
+          style={{
+            backgroundColor: workData[activeIndex].color,
+          }}
+        >
+          <div className="mb-4 flex items-center">
+            <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
+              {workData[activeIndex].year}
+            </div>
+            <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
+            <div className="text-sm font-medium text-[#140202]">
+              {workData[activeIndex].company}
+            </div>
+          </div>
+          <h3 className="text-2xl font-bold text-[#140202] mb-3">
+            {workData[activeIndex].title}
+          </h3>
+          <p className="text-[#140202]/90 leading-relaxed">
+            {workData[activeIndex].description}
+          </p>
+        </div>
+      </div>
+
       <style jsx global>{`
-        /* Styles remain the same */
         @font-face {
           font-display: block;
           font-family: Mori;
@@ -529,7 +564,6 @@ function WorkExperience() {
         #svg-stage {
           max-width: 600px;
           overflow: visible;
-          /* Removed margins to let grid handle spacing */
         }
         .ball {
           fill: var(--light);
@@ -550,6 +584,12 @@ function WorkExperience() {
         }
         .pin-spacer {
           height: auto !important;
+        }
+
+        @media (max-width: 767px) {
+          #svg-stage {
+            margin-top: 60px;
+          }
         }
       `}</style>
     </>
