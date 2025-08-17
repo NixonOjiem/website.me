@@ -9,6 +9,7 @@ function IntroSection() {
   const cardsRef = useRef<HTMLDivElement>(null);
   const [animationComplete, setAnimationComplete] = useState(false);
 
+  // Effect for initial text and card entrance animation
   useEffect(() => {
     gsap.registerPlugin(SplitText);
 
@@ -26,7 +27,6 @@ function IntroSection() {
 
     const tl = gsap.timeline();
 
-    // Text animation
     tl.from([headingSplit.chars, subheadingSplit.chars], {
       y: 100,
       opacity: 0,
@@ -44,6 +44,7 @@ function IntroSection() {
     };
   }, []);
 
+  // Effect for card entrance animation once text is done
   useEffect(() => {
     if (animationComplete && cardsRef.current) {
       const cardElements = cardsRef.current.querySelectorAll(".skill-card");
@@ -58,7 +59,63 @@ function IntroSection() {
     }
   }, [animationComplete]);
 
-  // Skill categories with simplified color definitions
+  // ✨ NEW: Effect for interactive card hover animation
+  useEffect(() => {
+    if (animationComplete && cardsRef.current) {
+      const cards = gsap.utils.toArray<HTMLElement>(".skill-card");
+
+      cards.forEach((card) => {
+        // Apply a transform style needed for 3D effects
+        gsap.set(card, { transformStyle: "preserve-3d" });
+
+        const onMouseMove = (e: MouseEvent) => {
+          const { left, top, width, height } = card.getBoundingClientRect();
+          // Calculate mouse position relative to the card center (-0.5 to 0.5)
+          const x = (e.clientX - left) / width - 0.5;
+          const y = (e.clientY - top) / height - 0.5;
+
+          // Animate the card's rotation based on mouse position
+          gsap.to(card, {
+            duration: 0.7,
+            rotationY: x * 20, // Control the tilt intensity
+            rotationX: -y * 20,
+            ease: "power2.out",
+          });
+        };
+
+        const onMouseEnter = () => {
+          gsap.to(card, {
+            duration: 0.3,
+            scale: 1.05, // Pop effect
+            ease: "power3.out",
+          });
+          card.addEventListener("mousemove", onMouseMove);
+        };
+
+        const onMouseLeave = () => {
+          card.removeEventListener("mousemove", onMouseMove);
+          // Animate back to the default state with a nice elastic feel
+          gsap.to(card, {
+            duration: 0.7,
+            scale: 1,
+            rotationY: 0,
+            rotationX: 0,
+            ease: "elastic.out(1, 0.5)",
+          });
+        };
+
+        card.addEventListener("mouseenter", onMouseEnter);
+        card.addEventListener("mouseleave", onMouseLeave);
+
+        // Cleanup function to remove event listeners when the component unmounts
+        return () => {
+          card.removeEventListener("mouseenter", onMouseEnter);
+          card.removeEventListener("mouseleave", onMouseLeave);
+        };
+      });
+    }
+  }, [animationComplete]);
+
   const skills = [
     {
       title: "Backend",
@@ -84,13 +141,20 @@ function IntroSection() {
     {
       title: "Databases",
       icon: "🗄️",
-      items: ["MongoDB", "PostgreSQL", "Firebase", "Redis", "MySQL"],
+      items: [
+        "MongoDB",
+        "PostgreSQL",
+        "Firebase",
+        "Redis",
+        "MySQL",
+        "SQL-lite",
+      ],
       color: "#10b981", // Green
     },
     {
       title: "DevOps & Tools",
       icon: "🛠️",
-      items: ["Docker", "CI/CD", "Git", "AWS/Azure", "Testing"],
+      items: ["Docker", "CI/CD", "Git", "AWS/Azure", "Testing", "Jira"],
       color: "#f59e0b", // Amber
     },
   ];
@@ -107,24 +171,26 @@ function IntroSection() {
         className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] overflow-hidden mb-16 ml-[5vw]"
         ref={subheadingRef}
       >
-        A Fullstack Developer
+        A Fullstack Developer.
       </p>
       <section className="container mx-auto">
         {/* Skills cards container */}
         <div
           ref={cardsRef}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
+          // ✨ NEW: Add perspective to the parent for the 3D effect
+          style={{ perspective: "1000px" }}
         >
           {skills.map((skill, index) => (
             <div
               key={index}
-              className="skill-card rounded-xl p-6 shadow-xl transform transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden"
+              // The class is now used as a GSAP selector
+              className="skill-card rounded-xl p-6 shadow-xl transform transition-all duration-300 hover:shadow-2xl relative overflow-hidden"
               style={{
                 backgroundColor: skill.color,
-                opacity: animationComplete ? 1 : 0,
-                transform: animationComplete
-                  ? "translateY(0)"
-                  : "translateY(30px)",
+                // These styles are now controlled by GSAP, so we can simplify them
+                opacity: 0,
+                transform: "translateY(30px)",
               }}
             >
               {/* Gradient overlay */}
@@ -147,16 +213,13 @@ function IntroSection() {
                   </li>
                 ))}
               </ul>
-
-              {/* Hover effect layer */}
-              <div className="absolute inset-0 bg-white opacity-0 hover:opacity-10 transition-opacity duration-300 rounded-xl pointer-events-none z-20"></div>
             </div>
           ))}
         </div>
       </section>
 
       {/* Add some spacing at the bottom */}
-      <div className="h-20"></div>
+      <div className="h-10"></div>
     </div>
   );
 }
