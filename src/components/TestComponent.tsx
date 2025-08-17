@@ -2,13 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger, DrawSVGPlugin, MotionPathPlugin } from "gsap/all";
 
-// NEW: Define a type for technology
+// Define a type for technology
 type Technology = {
   name: string;
   icon: JSX.Element;
 };
 
-// MODIFIED: Added 'technologies' to the data structure
+// Added 'technologies' to the data structure
 type WorkExperience = {
   year: string;
   title: string;
@@ -18,7 +18,7 @@ type WorkExperience = {
   technologies: Technology[];
 };
 
-// NEW: A simple library of SVG icons for the tech stack
+// A simple library of SVG icons for the tech stack
 const TechIcons: { [key: string]: JSX.Element } = {
   React: (
     <svg viewBox="0 0 1139 1024" fill="currentColor">
@@ -61,7 +61,6 @@ const TechIcons: { [key: string]: JSX.Element } = {
   ),
 };
 
-// NEW: TechStackDisplay component
 function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -89,7 +88,7 @@ function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
     >
       {technologies.map((tech, index) => (
         <div
-          key={`${tech.name}-${index}`} // Key needs to be unique if tech names repeat across jobs
+          key={`${tech.name}-${index}`}
           className="flex items-center gap-4 bg-gray-100/50 p-3 rounded-lg"
         >
           <div className="w-8 h-8 text-gray-800">{tech.icon}</div>
@@ -103,10 +102,15 @@ function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
 function TestComponent() {
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
+  // NEW: Ref for the entire floating content block
+  const floatingContentRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const activeIndexRef = useRef(0);
 
-  // MODIFIED: Added technology data
+  // NEW: Define the Y positions for the card to align with each year
+  // These values might need tweaking to get the perfect alignment.
+  const cardPositions = [120, 320, 520, 720, 920];
+
   const workData: WorkExperience[] = [
     {
       year: "2021",
@@ -185,6 +189,11 @@ function TestComponent() {
     gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
     gsap.defaults({ ease: "none" });
 
+    // Set initial position of the floating content
+    if (floatingContentRef.current) {
+      gsap.set(floatingContentRef.current, { y: cardPositions[0] });
+    }
+
     const pulses = gsap
       .timeline({
         defaults: {
@@ -222,12 +231,23 @@ function TestComponent() {
             if (newIndex !== activeIndexRef.current) {
               activeIndexRef.current = newIndex;
               setActiveIndex(newIndex);
+
+              // Animate card content
               if (contentRef.current) {
                 gsap.fromTo(
                   contentRef.current,
                   { autoAlpha: 0, y: 20 },
                   { autoAlpha: 1, y: 0, duration: 0.5 }
                 );
+              }
+
+              // NEW: Animate the floating container's vertical position
+              if (floatingContentRef.current) {
+                gsap.to(floatingContentRef.current, {
+                  y: cardPositions[newIndex],
+                  duration: 0.8,
+                  ease: "power3.inOut",
+                });
               }
             }
           },
@@ -300,11 +320,7 @@ function TestComponent() {
         {letters}
       </h1>
 
-      {/* NEW: Container for the pinned section */}
-      <div className="relative min-h-[1200px] md:min-h-[1400px]">
-        {" "}
-        {/* Adjust height as needed */}
-        {/* CHANGED: Container now uses absolute positioning */}
+      <div className="relative min-h-[1400px] md:min-h-[1600px]">
         <div className="grid md:flex md:flex-row md:items-start md:gap-x-12 absolute top-0 left-0 w-full">
           <svg
             id="svg-stage"
@@ -312,13 +328,12 @@ function TestComponent() {
             viewBox="0 0 600 1200"
             className="w-full max-w-[600px] col-start-1 row-start-1 justify-self-center"
           >
-            {/* SVG path lines for the timeline */}
+            {/* SVG content remains the same */}
             <path className="line01 line" d="M 10 200 600 200"></path>
             <path className="line02 line" d="M 10 400 600 400"></path>
             <path className="line03 line" d="M 10 600 600 600"></path>
             <path className="line04 line" d="M 10 800 600 800"></path>
             <path className="line05 line" d="M 10 1000 600 1000"></path>
-            {/* Text elements for the years */}
             <text className="text01" x="30" y="190">
               2021
             </text>
@@ -334,18 +349,12 @@ function TestComponent() {
             <text className="text05" x="30" y="990">
               2025
             </text>
-            {/* The main motion path for the ball */}
             <path
               className="theLine"
-              d="M -5,0
-    Q 450 230 300 450
-    T 130 750
-    Q 100 850 300 1000
-    T 150 1200"
+              d="M -5,0 Q 450 230 300 450 T 130 750 Q 100 850 300 1000 T 150 1200"
               fill="none"
               strokeWidth="10px"
             />
-            {/* Circles representing each year */}
             <circle className="ball ball01" r="20" cx="50" cy="100"></circle>
             <circle className="ball ball02" r="20" cx="278" cy="201"></circle>
             <circle className="ball ball03" r="20" cx="327" cy="401"></circle>
@@ -353,12 +362,23 @@ function TestComponent() {
             <circle className="ball ball05" r="20" cx="130" cy="801"></circle>
             <circle className="ball ball06" r="20" cx="300" cy="1001"></circle>
           </svg>
-          {/* CHANGED: Added flex container for card and tech stack */}
-          <div className="flex flex-row gap-8 items-start">
-            {/* Card with increased size */}
+
+          {/* NEW: This is the floating container that moves. Position it absolutely. */}
+          <div
+            ref={floatingContentRef}
+            className="absolute top-0 right-[5vw] flex flex-row gap-8 items-start"
+          >
+            {/* Tech stack display - now part of the floating container */}
+            <div className="hidden xl:block">
+              <TechStackDisplay
+                technologies={workData[activeIndex].technologies}
+              />
+            </div>
+            {/* Card with increased size - also part of the floating container */}
             <div
               ref={contentRef}
-              className="sticky top-24 z-10 col-start-1 row-start-1 self-start justify-self-center p-7 md:p-9 rounded-xl shadow-lg w-full max-w-lg transition-all duration-500" // CHANGED: Increased padding and max-width
+              // CHANGED: Removed 'sticky' and 'top-24'. It's now positioned by its parent.
+              className="z-10 p-7 md:p-9 rounded-xl shadow-lg w-full max-w-lg transition-colors duration-500"
               style={{
                 backgroundColor: workData[activeIndex].color,
               }}
@@ -372,31 +392,19 @@ function TestComponent() {
                   {workData[activeIndex].company}
                 </div>
               </div>
-
               <h3 className="text-2xl md:text-3xl font-bold text-[#140202] mb-3">
-                {" "}
-                {/* CHANGED: Increased font size */}
                 {workData[activeIndex].title}
               </h3>
-
               <p className="text-[#140202]/90 leading-relaxed text-base md:text-lg">
-                {" "}
-                {/* CHANGED: Increased font size */}
                 {workData[activeIndex].description}
               </p>
-            </div>
-            {/* Tech stack display - positioned to the left of the card */}
-            <div className="hidden xl:block sticky top-24">
-              <TechStackDisplay
-                technologies={workData[activeIndex].technologies}
-              />
             </div>
           </div>
         </div>
       </div>
 
       <style jsx global>{`
-        /* Styles remain largely the same, but ensure body height is sufficient */
+        /* Styles remain the same */
         @font-face {
           font-display: block;
           font-family: Mori;
