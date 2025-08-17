@@ -197,14 +197,11 @@ function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
 function WorkExperience() {
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
-  // NEW: Ref for the entire floating content block
-  const floatingContentRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const activeIndexRef = useRef(0);
 
-  // NEW: Define the Y positions for the card to align with each year
-  // These values might need tweaking to get the perfect alignment.
-  const cardPositions = [120, 320, 520, 720, 920];
+  // NOTE: cardPositions and floatingContentRef are no longer needed for positioning
+  // as `position: sticky` handles it.
 
   const workData: WorkExperience[] = [
     {
@@ -298,14 +295,8 @@ function WorkExperience() {
   ));
 
   useEffect(() => {
-    console.clear();
     gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
     gsap.defaults({ ease: "none" });
-
-    // Set initial position of the floating content
-    if (floatingContentRef.current) {
-      gsap.set(floatingContentRef.current, { y: cardPositions[0] });
-    }
 
     const pulses = gsap
       .timeline({
@@ -345,7 +336,7 @@ function WorkExperience() {
               activeIndexRef.current = newIndex;
               setActiveIndex(newIndex);
 
-              // Animate card content
+              // Animate card content fade in/out
               if (contentRef.current) {
                 gsap.fromTo(
                   contentRef.current,
@@ -354,14 +345,8 @@ function WorkExperience() {
                 );
               }
 
-              // NEW: Animate the floating container's vertical position
-              if (floatingContentRef.current) {
-                gsap.to(floatingContentRef.current, {
-                  y: cardPositions[newIndex],
-                  duration: 0.8,
-                  ease: "power3.inOut",
-                });
-              }
+              // REMOVED: The GSAP animation for the `y` position of the
+              // floating container. CSS `sticky` handles this now.
             }
           },
         },
@@ -433,13 +418,15 @@ function WorkExperience() {
         {letters}
       </h1>
 
-      <div className="relative min-h-[90vh] md:min-h-[90vh]">
-        <div className="grid md:flex md:flex-row md:items-start md:gap-x-12 absolute top-0 left-0 w-full">
+      {/* CHANGED: Switched to a grid layout for better alignment and sticky behavior */}
+      <div className="relative md:grid md:grid-cols-2 md:gap-x-12">
+        {/* --- COLUMN 1: SVG TIMELINE --- */}
+        <div className="md:col-span-1">
           <svg
             id="svg-stage"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 600 1200"
-            className="w-full max-w-[600px] col-start-1 row-start-1 justify-self-center"
+            className="w-full max-w-[600px] mx-auto" // Center on mobile
           >
             {/* SVG content remains the same */}
             <path className="line01 line" d="M 10 200 600 200"></path>
@@ -475,42 +462,44 @@ function WorkExperience() {
             <circle className="ball ball05" r="20" cx="130" cy="801"></circle>
             <circle className="ball ball06" r="20" cx="300" cy="1001"></circle>
           </svg>
+        </div>
 
-          {/* NEW: This is the floating container that moves. Position it absolutely. */}
-          <div
-            ref={floatingContentRef}
-            className="absolute top-0 right-[5vw] flex flex-row gap-8 items-start"
-          >
-            {/* Tech stack display - now part of the floating container */}
-            <div className="hidden xl:block">
-              <TechStackDisplay
-                technologies={workData[activeIndex].technologies}
-              />
-            </div>
-            {/* Card with increased size - also part of the floating container */}
-            <div
-              ref={contentRef}
-              // CHANGED: Removed 'sticky' and 'top-24'. It's now positioned by its parent.
-              className="z-10 p-7 md:p-9 rounded-xl shadow-lg w-full max-w-lg transition-colors duration-500"
-              style={{
-                backgroundColor: workData[activeIndex].color,
-              }}
-            >
-              <div className="mb-4 flex items-center">
-                <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
-                  {workData[activeIndex].year}
-                </div>
-                <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
-                <div className="text-sm font-medium text-[#140202]">
-                  {workData[activeIndex].company}
-                </div>
+        {/* --- COLUMN 2: STICKY CONTENT --- */}
+        <div className="md:col-span-1">
+          {/* NEW: This is the STICKY container that stays in the viewport */}
+          <div className="sticky top-24">
+            <div className="flex flex-row gap-8 items-start">
+              {/* Tech stack display */}
+              <div className="hidden xl:block">
+                <TechStackDisplay
+                  technologies={workData[activeIndex].technologies}
+                />
               </div>
-              <h3 className="text-2xl md:text-3xl font-bold text-[#140202] mb-3">
-                {workData[activeIndex].title}
-              </h3>
-              <p className="text-[#140202]/90 leading-relaxed text-base md:text-lg">
-                {workData[activeIndex].description}
-              </p>
+
+              {/* Card content */}
+              <div
+                ref={contentRef}
+                className="z-10 p-7 md:p-9 rounded-xl shadow-lg w-full max-w-lg transition-colors duration-500"
+                style={{
+                  backgroundColor: workData[activeIndex].color,
+                }}
+              >
+                <div className="mb-4 flex items-center">
+                  <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
+                    {workData[activeIndex].year}
+                  </div>
+                  <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
+                  <div className="text-sm font-medium text-[#140202]">
+                    {workData[activeIndex].company}
+                  </div>
+                </div>
+                <h3 className="text-2xl md:text-3xl font-bold text-[#140202] mb-3">
+                  {workData[activeIndex].title}
+                </h3>
+                <p className="text-[#140202]/90 leading-relaxed text-base md:text-lg">
+                  {workData[activeIndex].description}
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -540,8 +529,7 @@ function WorkExperience() {
         #svg-stage {
           max-width: 600px;
           overflow: visible;
-          margin-top: 1vh;
-          margin-left: 0;
+          /* Removed margins to let grid handle spacing */
         }
         .ball {
           fill: var(--light);
