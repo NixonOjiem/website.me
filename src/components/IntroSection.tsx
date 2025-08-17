@@ -69,7 +69,16 @@ function IntroSection() {
     {
       title: "Frontend",
       icon: "🎨",
-      items: ["React", "Next.js", "Vue", "TypeScript", "Tailwind CSS", "Redux"],
+      items: [
+        "React",
+        "Next.js",
+        "Vue",
+        "TypeScript",
+        "Tailwind CSS",
+        "Redux",
+        "HTML",
+        "CSS",
+      ],
       color: "#8b5cf6", // Purple
     },
     {
