@@ -459,7 +459,7 @@ function WorkExperience() {
       <div className="md:hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-sm px-4 pointer-events-none">
         <div
           ref={mobileCardRef}
-          className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-4 opacity-0" // Start with opacity-0
+          className="bg-white/60 backdrop-blur-sm rounded-xl shadow-lg p-4 opacity-0" // Start with opacity-0
         >
           <div className="flex items-center justify-between">
             <div className="bg-gray-800 text-white text-xs font-bold py-1 px-2 rounded-full">
@@ -472,6 +472,7 @@ function WorkExperience() {
           <h3 className="text-sm font-bold text-gray-800 mt-1 truncate">
             {workData[activeIndex].title}
           </h3>
+          <p>{workData[activeIndex].description}</p>
         </div>
       </div>
 
