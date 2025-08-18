@@ -1,13 +1,11 @@
-"use client"; // This directive is necessary for using React hooks
+"use client";
 import React, { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./EducationTimeline.module.css";
 
-// Register the GSAP plugin
 gsap.registerPlugin(ScrollTrigger);
 
-// Your education data
 const educationData = [
   {
     year: "2023",
@@ -36,61 +34,62 @@ const educationData = [
 ];
 
 const EducationTimeline = () => {
-  const component = useRef(null);
-  const slider = useRef(null);
+  const component = useRef<HTMLDivElement | null>(null);
+  const slider = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
-    // A GSAP context allows for safe cleanup
-    let ctx = gsap.context(() => {
-      let panels = gsap.utils.toArray(`.${styles.timelineItem}`);
+    const ctx = gsap.context(() => {
+      const panels = gsap.utils.toArray<HTMLElement>(`.${styles.timelineItem}`);
 
-      // Main horizontal scroll animation
-      let scrollTween = gsap.to(panels, {
+      const scrollTween = gsap.to(panels, {
         xPercent: -100 * (panels.length - 1),
         ease: "none",
         scrollTrigger: {
-          trigger: slider.current,
+          trigger: slider.current!,
           pin: true,
           scrub: 1,
-          end: () => "+=" + (slider.current.offsetWidth - window.innerWidth),
+          end: () =>
+            "+=" + ((slider.current?.offsetWidth ?? 0) - window.innerWidth),
         },
       });
 
-      // Animate elements inside each section as it scrolls into view
-      panels.forEach((panel, i) => {
-        // Year Animation (fades and slides up)
-        gsap.from(panel.querySelector(`.${styles.timelineYear}`), {
-          y: 80,
-          opacity: 0,
-          scrollTrigger: {
-            trigger: panel,
-            containerAnimation: scrollTween,
-            start: "left center",
-            toggleActions: "play none none reverse",
-          },
-        });
+      panels.forEach((panel) => {
+        if (!(panel instanceof HTMLElement)) return;
 
-        // Institution & Details Animation (slides in from left)
-        gsap.from(
-          panel.querySelectorAll(
-            `.${styles.institution}, .${styles.qualification}, .${styles.date}`
-          ),
-          {
+        const yearEl = panel.querySelector(`.${styles.timelineYear}`);
+        if (yearEl) {
+          gsap.from(yearEl, {
+            y: 80,
+            opacity: 0,
+            scrollTrigger: {
+              trigger: panel,
+              containerAnimation: scrollTween,
+              start: "left center",
+              toggleActions: "play none none reverse",
+            },
+          });
+        }
+
+        const detailEls = panel.querySelectorAll(
+          `.${styles.institution}, .${styles.qualification}, .${styles.date}`
+        );
+        if (detailEls.length > 0) {
+          gsap.from(detailEls, {
             x: -100,
             opacity: 0,
-            stagger: 0.2, // Animate them one after another
+            stagger: 0.2,
             scrollTrigger: {
               trigger: panel,
               containerAnimation: scrollTween,
               start: "left 70%",
               toggleActions: "play none none reverse",
             },
-          }
-        );
+          });
+        }
       });
-    }, component); // Scope animations to the component
+    }, component);
 
-    return () => ctx.revert(); // Cleanup
+    return () => ctx.revert();
   }, []);
 
   return (
