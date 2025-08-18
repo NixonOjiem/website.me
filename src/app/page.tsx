@@ -5,6 +5,7 @@ import HeroSection from "@/components/HeroSection";
 import IntroSection from "@/components/IntroSection";
 import EducationComponent from "@/components/EducationTimeline";
 import WorkExperience from "@/components/WorkExperience";
+import FooterLayout from "@/components/layout/FooterLayout";
 export default function Home() {
   return (
     <div className="">
@@ -13,6 +14,7 @@ export default function Home() {
       <IntroSection />
       <WorkExperience />
       <EducationComponent />
+      <FooterLayout />
     </div>
   );
 }

@@ -48,8 +48,13 @@ const EducationTimeline = () => {
           trigger: slider.current!,
           pin: true,
           scrub: 1,
+          pinSpacing: true,
           end: () =>
-            "+=" + ((slider.current?.offsetWidth ?? 0) - window.innerWidth),
+            `+=${
+              (slider.current?.offsetWidth ?? 0) -
+              window.innerWidth +
+              window.innerHeight
+            }`,
         },
       });
 

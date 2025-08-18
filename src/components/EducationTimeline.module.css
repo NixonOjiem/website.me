@@ -1,14 +1,14 @@
 .container {
   width: 100%;
-  height: 100vh;
-  /* overflow: hidden; This is crucial for pinning */
+  /* height: 100vh; */
+  overflow: hidden; /* This is crucial for pinning */
 }
 
 .timelineWrapper {
   display: flex;
-  width: 700%; /* 100% for each of the 4 sections */
-  height: 100%;
-  will-change: transform; /* Performance optimization */
+  width: 400%; /* 4 items = 400% */
+  height: 100vh; /* Take full viewport height */
+  padding-bottom: 100px; /* Space for footer */
 }
 
 .timelineItem {
