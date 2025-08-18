@@ -19,7 +19,7 @@
   align-items: center;
   padding: 2rem;
   position: relative;
-  background-color: #111827; /* Dark blue-gray background */
+  background-color: #6c9cacff; /* Dark blue-gray background */
 }
 
 .timelineContent {
@@ -33,7 +33,7 @@
 .timelineYear {
   font-size: clamp(5rem, 15vw, 10rem); /* Responsive font size */
   font-weight: 700;
-  color: rgba(255, 255, 255, 0.08);
+  color: rgba(8, 1, 1, 0.08);
   line-height: 1;
 }
 
@@ -51,7 +51,7 @@
 .qualification {
   font-size: clamp(1.1rem, 2vw, 1.5rem);
   font-weight: 400;
-  color: #9ca3af;
+  color: rgba(12, 2, 2, 0.562);
   margin-bottom: 0.5rem;
 }
 

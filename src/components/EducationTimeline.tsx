@@ -97,6 +97,7 @@ const EducationTimeline = () => {
       <div className={styles.timelineWrapper} ref={slider}>
         {educationData.map((item, index) => (
           <section key={index} className={styles.timelineItem}>
+            <br />
             <div className={styles.timelineContent}>
               <div className={styles.timelineYear}>{item.year}</div>
               <div className={styles.timelineDetails}>
