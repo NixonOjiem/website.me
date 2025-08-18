@@ -65,7 +65,6 @@ const TechIcons: { [key: string]: JSX.Element } = {
       <path d="M13.3,155.6h55.9c3.7,0,6.7-3,6.7-6.7V51.7c0-3.7-3-6.7-6.7-6.7H13.3c-3.7,0-6.7,3-6.7,6.7v97.2C6.7,152.6,9.6,155.6,13.3,155.6z" />{" "}
     </svg>
   ),
-
   VueJS: (
     <svg viewBox="0 0 128 128" fill="currentColor">
       <path d="M64 10L10 10l54 108 54-108H64z" fill="#41B883" />
@@ -406,7 +405,7 @@ function WorkExperience() {
     };
   }, []);
 
-  // **NEW**: Mobile card visibility and animation effect
+  // Mobile card visibility and animation effect
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
@@ -446,6 +445,17 @@ function WorkExperience() {
     };
   }, [isMobileCardVisible]);
 
+  // **NEW**: Mobile card color change effect
+  useEffect(() => {
+    if (mobileCardRef.current) {
+      gsap.to(mobileCardRef.current, {
+        backgroundColor: workData[activeIndex].color,
+        duration: 0.5,
+        ease: "power2.out",
+      });
+    }
+  }, [activeIndex]); // This runs whenever the active index changes
+
   return (
     <div ref={mainContainerRef}>
       <h1
@@ -455,11 +465,11 @@ function WorkExperience() {
         {letters}
       </h1>
 
-      {/* **MODIFIED**: Mobile Floating Card */}
+      {/* Mobile Floating Card */}
       <div className="md:hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-sm px-4 pointer-events-none">
         <div
           ref={mobileCardRef}
-          className="bg-white/60 backdrop-blur-sm rounded-xl shadow-lg p-4 opacity-0" // Start with opacity-0
+          className="backdrop-blur-sm rounded-xl shadow-lg p-4 opacity-0" // Removed static bg color
         >
           <div className="flex items-center justify-between">
             <div className="bg-gray-800 text-white text-xs font-bold py-1 px-2 rounded-full">
@@ -472,7 +482,10 @@ function WorkExperience() {
           <h3 className="text-sm font-bold text-gray-800 mt-1 truncate">
             {workData[activeIndex].title}
           </h3>
-          <p>{workData[activeIndex].description}</p>
+          {/* Maintained your change to show full description */}
+          <p className="text-xs text-gray-700 mt-2 line-clamp-3">
+            {workData[activeIndex].description}
+          </p>
         </div>
       </div>
 
@@ -484,7 +497,7 @@ function WorkExperience() {
             id="svg-stage"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 600 1200"
-            className="w-full max-w-[600px] mx-auto"
+            className="w-full max-w-[600px]" // Maintained your className change
           >
             <path className="line01 line" d="M 10 200 600 200"></path>
             <path className="line02 line" d="M 10 400 600 400"></path>
