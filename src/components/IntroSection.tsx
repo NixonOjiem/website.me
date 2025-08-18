@@ -59,7 +59,7 @@ function IntroSection() {
     }
   }, [animationComplete]);
 
-  // ✨ NEW: Effect for interactive card hover animation
+  // Effect for interactive card hover animation
   useEffect(() => {
     if (animationComplete && cardsRef.current) {
       const cards = gsap.utils.toArray<HTMLElement>(".skill-card");
@@ -116,25 +116,32 @@ function IntroSection() {
     }
   }, [animationComplete]);
 
+  // ✨ UPDATED: The skills array now contains objects with a name and an icon.
   const skills = [
     {
       title: "Backend",
       icon: "💻",
-      items: ["Node.js", "Express", "Laravel", "GraphQL", "REST APIs"],
+      items: [
+        { name: "Node.js", icon: "🟢" },
+        { name: "Express", icon: "🚀" },
+        { name: "Laravel", icon: "🔥" },
+        { name: "GraphQL", icon: "⚛️" },
+        { name: "REST APIs", icon: "🔗" },
+      ],
       color: "#3b82f6", // Blue
     },
     {
       title: "Frontend",
       icon: "🎨",
       items: [
-        "React",
-        "Next.js",
-        "Vue",
-        "TypeScript",
-        "Tailwind CSS",
-        "Redux",
-        "HTML",
-        "CSS",
+        { name: "React", icon: "⚛️" },
+        { name: "Next.js", icon: "▲" },
+        { name: "Vue", icon: "💚" },
+        { name: "TypeScript", icon: "🔵" },
+        { name: "Tailwind CSS", icon: "💨" },
+        { name: "Redux", icon: "🔄" },
+        { name: "HTML", icon: "📄" },
+        { name: "CSS", icon: "🎨" },
       ],
       color: "#8b5cf6", // Purple
     },
@@ -142,19 +149,26 @@ function IntroSection() {
       title: "Databases",
       icon: "🗄️",
       items: [
-        "MongoDB",
-        "PostgreSQL",
-        "Firebase",
-        "Redis",
-        "MySQL",
-        "SQL-lite",
+        { name: "MongoDB", icon: "🍃" },
+        { name: "PostgreSQL", icon: "🐘" },
+        { name: "Firebase", icon: "🔥" },
+        { name: "Redis", icon: "🟥" },
+        { name: "MySQL", icon: "🐬" },
+        { name: "SQL-lite", icon: "🪶" },
       ],
       color: "#10b981", // Green
     },
     {
       title: "DevOps & Tools",
       icon: "🛠️",
-      items: ["Docker", "CI/CD", "Git", "AWS/Azure", "Testing", "Jira"],
+      items: [
+        { name: "Docker", icon: "🐳" },
+        { name: "CI/CD", icon: "🔁" },
+        { name: "Git", icon: "🌿" },
+        { name: "AWS/Azure", icon: "☁️" },
+        { name: "Testing", icon: "🧪" },
+        { name: "Jira", icon: " Jira" },
+      ],
       color: "#f59e0b", // Amber
     },
   ];
@@ -177,18 +191,15 @@ function IntroSection() {
         {/* Skills cards container */}
         <div
           ref={cardsRef}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto"
-          // ✨ NEW: Add perspective to the parent for the 3D effect
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto px-5 sm:px-0"
           style={{ perspective: "1000px" }}
         >
           {skills.map((skill, index) => (
             <div
               key={index}
-              // The class is now used as a GSAP selector
               className="skill-card rounded-xl p-6 shadow-xl transform transition-all duration-300 hover:shadow-2xl relative overflow-hidden"
               style={{
                 backgroundColor: skill.color,
-                // These styles are now controlled by GSAP, so we can simplify them
                 opacity: 0,
                 transform: "translateY(30px)",
               }}
@@ -206,10 +217,11 @@ function IntroSection() {
                 <h3 className="text-xl font-bold text-white">{skill.title}</h3>
               </div>
               <ul className="space-y-2 relative z-10">
+                {/* ✨ UPDATED: The mapping now accesses item.icon and item.name */}
                 {skill.items.map((item, i) => (
                   <li key={i} className="flex items-center text-white/90">
-                    <span className="mr-2">•</span>
-                    <span className="text-white font-medium">{item}</span>
+                    <span className="w-6 text-center mr-2">{item.icon}</span>
+                    <span className="text-white font-medium">{item.name}</span>
                   </li>
                 ))}
               </ul>
@@ -219,7 +231,7 @@ function IntroSection() {
       </section>
 
       {/* Add some spacing at the bottom */}
-      <div className="h-10"></div>
+      <div className="h-20"></div>
     </div>
   );
 }

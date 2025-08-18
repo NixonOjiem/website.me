@@ -3,7 +3,7 @@ import React from "react";
 import HeaderComponent from "@/components/layout/HeaderComponent";
 import HeroSection from "@/components/HeroSection";
 import IntroSection from "@/components/IntroSection";
-import EducationComponent from "@/components/EducationComponent";
+import EducationComponent from "@/components/EducationTimeline";
 import WorkExperience from "@/components/WorkExperience";
 export default function Home() {
   return (
@@ -12,7 +12,7 @@ export default function Home() {
       <HeroSection />
       <IntroSection />
       <WorkExperience />
-      {/* <EducationComponent /> */}
+      <EducationComponent />
     </div>
   );
 }
