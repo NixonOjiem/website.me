@@ -195,9 +195,12 @@ function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
 }
 
 function WorkExperience() {
+  const mainContainerRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
+  const mobileCardRef = useRef<HTMLDivElement | null>(null); // Ref for mobile card animation
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isMobileCardVisible, setIsMobileCardVisible] = useState(false); // State for mobile card visibility
   const activeIndexRef = useRef(0);
 
   const workData: WorkExperience[] = [
@@ -214,7 +217,6 @@ function WorkExperience() {
         { name: "VueJS", icon: TechIcons.VueJS },
       ],
     },
-
     {
       year: "2022",
       title: "Frontend Developer",
@@ -291,6 +293,7 @@ function WorkExperience() {
     </span>
   ));
 
+  // Main timeline animation effect
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
     gsap.defaults({ ease: "none" });
@@ -333,12 +336,12 @@ function WorkExperience() {
               activeIndexRef.current = newIndex;
               setActiveIndex(newIndex);
 
-              // Animate card content fade in/out
+              // Animate desktop card content fade in/out
               if (contentRef.current) {
                 gsap.fromTo(
                   contentRef.current,
                   { autoAlpha: 0, y: 20 },
-                  { autoAlpha: 1, y: 0, duration: 0.5 }
+                  { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }
                 );
               }
             }
@@ -370,10 +373,10 @@ function WorkExperience() {
     };
   }, []);
 
+  // Heading animation effect
   useEffect(() => {
     if (!headingRef.current) return;
     const letterSpans = headingRef.current.querySelectorAll("span");
-    gsap.registerPlugin(ScrollTrigger);
     const anim = gsap.fromTo(
       letterSpans,
       {
@@ -403,8 +406,48 @@ function WorkExperience() {
     };
   }, []);
 
+  // **NEW**: Mobile card visibility and animation effect
+  useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Trigger to control visibility
+    const visibilityTrigger = ScrollTrigger.create({
+      trigger: mainContainerRef.current,
+      start: "top top",
+      end: "bottom bottom",
+      onEnter: () => setIsMobileCardVisible(true),
+      onLeave: () => setIsMobileCardVisible(false),
+      onEnterBack: () => setIsMobileCardVisible(true),
+      onLeaveBack: () => setIsMobileCardVisible(false),
+    });
+
+    // Animation for the card itself
+    const card = mobileCardRef.current;
+    if (isMobileCardVisible) {
+      gsap.to(card, {
+        autoAlpha: 1,
+        scale: 1,
+        y: 0,
+        duration: 0.4,
+        ease: "back.out(1.7)",
+      });
+    } else {
+      gsap.to(card, {
+        autoAlpha: 0,
+        scale: 0.9,
+        y: 20,
+        duration: 0.3,
+        ease: "power2.in",
+      });
+    }
+
+    return () => {
+      visibilityTrigger.kill();
+    };
+  }, [isMobileCardVisible]);
+
   return (
-    <>
+    <div ref={mainContainerRef}>
       <h1
         ref={headingRef}
         className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] pt-10 overflow-hidden ml-[5vw]"
@@ -412,14 +455,11 @@ function WorkExperience() {
         {letters}
       </h1>
 
-      {/* Mobile Floating Card */}
-      <div className="md:hidden fixed top-4 left-0 right-0 z-50 px-4">
+      {/* **MODIFIED**: Mobile Floating Card */}
+      <div className="md:hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-sm px-4 pointer-events-none">
         <div
-          className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-4 max-w-md mx-auto transition-all duration-300"
-          style={{
-            opacity: 0.9,
-            transform: `translateY(${activeIndex * 5}px)`,
-          }}
+          ref={mobileCardRef}
+          className="bg-white/90 backdrop-blur-sm rounded-xl shadow-lg p-4 opacity-0" // Start with opacity-0
         >
           <div className="flex items-center justify-between">
             <div className="bg-gray-800 text-white text-xs font-bold py-1 px-2 rounded-full">
@@ -515,32 +555,6 @@ function WorkExperience() {
         </div>
       </div>
 
-      {/* Mobile Full Card */}
-      <div className="md:hidden mt-8 px-4">
-        <div
-          className="z-10 p-6 rounded-xl shadow-lg transition-colors duration-500"
-          style={{
-            backgroundColor: workData[activeIndex].color,
-          }}
-        >
-          <div className="mb-4 flex items-center">
-            <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
-              {workData[activeIndex].year}
-            </div>
-            <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
-            <div className="text-sm font-medium text-[#140202]">
-              {workData[activeIndex].company}
-            </div>
-          </div>
-          <h3 className="text-2xl font-bold text-[#140202] mb-3">
-            {workData[activeIndex].title}
-          </h3>
-          <p className="text-[#140202]/90 leading-relaxed">
-            {workData[activeIndex].description}
-          </p>
-        </div>
-      </div>
-
       <style jsx global>{`
         @font-face {
           font-display: block;
@@ -592,7 +606,7 @@ function WorkExperience() {
           }
         }
       `}</style>
-    </>
+    </div>
   );
 }
 
