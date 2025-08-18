@@ -23,6 +23,8 @@
 }
 
 .timelineContent {
+  position: relative; /* Needed for absolute positioning of the icon */
+  padding: 2rem;
   display: flex;
   align-items: center;
   gap: 4rem;
@@ -41,7 +43,13 @@
   text-align: left;
 }
 
-.institution {
+.timelineYear,
+.timelineDetails {
+  position: relative;
+  z-index: 1;
+}
+
+.timeline .institution {
   font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 600;
   margin-bottom: 0.5rem;
@@ -58,6 +66,16 @@
 .date {
   font-size: 1rem;
   color: #6b7280;
+}
+.icon {
+  position: absolute;
+  top: -20px;
+  right: 20px;
+  width: 380px; /* Adjust size as needed */
+  height: 380px; /* Adjust size as needed */
+  color: rgba(255, 255, 255, 0.1); /* Light, transparent color */
+  z-index: -1; /* Place it behind the text content */
+  transform: rotate(-15deg); /* Optional: give it a slight tilt */
 }
 
 /* Responsive adjustments for smaller screens */

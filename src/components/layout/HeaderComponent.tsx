@@ -77,9 +77,10 @@ const App = () => {
                    text-[#212722] rounded-2xl shadow-md
                    transition-all duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]
                    ${baseHeightClass} ${desktopHeightClass}`}
-        data-aos="fade-down"
-        data-aos-easing="linear"
-        data-aos-duration="1000"
+        // data-aos="fade-down"
+        // data-aos-easing="linear"
+        // data-aos-duration="1000"
+        // data-aos-once="true"
       >
         {/* Effect container */}
         <div className="w-full h-full rounded-2xl header-bg overflow-hidden relative">
