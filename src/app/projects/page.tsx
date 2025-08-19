@@ -6,7 +6,6 @@ function page() {
     <div className="">
       <HeaderComponent />
       <ProjectIntro />
-      <div className="h-[200vh] w-[100w]">project</div>
     </div>
   );
 }

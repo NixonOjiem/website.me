@@ -3,13 +3,20 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
-import React, { useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 
 function ProjectIntro() {
   const main = useRef<HTMLDivElement>(null);
   const heroRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
 
   useLayoutEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!isMounted) return;
+
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
     const ctx = gsap.context(() => {
@@ -18,20 +25,59 @@ function ProjectIntro() {
         content: "#content",
         smooth: 2,
         effects: true,
+        onUpdate: (self) => {
+          gsap.set(gsap.utils.toArray(".gsap-effects-wrapper"), {
+            overwrite: true,
+          });
+        },
       });
 
+      // Apply effects to image containers
       smoother.effects(".hero__image-cont", {
         speed: () => gsap.utils.random(0.55, 0.85, 0.05),
       });
+
+      // Improved alignment function
+      const alignImages = () => {
+        const images = gsap.utils.toArray<HTMLElement>(".hero__image-cont");
+        if (images.length === 0) return;
+
+        // Wait for the next tick to ensure GSAP has applied transforms
+        requestAnimationFrame(() => {
+          let minOffsetY = Infinity;
+          const offsets: number[] = [];
+
+          // Get the vertical offset of each wrapper
+          images.forEach((img) => {
+            const wrapper = img.parentElement;
+            if (wrapper) {
+              const matrix = new DOMMatrixReadOnly(
+                getComputedStyle(wrapper).transform
+              );
+              const offsetY = matrix.m42; // Get the translateY value
+              offsets.push(offsetY);
+              if (offsetY < minOffsetY) {
+                minOffsetY = offsetY;
+              }
+            }
+          });
+
+          // Apply compensation to each image
+          images.forEach((img, i) => {
+            const compensation = offsets[i] - minOffsetY;
+            gsap.set(img, { y: -compensation });
+          });
+        });
+      };
+
+      // Align images after a short delay to ensure GSAP has processed everything
+      const alignTimeout = setTimeout(alignImages, 100);
 
       const swipeAnimation = () => {
         gsap.to(".anim-swipe", {
           yPercent: 300,
           duration: 1.5,
-          stagger: {
-            from: "random",
-            each: 0.1,
-          },
+          stagger: { from: "random", each: 0.1 },
           ease: "power4.out",
         });
       };
@@ -58,12 +104,17 @@ function ProjectIntro() {
       return () => {
         hero.removeEventListener("touchstart", handleTouchStart);
         hero.removeEventListener("touchend", handleTouchEnd);
+        clearTimeout(alignTimeout);
         smoother.kill();
       };
     }, main);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMounted]);
+
+  if (!isMounted) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div ref={main}>
@@ -109,6 +160,7 @@ function ProjectIntro() {
         * {
           box-sizing: border-box;
         }
+
         body {
           overscroll-behavior: none;
           margin: 0;
