@@ -112,40 +112,6 @@ function ProjectIntro() {
     <div ref={main}>
       <div id="wrapper">
         <div id="content">
-          <section className="hero">
-            <div className="hero__inner constrain">
-              {/* Replicated 6 times for the split effect */}
-              <div className="hero__image-cont">
-                <img
-                  src="/images/Nick.jpg" // Use the same image for all
-                  alt="A portrait of Nick, split into animated columns."
-                />
-                <div className="anim-swipe"></div>
-              </div>
-              <div className="hero__image-cont">
-                <img src="/images/Nick.jpg" alt="" />{" "}
-                {/* Alt can be empty for decorative duplicates */}
-                <div className="anim-swipe"></div>
-              </div>
-              <div className="hero__image-cont">
-                <img src="/images/Nick.jpg" alt="" />
-                <div className="anim-swipe"></div>
-              </div>
-              <div className="hero__image-cont">
-                <img src="/images/Nick.jpg" alt="" />
-                <div className="anim-swipe"></div>
-              </div>
-              <div className="hero__image-cont">
-                <img src="/images/Nick.jpg" alt="" />
-                <div className="anim-swipe"></div>
-              </div>
-              <div className="hero__image-cont">
-                <img src="/images/Nick.jpg" alt="" />
-                <div className="anim-swipe"></div>
-              </div>
-            </div>
-          </section>
-
           {/* 👇 ADD THE NEW HTML CONTENT HERE 👇 */}
           <div className="content-padding">
             <div className="features">
