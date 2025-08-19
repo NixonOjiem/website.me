@@ -182,6 +182,7 @@ export default function ProjectsComponent() {
           max-width: 1240px;
           margin: 0 auto;
           padding: 1rem;
+          padding-top: 30vh;
         }
 
         .content__hero {
