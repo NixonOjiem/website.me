@@ -69,9 +69,7 @@ export default function ProjectsComponent() {
   return (
     <div className="content" ref={componentRef}>
       <div className="content__hero">
-        <h1 className="content__heading gs_reveal">
-          Reveal animations based on scroll direction
-        </h1>
+        <h1 className="content__heading gs_reveal">My projects</h1>
       </div>
 
       <div className="features">
