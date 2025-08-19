@@ -4,6 +4,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import React, { useLayoutEffect, useRef, useState } from "react";
+import ProjectsComponent from "./ProjectsComponent";
 
 function ProjectIntro() {
   const main = useRef<HTMLDivElement>(null);
@@ -143,7 +144,7 @@ function ProjectIntro() {
             </div>
           </div>
 
-          <section className="spacer"></section>
+          <section className="spacer"> </section>
         </div>
       </div>
 
