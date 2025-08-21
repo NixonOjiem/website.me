@@ -19,8 +19,11 @@ const throttle = <T extends (...args: unknown[]) => void>(
     }, delay);
   };
 };
+interface AppProps {
+  onContactClick: () => void;
+}
 
-const App = ({ onContactClick }) => {
+const App: React.FC<AppProps> = ({ onContactClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [isOpen, setIsOpen] = useState(false);

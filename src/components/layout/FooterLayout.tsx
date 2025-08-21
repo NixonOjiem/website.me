@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
+interface FooterLayoutProps {
+  onContactClick: () => void;
+}
 
-function FooterLayout({ onContactClick }) {
+const FooterLayout: React.FC<FooterLayoutProps> = ({ onContactClick }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   // handle Contact clicked.
@@ -78,6 +81,6 @@ function FooterLayout({ onContactClick }) {
       </p>
     </footer>
   );
-}
+};
 
 export default FooterLayout;
