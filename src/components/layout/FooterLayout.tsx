@@ -1,7 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
 
-function FooterLayout() {
+function FooterLayout({ onContactClick }) {
+  const [isOpen, setIsOpen] = useState(false);
+
+  // handle Contact clicked.
+  const handleContactClick = (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault(); // Prevent navigation
+    onContactClick(); // Call the function passed from the parent
+    setIsOpen(false); // Close mobile menu if open
+  };
   return (
     <footer className="bg-[#2B6879]  relative z-[100] flex flex-col items-center justify-center px-6 py-12">
       {/* Contact Me */}
@@ -13,7 +21,7 @@ function FooterLayout() {
           Got a project, idea, or just want to say hi? Let’s connect.
         </p>
         <a
-          href="mailto:nixonojiem@gmail.com"
+          onClick={handleContactClick}
           className="inline-block px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-500 text-white font-medium rounded-md shadow-md hover:scale-105 transform transition-all duration-200"
         >
           Say Hello

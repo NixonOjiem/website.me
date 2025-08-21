@@ -17,7 +17,7 @@ export default function Home() {
       <IntroSection />
       <WorkExperience />
       <EducationComponent />
-      <FooterLayout />
+      <FooterLayout onContactClick={() => setContactFormOpen(true)} />
       <ContactForm
         show={isContactFormOpen}
         onClose={() => setContactFormOpen(false)}

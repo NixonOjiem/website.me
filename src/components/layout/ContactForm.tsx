@@ -153,12 +153,12 @@ const ContactForm: React.FC<ContactFormProps> = ({ show, onClose }) => {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 invisible"
+      className="fixed inset-0 z-[999] flex items-center justify-center p-4 invisible"
     >
       <div
         ref={overlayRef}
         onClick={onClose}
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm "
       ></div>
       <div
         ref={cardRef}

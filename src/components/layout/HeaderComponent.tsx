@@ -54,7 +54,7 @@ const App = ({ onContactClick }) => {
   };
 
   // handle Contact clicked.
-  const handleContactClick = (e) => {
+  const handleContactClick = (e: React.MouseEvent<HTMLElement>) => {
     e.preventDefault(); // Prevent navigation
     onContactClick(); // Call the function passed from the parent
     setIsOpen(false); // Close mobile menu if open
