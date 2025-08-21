@@ -8,21 +8,12 @@ import WorkExperience from "@/components/WorkExperience";
 import FooterLayout from "@/components/layout/FooterLayout";
 import ContactForm from "@/components/layout/ContactForm";
 import Head from "next/head";
+
 export default function Home() {
   const [isContactFormOpen, setContactFormOpen] = useState(false);
   return (
     <div className="">
       <Head>
-        {/* Load GSAP and EmailJS from CDN */}
-        <script
-          src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
-          async
-        ></script>
-        <script
-          type="text/javascript"
-          src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
-          async
-        ></script>
         <style jsx global>{`
           .nav-link {
             position: relative;

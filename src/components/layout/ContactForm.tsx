@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-
+import { gsap } from "gsap";
 // --- SVG Icon for the Close Button (remains the same) ---
 const CloseIcon = () => (
   <svg
@@ -34,26 +34,22 @@ const ContactForm = ({ show, onClose }) => {
 
   // --- FIX #2: The Corrected Animation Logic ---
   useEffect(() => {
-    if (!window.gsap) return;
-    const gsap = window.gsap;
+    // The check for `window.gsap` is no longer needed!
 
-    // Initialize the timeline only once
     if (!tl.current) {
-      // Set the initial animation states (elements are already invisible via CSS)
+      // Set the initial animation states
       gsap.set(overlayRef.current, { opacity: 0 });
       gsap.set(cardRef.current, { opacity: 0, y: 60, scale: 0.95 });
 
       tl.current = gsap
         .timeline({
           paused: true,
-          // When the REVERSE animation is complete, hide the container again
           onReverseComplete: () => {
             if (containerRef.current) {
               containerRef.current.classList.add("invisible");
             }
           },
         })
-        // When the FORWARD animation starts, make the container visible
         .add(() => {
           if (containerRef.current) {
             containerRef.current.classList.remove("invisible");
@@ -73,11 +69,9 @@ const ContactForm = ({ show, onClose }) => {
         );
     }
 
-    // Play or reverse the animation based on the 'show' prop
     if (show) {
       tl.current.play();
     } else {
-      // Only reverse if the animation has played at all
       if (tl.current.progress() > 0) {
         tl.current.reverse();
       }
