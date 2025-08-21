@@ -20,7 +20,7 @@ const throttle = <T extends (...args: unknown[]) => void>(
   };
 };
 
-const App = () => {
+const App = ({ onContactClick }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [pos, setPos] = useState({ x: 0, y: 0 });
   const [isOpen, setIsOpen] = useState(false);
@@ -51,6 +51,13 @@ const App = () => {
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
     });
+  };
+
+  // handle Contact clicked.
+  const handleContactClick = (e) => {
+    e.preventDefault(); // Prevent navigation
+    onContactClick(); // Call the function passed from the parent
+    setIsOpen(false); // Close mobile menu if open
   };
 
   // Dynamic heights for smooth mobile expansion
@@ -114,12 +121,19 @@ const App = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link
+                  {/* <Link
                     href="/contact"
                     className="nav-link opacity-90 hover:opacity-100"
                   >
                     Contact
-                  </Link>
+                  </Link> */}
+                  {/* Updated Contact Link to be a button */}
+                  <button
+                    onClick={handleContactClick}
+                    className="nav-link opacity-90 hover:opacity-100"
+                  >
+                    Contact
+                  </button>
                 </li>
               </ul>
             </nav>
@@ -186,10 +200,18 @@ const App = () => {
                 </a>
               </li>
               <li>
-                <a
+                {/* <a
                   href="/contact"
                   className="block py-1.5 px-2 rounded-md bg-white/0 hover:bg-white/10 transition-colors"
                   onClick={() => setIsOpen(false)}
+                >
+                  Contact
+                </a> */}
+                {/* Updated Contact Link for mobile */}
+                <a
+                  href="#"
+                  onClick={handleContactClick}
+                  className="block py-1.5 px-2 rounded-md bg-white/0 hover:bg-white/10 transition-colors"
                 >
                   Contact
                 </a>
