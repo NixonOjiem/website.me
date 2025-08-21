@@ -3,7 +3,7 @@ import React from "react";
 function ServicesComponent() {
   return (
     <>
-      <section className="bg-white dark:bg-[#F2F2EF]">
+      <section className="bg-white dark:bg-[#F2F2EF] py-[20vh]">
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
           <div className="max-w-screen-md mb-8 lg:mb-16">
             <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-[#2B6879]">
