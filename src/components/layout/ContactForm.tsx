@@ -18,12 +18,28 @@ const CloseIcon = () => (
   </svg>
 );
 
-const ContactForm = ({ show, onClose }) => {
-  const containerRef = useRef(null);
-  const overlayRef = useRef(null);
-  const cardRef = useRef(null);
-  // --- Store the GSAP timeline in a ref ---
-  const tl = useRef(null);
+declare global {
+  interface Window {
+    emailjs: {
+      send: (
+        serviceID: string,
+        templateID: string,
+        templateParams: Record<string, unknown>,
+        publicKey: string
+      ) => Promise<{ status: number; text: string }>;
+    };
+  }
+}
+
+interface ContactFormProps {
+  show: boolean;
+  onClose: () => void;
+}
+const ContactForm: React.FC<ContactFormProps> = ({ show, onClose }) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const overlayRef = useRef<HTMLDivElement | null>(null);
+  const cardRef = useRef<HTMLDivElement | null>(null); // --- Store the GSAP timeline in a ref ---
+  const tl = useRef<gsap.core.Timeline | null>(null);
   const [status, setStatus] = useState({ state: "idle", message: "" });
 
   const [formData, setFormData] = useState({
@@ -79,11 +95,16 @@ const ContactForm = ({ show, onClose }) => {
   }, [show]); // This effect now correctly runs whenever 'show' changes
 
   // ... (rest of your component: handleChange, handleSubmit, JSX) remains the same
-  const handleChange = (e) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
-  const handleSubmit = (e) => {
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!window.emailjs) {
       console.error("EmailJS SDK not loaded.");
@@ -108,7 +129,7 @@ const ContactForm = ({ show, onClose }) => {
         EMAILJS_PUBLIC_KEY
       )
       .then(
-        (response) => {
+        (response: { status: number; text: string }) => {
           console.log("SUCCESS!", response.status, response.text);
           setStatus({
             state: "success",
@@ -120,7 +141,7 @@ const ContactForm = ({ show, onClose }) => {
             setTimeout(() => setStatus({ state: "idle", message: "" }), 500);
           }, 2000);
         },
-        (error) => {
+        (error: unknown) => {
           console.log("FAILED...", error);
           setStatus({
             state: "error",
@@ -154,7 +175,7 @@ const ContactForm = ({ show, onClose }) => {
             Get in Touch
           </h2>
           <p className="text-gray-500 dark:text-gray-400 mt-2">
-            I'd love to hear from you!
+            I&apos;d love to hear from you!
           </p>
         </div>
         <form onSubmit={handleSubmit}>
@@ -203,7 +224,7 @@ const ContactForm = ({ show, onClose }) => {
               <textarea
                 name="message"
                 id="message"
-                rows="4"
+                rows={4}
                 required
                 value={formData.message}
                 onChange={handleChange}
