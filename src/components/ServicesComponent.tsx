@@ -3,150 +3,193 @@ import React from "react";
 function ServicesComponent() {
   return (
     <>
-      <section className="bg-white dark:bg-[#F2F2EF] py-[20vh]">
+      <section className="bg-white dark:bg-[#F2F2EF] py-16 md:py-24">
         <div className="py-8 px-4 mx-auto max-w-screen-xl sm:py-16 lg:px-6">
+          {/* Section Header */}
           <div className="max-w-screen-md mb-8 lg:mb-16">
             <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-gray-900 dark:text-[#2B6879]">
-              Designed for business teams like yours
+              Crafting Digital Solutions for Your Business
             </h2>
             <p className="text-gray-500 sm:text-xl dark:text-gray-400">
-              Here at Flowbite we focus on markets where technology, innovation,
-              and capital can unlock long-term value and drive economic growth.
+              From dynamic front-end experiences to robust back-end systems, I
+              provide end-to-end development services to bring your vision to
+              life and drive growth.
             </p>
           </div>
+
+          {/* Services Grid */}
           <div className="space-y-8 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-12 md:space-y-0">
+            {/* Service 1: Frontend Development */}
             <div>
-              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-[#2B6879]">
                 <svg
-                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
+                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fillRule="evenodd"
-                    d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z"
-                    clipRule="evenodd"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                   ></path>
                 </svg>
               </div>
               <h3 className="mb-2 text-xl font-bold dark:text-[#2B6879]">
-                Marketing
+                Dynamic Frontend Development
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Plan it, create it, launch it. Collaborate seamlessly with all
-                the organization and hit your marketing goals every month with
-                our marketing plan.
+                Building responsive, accessible, and scalable user interfaces
+                with modern frameworks like React, Next.js, and Vue.js to
+                deliver a seamless user experience.
               </p>
             </div>
+
+            {/* Service 2: Backend & API Development */}
             <div>
-              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-[#2B6879]">
                 <svg
-                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M10.394 2.08a1 1 0 00-.788 0l-7 3a1 1 0 000 1.84L5.25 8.051a.999.999 0 01.356-.257l4-1.714a1 1 0 11.788 1.838L7.667 9.088l1.94.831a1 1 0 00.787 0l7-3a1 1 0 000-1.838l-7-3zM3.31 9.397L5 10.12v4.102a8.969 8.969 0 00-1.05-.174 1 1 0 01-.89-.89 11.115 11.115 0 01.25-3.762zM9.3 16.573A9.026 9.026 0 007 14.935v-3.957l1.818.78a3 3 0 002.364 0l5.508-2.361a11.026 11.026 0 01.25 3.762 1 1 0 01-.89.89 8.968 8.968 0 00-5.35 2.524 1 1 0 01-1.4 0zM6 18a1 1 0 001-1v-2.065a8.935 8.935 0 00-2-.712V17a1 1 0 001 1z"></path>
-                </svg>
-              </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-[#2B6879]">
-                Legal
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400">
-                Protect your organization, devices and stay compliant with our
-                structured workflows and custom permissions made for you.
-              </p>
-            </div>
-            <div>
-              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
-                <svg
-                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
+                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fillRule="evenodd"
-                    d="M6 6V5a3 3 0 013-3h2a3 3 0 013 3v1h2a2 2 0 012 2v3.57A22.952 22.952 0 0110 13a22.95 22.95 0 01-8-1.43V8a2 2 0 012-2h2zm2-1a1 1 0 011-1h2a1 1 0 011 1v1H8V5zm1 5a1 1 0 011-1h.01a1 1 0 110 2H10a1 1 0 01-1-1z"
-                    clipRule="evenodd"
-                  ></path>
-                  <path d="M2 13.692V16a2 2 0 002 2h12a2 2 0 002-2v-2.308A24.974 24.974 0 0110 15c-2.796 0-5.487-.46-8-1.308z"></path>
-                </svg>
-              </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-[#2B6879]">
-                Business Automation
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400">
-                Auto-assign tasks, send Slack messages, and much more. Now power
-                up with hundreds of new templates to help you get started.
-              </p>
-            </div>
-            <div>
-              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
-                <svg
-                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M8.433 7.418c.155-.103.346-.196.567-.267v1.698a2.305 2.305 0 01-.567-.267C8.07 8.34 8 8.114 8 8c0-.114.07-.34.433-.582zM11 12.849v-1.698c.22.071.412.164.567.267.364.243.433.468.433.582 0 .114-.07.34-.433.582a2.305 2.305 0 01-.567.267z"></path>
-                  <path
-                    fillRule="evenodd"
-                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-13a1 1 0 10-2 0v.092a4.535 4.535 0 00-1.676.662C6.602 6.234 6 7.009 6 8c0 .99.602 1.765 1.324 2.246.48.32 1.054.545 1.676.662v1.941c-.391-.127-.68-.317-.843-.504a1 1 0 10-1.51 1.31c.562.649 1.413 1.076 2.353 1.253V15a1 1 0 102 0v-.092a4.535 4.535 0 001.676-.662C13.398 13.766 14 12.991 14 12c0-.99-.602-1.765-1.324-2.246A4.535 4.535 0 0011 9.092V7.151c.391.127.68.317.843.504a1 1 0 101.511-1.31c-.563-.649-1.413-1.076-2.354-1.253V5z"
-                    clipRule="evenodd"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
                   ></path>
                 </svg>
               </div>
               <h3 className="mb-2 text-xl font-bold dark:text-[#2B6879]">
-                Finance
+                Backend & API Development
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Audit-proof software built for critical financial operations
-                like month-end close and quarterly budgeting.
+                Engineering robust server-side solutions using Node.js, Express,
+                and Laravel. I design and integrate RESTful APIs and GraphQL for
+                efficient data communication.
               </p>
             </div>
+
+            {/* Service 3: Full-Stack Solutions */}
             <div>
-              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-[#2B6879]">
                 <svg
-                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path d="M7 3a1 1 0 000 2h6a1 1 0 100-2H7zM4 7a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1zM2 11a2 2 0 012-2h12a2 2 0 012 2v4a2 2 0 01-2 2H4a2 2 0 01-2-2v-4z"></path>
-                </svg>
-              </div>
-              <h3 className="mb-2 text-xl font-bold dark:text-[#2B6879]">
-                Enterprise Design
-              </h3>
-              <p className="text-gray-500 dark:text-gray-400">
-                Craft beautiful, delightful experiences for both marketing and
-                product with real cross-company collaboration.
-              </p>
-            </div>
-            <div>
-              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-primary-900">
-                <svg
-                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-primary-300"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
+                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fillRule="evenodd"
-                    d="M11.49 3.17c-.38-1.56-2.6-1.56-2.98 0a1.532 1.532 0 01-2.286.948c-1.372-.836-2.942.734-2.106 2.106.54.886.061 2.042-.947 2.287-1.561.379-1.561 2.6 0 2.978a1.532 1.532 0 01.947 2.287c-.836 1.372.734 2.942 2.106 2.106a1.532 1.532 0 012.287.947c.379 1.561 2.6 1.561 2.978 0a1.533 1.533 0 012.287-.947c1.372.836 2.942-.734 2.106-2.106a1.533 1.533 0 01.947-2.287c1.561-.379 1.561-2.6 0-2.978a1.532 1.532 0 01-.947-2.287c.836-1.372-.734-2.942-2.106-2.106a1.532 1.532 0 01-2.287-.947zM10 13a3 3 0 100-6 3 3 0 000 6z"
-                    clipRule="evenodd"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
                   ></path>
                 </svg>
               </div>
               <h3 className="mb-2 text-xl font-bold dark:text-[#2B6879]">
-                Operations
+                Full-Stack Solutions
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Keep your company’s lights on with customizable, iterative, and
-                structured workflows built for all efficient teams and
-                individual.
+                From concept to deployment, I build complete, end-to-end
+                applications, including e-commerce platforms and specialized
+                systems for sectors like healthcare.
+              </p>
+            </div>
+
+            {/* Service 4: Database Management */}
+            <div>
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-[#2B6879]">
+                <svg
+                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7a8 8 0 0116 0"
+                  ></path>
+                </svg>
+              </div>
+              <h3 className="mb-2 text-xl font-bold dark:text-[#2B6879]">
+                Database Management
+              </h3>
+              <p className="text-gray-500 dark:text-gray-400">
+                Managing structured and unstructured data with expertise in
+                MySQL, PostgreSQL, and MongoDB to ensure data integrity,
+                security, and performance.
+              </p>
+            </div>
+
+            {/* Service 5: DevOps & Automation */}
+            <div>
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-[#2B6879]">
+                <svg
+                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+                  ></path>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                  ></path>
+                </svg>
+              </div>
+              <h3 className="mb-2 text-xl font-bold dark:text-[#2B6879]">
+                DevOps & Automation
+              </h3>
+              <p className="text-gray-500 dark:text-gray-400">
+                Implementing CI/CD pipelines with GitHub Actions and using
+                Docker for containerization to streamline development workflows
+                and enhance deployment reliability.
+              </p>
+            </div>
+
+            {/* Service 6: SEO & Performance */}
+            <div>
+              <div className="flex justify-center items-center mb-4 w-10 h-10 rounded-full bg-primary-100 lg:h-12 lg:w-12 dark:bg-[#2B6879]">
+                <svg
+                  className="w-5 h-5 text-primary-600 lg:w-6 lg:h-6 dark:text-white"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  ></path>
+                </svg>
+              </div>
+              <h3 className="mb-2 text-xl font-bold dark:text-[#2B6879]">
+                SEO & Performance Optimization
+              </h3>
+              <p className="text-gray-500 dark:text-gray-400">
+                Improving your site's visibility with on-page (technical,
+                content) and off-page (backlinks) SEO strategies, plus
+                performance tuning for faster load times.
               </p>
             </div>
           </div>
