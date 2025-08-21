@@ -162,7 +162,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ show, onClose }) => {
       ></div>
       <div
         ref={cardRef}
-        className="relative w-full max-w-lg bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8 transform-gpu"
+        className="relative w-full max-w-lg bg-[#ADD8E6] dark:bg-[#2B6879] rounded-2xl shadow-2xl p-8 transform-gpu"
       >
         <button
           onClick={onClose}
@@ -174,7 +174,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ show, onClose }) => {
           <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
             Get in Touch
           </h2>
-          <p className="text-gray-500 dark:text-gray-400 mt-2">
+          <p className="text-gray-900 dark:text-gray-400 mt-2">
             I&apos;d love to hear from you!
           </p>
         </div>
@@ -194,7 +194,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ show, onClose }) => {
                 required
                 value={formData.from_name}
                 onChange={handleChange}
-                className="form-input w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border-transparent rounded-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-gray-600 transition"
+                className="form-input w-full px-4 py-3 bg-[#FEF6E6] dark:bg-[#FEF6yt] border-transparent rounded-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-gray-600 transition"
               />
             </div>
             <div>
@@ -211,7 +211,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ show, onClose }) => {
                 required
                 value={formData.from_email}
                 onChange={handleChange}
-                className="form-input w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border-transparent rounded-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-gray-600 transition"
+                className="form-input w-full px-4 py-3 bg-[#FEF6E6] dark:bg-[#FEF6yt] border-transparent rounded-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-gray-600 transition"
               />
             </div>
             <div>
@@ -228,7 +228,7 @@ const ContactForm: React.FC<ContactFormProps> = ({ show, onClose }) => {
                 required
                 value={formData.message}
                 onChange={handleChange}
-                className="form-input w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 border-transparent rounded-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-gray-600 transition"
+                className="form-input w-full px-4 py-3 bg-[#FEF6E6] dark:bg-[#FEF6yt] border-transparent rounded-lg focus:ring-2 focus:ring-indigo-500 focus:bg-white dark:focus:bg-gray-600 transition"
               ></textarea>
             </div>
           </div>
