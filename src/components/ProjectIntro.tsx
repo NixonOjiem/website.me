@@ -187,7 +187,7 @@ function ProjectIntro() {
           position: relative;
           overflow: hidden;
           background-color: #fffefeff;
-          background-image: url("images/Nick.jpg");
+          background-image: url("images/minimalism-programming-code-wallpaper-preview.jpg");
           background-size: 600% 100%; /* 6x width for 6 columns */
           background-repeat: no-repeat;
         }
