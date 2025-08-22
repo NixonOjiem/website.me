@@ -297,22 +297,71 @@ function WorkExperience() {
     gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
     gsap.defaults({ ease: "none" });
 
-    const pulses = gsap
-      .timeline({
-        defaults: {
-          duration: 0.05,
-          autoAlpha: 1,
-          scale: 2,
-          transformOrigin: "center",
-          ease: "elastic(2.5, 1)",
-        },
-      })
-      .to(".ball02, .text01", {}, 0.2)
-      .to(".ball03, .text02", {}, 0.33)
-      .to(".ball04, .text03", {}, 0.46)
-      .to(".ball05, .text04", {}, 0.59)
-      .to(".ball06, .text05", {}, 0.76);
+    // ✨ HELPER FUNCTION to update the card content and trigger animations
+    // This keeps our code clean and avoids repetition.
+    const updateActiveCard = (index) => {
+      // Prevent re-animating the same card if the index hasn't changed
+      if (index === activeIndexRef.current) return;
 
+      activeIndexRef.current = index;
+      setActiveIndex(index); // This triggers the re-render with new data
+
+      // Animate desktop card content fade-in
+      if (contentRef.current) {
+        gsap.fromTo(
+          contentRef.current,
+          { autoAlpha: 0, y: 20 },
+          { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }
+        );
+      }
+
+      // Animate mobile card content fade-in
+      if (mobileCardRef.current) {
+        const mobileCardContent = mobileCardRef.current.children;
+        gsap.fromTo(
+          mobileCardContent,
+          { autoAlpha: 0, y: 15 },
+          {
+            autoAlpha: 1,
+            y: 0,
+            duration: 0.4,
+            stagger: 0.1,
+            ease: "power2.out",
+          }
+        );
+      }
+    };
+
+    // Define the pulse animations
+    const pulses = gsap.timeline({
+      defaults: {
+        duration: 0.05,
+        autoAlpha: 1,
+        scale: 2,
+        transformOrigin: "center",
+        ease: "elastic(2.5, 1)",
+      },
+    });
+
+    // ✨ SETUP PULSES WITH PRECISE CALLBACKS
+    // We use .call() to trigger the card update at the exact same time as the pulse animation.
+    pulses
+      .to(".ball02, .text01", {}, 0.2)
+      .call(() => updateActiveCard(0), [], 0.2) // On arrival at 2021 (index 0)
+
+      .to(".ball03, .text02", {}, 0.33)
+      .call(() => updateActiveCard(1), [], 0.33) // On arrival at 2022 (index 1)
+
+      .to(".ball04, .text03", {}, 0.46)
+      .call(() => updateActiveCard(2), [], 0.46) // On arrival at 2023 (index 2)
+
+      .to(".ball05, .text04", {}, 0.59)
+      .call(() => updateActiveCard(3), [], 0.59) // On arrival at 2024 (index 3)
+
+      .to(".ball06, .text05", {}, 0.76)
+      .call(() => updateActiveCard(4), [], 0.76); // On arrival at 2025 (index 4)
+
+    // The main timeline that is controlled by scrolling
     const main = gsap
       .timeline({
         defaults: { duration: 1 },
@@ -321,32 +370,10 @@ function WorkExperience() {
           scrub: true,
           start: "top center",
           end: "bottom center",
-          onUpdate: (self) => {
-            const progress = self.progress;
-            let newIndex = 0;
-
-            if (progress < 0.265) newIndex = 0;
-            else if (progress < 0.395) newIndex = 1;
-            else if (progress < 0.51) newIndex = 2;
-            else if (progress < 0.61) newIndex = 3;
-            else newIndex = 4;
-
-            if (newIndex !== activeIndexRef.current) {
-              activeIndexRef.current = newIndex;
-              setActiveIndex(newIndex);
-
-              // Animate desktop card content fade in/out
-              if (contentRef.current) {
-                gsap.fromTo(
-                  contentRef.current,
-                  { autoAlpha: 0, y: 20 },
-                  { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }
-                );
-              }
-            }
-          },
+          // ✨ IMPORTANT: The old `onUpdate` callback is removed entirely.
         },
       })
+      .call(() => updateActiveCard(0)) // Set the initial card to 2021 (index 0) when the animation starts
       .to(".ball01", { duration: 0.01, autoAlpha: 1 })
       .to(
         ".ball01",
