@@ -1,5 +1,3 @@
-// app/your-route/page.tsx
-
 "use client";
 import React, { useState, useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
@@ -14,21 +12,23 @@ import ContactForm from "@/components/layout/ContactForm";
 
 function Page() {
   const [isContactFormOpen, setContactFormOpen] = useState(false);
-  const main = useRef(null); // Create ref for the main wrapper
+  const main = useRef(null);
 
-  // 1. Move the entire GSAP setup to the Page component
   useLayoutEffect(() => {
     gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
 
     const ctx = gsap.context(() => {
+      // 1. Make the ScrollSmoother instance more robust
       ScrollSmoother.create({
+        wrapper: "#smooth-wrapper",
+        content: "#smooth-content",
         smooth: 1,
         effects: true,
         smoothTouch: 0.1,
       });
 
-      // --- The same animation logic from before ---
       const animateFrom = (elem: HTMLElement, direction?: number) => {
+        // ... (your animateFrom function remains the same)
         direction = direction || 1;
         let x = 0,
           y = direction * 100;
@@ -59,33 +59,35 @@ function Page() {
         gsap.set(elem, { autoAlpha: 0 });
       };
 
-      const elements = gsap.utils.toArray(".gs_reveal");
-      elements.forEach((elem) => {
-        hide(elem as HTMLElement);
-        ScrollTrigger.create({
-          trigger: elem as HTMLElement,
-          onEnter: () => animateFrom(elem as HTMLElement),
-          onEnterBack: () => animateFrom(elem as HTMLElement, -1),
-          onLeave: () => hide(elem as HTMLElement),
+      // 2. Use a setTimeout to delay the animation setup
+      // This gives images time to load and ensures correct trigger points
+      setTimeout(() => {
+        const elements = gsap.utils.toArray(".gs_reveal");
+        elements.forEach((elem) => {
+          hide(elem as HTMLElement);
+          ScrollTrigger.create({
+            trigger: elem as HTMLElement,
+            onEnter: () => animateFrom(elem as HTMLElement),
+            onEnterBack: () => animateFrom(elem as HTMLElement, -1),
+            onLeave: () => hide(elem as HTMLElement),
+          });
         });
-      });
-    }, main); // Scope to the main ref
+      }, 100);
+    }, main);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    // The main wrapper is no longer an empty div
     <div ref={main}>
-      {/* Elements outside ScrollSmoother will be fixed (Header, Modals) */}
       <HeaderComponent onContactClick={() => setContactFormOpen(true)} />
 
-      {/* 2. Add the required HTML structure for ScrollSmoother here */}
       <div id="smooth-wrapper">
         <div id="smooth-content">
-          {/* 3. Place all scrollable content inside smooth-content */}
-          <ProjectIntro />
-          <ProjectsComponent />
+          <main>
+            {/* <ProjectIntro /> */}
+            <ProjectsComponent />
+          </main>
           <FooterLayout onContactClick={() => setContactFormOpen(true)} />
         </div>
       </div>
@@ -94,6 +96,132 @@ function Page() {
         show={isContactFormOpen}
         onClose={() => setContactFormOpen(false)}
       />
+
+      {/* Your JSX styles remain the same */}
+      <style jsx>{`
+        /* Global styles for ScrollSmoother */
+        #smooth-wrapper {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
+        }
+
+        #smooth-content {
+          overflow: visible;
+          width: 100%;
+        }
+
+        .content {
+          max-width: 1240px;
+          margin: 0 auto;
+          padding: 1rem;
+          padding-top: 30vh;
+        }
+
+        .content__hero {
+          height: 40vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .content__heading {
+          text-align: center;
+          font-size: 3rem;
+          margin: 0;
+        }
+
+        .features {
+          display: flex;
+          flex-direction: column;
+          gap: 3rem;
+        }
+
+        .features__item {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 2rem;
+          min-height: 100vh;
+          border-top: dashed 2px grey;
+          padding: 2rem 0;
+        }
+
+        .features__item--left {
+          flex-direction: row;
+          text-align: right;
+        }
+
+        .features__item--right {
+          flex-direction: row-reverse;
+        }
+
+        .features__image {
+          flex: 1 1 40%;
+          position: relative;
+        }
+
+        .features__card {
+          border-radius: 8px;
+          overflow: hidden;
+          position: relative;
+          aspect-ratio: 1 / 1;
+        }
+
+        .features__img {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          object-fit: cover;
+          display: block;
+        }
+
+        .features__content {
+          flex: 1 1 55%;
+        }
+
+        .features__title {
+          font-size: 1.8em;
+          margin-block-end: 1rem;
+        }
+
+        .features__description {
+          line-height: 1.6;
+          font-size: 1.2rem;
+        }
+
+        .gs_reveal {
+          opacity: 0;
+          visibility: hidden;
+          will-change: transform, opacity;
+        }
+
+        .spacer {
+          height: 100vh;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+          .features__item {
+            flex-direction: column !important;
+            text-align: center !important;
+            min-height: auto;
+            height: auto;
+          }
+
+          .features__image,
+          .features__content {
+            flex: 1 1 100%;
+          }
+
+          .content__heading {
+            font-size: 2rem;
+          }
+        }
+      `}</style>
     </div>
   );
 }

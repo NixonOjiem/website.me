@@ -33,7 +33,7 @@ function Page() {
     // Clean up function
     return () => {
       if (smootherRef.current) {
-        smootherRef.current?.kill();
+        smootherRef.current.kill();
       }
     };
   }, []);
@@ -45,8 +45,8 @@ function Page() {
       <div id="smooth-wrapper">
         <div id="smooth-content">
           <ServicesComponent />
+          <FooterLayout onContactClick={() => setContactFormOpen(true)} />
         </div>
-        <FooterLayout onContactClick={() => setContactFormOpen(true)} />
       </div>
 
       <ContactForm
