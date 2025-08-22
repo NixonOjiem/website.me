@@ -2,6 +2,81 @@
 import React from "react";
 
 export default function ProjectsComponent() {
+  const projects = [
+    {
+      title: "LoveHomeMarts Ecommerce site",
+      description:
+        "Elevate your shopping experience with LoveHomeMart, the ultimate e-commerce destination for quality home essentials. Designed for seamless browsing and effortless transactions, this platform connects shoppers with a curated selection of stylish and functional products. Discover, shop, and transform your space—all in just a few clicks.",
+      imageUrl: "/images/ScreenshotLovehomemart.png",
+      altText: "LoveHomeMarts Ecommerce site",
+      link: "https://lovehomemart.com/",
+    },
+    {
+      title: "YiehBoats",
+      description:
+        "Harness the power of the sun and glide across the water with our eco-friendly solar boat rides! Our website offers a unique and sustainable way to experience the beauty of the water. Enjoy a serene, emission-free journey and make unforgettable memories while protecting our planet.",
+      imageUrl: "/images/ScreenshotYiehBoats.png",
+      altText: "YiehBoats",
+      link: "https://yiehboat.co.ke/",
+    },
+    {
+      title: "KenyaHMIS Community Forum",
+      description:
+        "Empower healthcare professionals with the KenyaHMIS Community Forum, a dynamic platform designed for seamless knowledge exchange among EMR users. Whether seeking solutions, sharing insights, or navigating system enhancements, this interactive space fosters collaboration and expertise. Engage, ask, and elevate healthcare technology—one conversation at a time.",
+      imageUrl: "/images/ScreenshotKenyaHMIS.png",
+      altText: "KenyaHMIS Community Forum",
+      link: "https://community.kenyahmis.org/",
+    },
+    {
+      title: "Anime-Manga Quiz App",
+      description:
+        "Calling all anime and manga lovers! Dive into the ultimate trivia experience with our fun and interactive quiz app. Challenge yourself with randomly generated questions about your favorite anime and manga series, and see how you stack up with a personalized score.",
+      imageUrl: "/images/Screenshot 2025-08-22 105353.png",
+      altText: "Anime-Manga Quiz App",
+      link: "https://anime-manga-quiz-8ad86.web.app/",
+    },
+    {
+      title: "Video Chat App",
+      description:
+        "Introducing my video call app! Seamlessly connect with friends, family, and colleagues through high-quality video and audio. Whether for work or play, our app ensures a smooth and engaging communication experience. Stay connected, no matter where you are!",
+      imageUrl: "/images/videochat.jpg",
+      altText: "Video Chat App",
+      Link: "https://nixonojiem.github.io/video-chat/",
+    },
+    {
+      title: "Nutrition Analysis App",
+      description:
+        "Nutrition analysis plays a crucial role in maintaining and improving overall health and well-being. By understanding the nutritional content of foods, individuals can make informed dietary choices that support their health goals, whether it’s managing weight, improving energy levels, or preventing chronic diseases.",
+      imageUrl: "/images/Screenshot Nutritional Analysis.png",
+      altText: "Nutrition Analysis App",
+      Link: "https://nutritional-analysis-424f7.web.app/",
+    },
+    {
+      title: "Image Compression App",
+      description:
+        "An image compression app efficiently reduces file sizes without compromising quality, making it ideal for web developers and photographers to optimize storage and improve website loading speeds. Perfect for enhancing user experience!",
+      imageUrl: "/images/compresion.jpg",
+      altText: "Image Compression App",
+      Link: "https://nixonojiem.github.io/Image-compressor/",
+    },
+    {
+      title: "AI text Detection APP",
+      description:
+        "The AI Detection App is a powerful tool designed to identify and analyze artificial intelligence-generated content. Leveraging advanced machine learning algorithms, this app can accurately detect AI-generated text.",
+      imageUrl:
+        "https://images.unsplash.com/photo-1511370235399-52211917f272?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OHx8YWklMjBkZXRlY3Rpb24lMjBhcHB8ZW58MHx8MHx8fDA%3D",
+      altText: "AI text Detection APP",
+      Link: "https://nixonojiem.github.io/AI-detector/",
+    },
+    {
+      title: "Movie info App",
+      description:
+        "The Movie and TV Show Search application is a user-friendly tool designed to help users quickly find information about their favorite films and series. By simply entering a title, the app fetches key details such as the IMDb score and the release year, providing a concise overview for users to make informed viewing choices.",
+      imageUrl: "/images/AI detector.png",
+      altText: "Movie info App",
+    },
+  ];
+
   return (
     <>
       <>
@@ -11,106 +86,32 @@ export default function ProjectsComponent() {
           </div>
 
           <div className="features">
-            <div className="features__item features__item--left gs_reveal gs_reveal_fromLeft">
-              <div className="features__image">
-                <div className="features__card">
-                  <img
-                    className="features__img"
-                    src="https://assets.codepen.io/16327/portrait-image-14.jpg"
-                    alt="Highway Vinyl Nights"
-                  />
+            {projects.map((project, index) => (
+              <div
+                key={index}
+                className={`features__item gs_reveal ${
+                  index % 2 === 0
+                    ? "features__item--left gs_reveal_fromLeft"
+                    : "features__item--right gs_reveal_fromRight"
+                }`}
+              >
+                <div className="features__image">
+                  <div className="features__card">
+                    <img
+                      className="features__img"
+                      src={project.imageUrl}
+                      alt={project.altText}
+                    />
+                  </div>
+                </div>
+                <div className="features__content">
+                  <h2 className="features__title gs_reveal">{project.title}</h2>
+                  <p className="features__description gs_reveal">
+                    {project.description}
+                  </p>
                 </div>
               </div>
-              <div className="features__content">
-                <h2 className="features__title gs_reveal">
-                  Highway Vinyl Nights
-                </h2>
-                <p className="features__description gs_reveal">
-                  The headlights hum along the painted lines
-                  <br />
-                  We twist the dial till static turns to choir
-                  <br />
-                  Your hand keeps time on the wheel and the night leans in
-                  <br />
-                  Every mile is a chorus we have not written yet
-                </p>
-              </div>
-            </div>
-
-            <div className="features__item features__item--right gs_reveal gs_reveal_fromRight">
-              <div className="features__image">
-                <div className="features__card">
-                  <img
-                    className="features__img"
-                    src="https://assets.codepen.io/16327/portrait-image-4.jpg"
-                    alt="Last Diner on Route 9"
-                  />
-                </div>
-              </div>
-              <div className="features__content">
-                <h2 className="features__title gs_reveal">
-                  Last Diner on Route 9
-                </h2>
-                <p className="features__description gs_reveal">
-                  The coffee tastes like rainwater and luck
-                  <br />
-                  Neon flickers slow while the jukebox spins a waltz
-                  <br />
-                  We carve our names in steam on the window glass
-                  <br />
-                  Stay till sunrise and the road will wait its turn
-                </p>
-              </div>
-            </div>
-
-            <div className="features__item features__item--left gs_reveal gs_reveal_fromLeft">
-              <div className="features__image">
-                <div className="features__card">
-                  <img
-                    className="features__img"
-                    src="https://assets.codepen.io/16327/portrait-image-3.jpg"
-                    alt="Stardust Ballroom"
-                  />
-                </div>
-              </div>
-              <div className="features__content">
-                <h2 className="features__title gs_reveal">Stardust Ballroom</h2>
-                <p className="features__description gs_reveal">
-                  Mirror tiles catch every hopeful face
-                  <br />
-                  Records spin thin silver threads through the dark
-                  <br />
-                  We move like planets pulled by quiet drums
-                  <br />
-                  Hold the beat and the night will never close
-                </p>
-              </div>
-            </div>
-
-            <div className="features__item features__item--right gs_reveal gs_reveal_fromRight">
-              <div className="features__image">
-                <div className="features__card">
-                  <img
-                    className="features__img"
-                    src="https://assets.codepen.io/16327/portrait-image-1.jpg"
-                    alt="Sky Without Borders"
-                  />
-                </div>
-              </div>
-              <div className="features__content">
-                <h2 className="features__title gs_reveal">
-                  Sky Without Borders
-                </h2>
-                <p className="features__description gs_reveal">
-                  Lay your worries down beneath the porchlight glow
-                  <br />
-                  The crickets stitch soft rhythm in the grass
-                  <br />
-                  We trade small dreams and make them loud together
-                  <br />A sky without borders is waiting past the trees
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
 
           <div className="spacer"></div>
