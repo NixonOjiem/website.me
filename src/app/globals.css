@@ -3,7 +3,29 @@
 html,
 body {
   max-width: 100vw;
-
   scroll-behavior: smooth;
   /* overflow-x: hidden; <--- THIS IS THE PROBLEM */
+}
+
+#smooth-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#smooth-content {
+  will-change: transform;
+}
+
+/* Fix for potential layout issues */
+body {
+  margin: 0;
+  /* overflow: hidden; */
+}
+
+html {
+  height: 100%;
 }

@@ -174,7 +174,7 @@ function IntroSection() {
   ];
 
   return (
-    <div className="intro-section mt-[70vh] h-auto">
+    <div className="intro-section mt-[5vh] h-auto">
       <h1
         ref={headingRef}
         className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] pt-10 overflow-hidden ml-[5vw]"

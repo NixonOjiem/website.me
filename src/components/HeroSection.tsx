@@ -799,7 +799,7 @@ function HeroSection() {
         .stage {
           outline: 2px solid black;
           background-color: lightblue;
-          position: absolute;
+          position: relative;
           inset: 0;
           margin: 0 auto;
           overflow: hidden;

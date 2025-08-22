@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useState } from "react";
 import HeaderComponent from "@/components/layout/HeaderComponent";
 import HeroSection from "@/components/HeroSection";
@@ -10,6 +11,7 @@ import ContactForm from "@/components/layout/ContactForm";
 
 export default function Home() {
   const [isContactFormOpen, setContactFormOpen] = useState(false);
+
   return (
     <div className="">
       <HeaderComponent onContactClick={() => setContactFormOpen(true)} />
