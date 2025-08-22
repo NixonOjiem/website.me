@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useLayoutEffect, useRef } from "react";
+import React, { useState, useLayoutEffect, useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
@@ -9,6 +9,7 @@ import ProjectIntro from "@/components/ProjectIntro";
 import ProjectsComponent from "@/components/ProjectsComponent";
 import FooterLayout from "@/components/layout/FooterLayout";
 import ContactForm from "@/components/layout/ContactForm";
+import TestComponent from "@/components/TestComponent";
 
 function Page() {
   const [isContactFormOpen, setContactFormOpen] = useState(false);
@@ -78,6 +79,21 @@ function Page() {
     return () => ctx.revert();
   }, []);
 
+  useEffect(() => {
+    // Check if the window object exists to ensure we're on the client side
+    if (typeof window !== "undefined") {
+      // Check for a flag in session storage
+      const hasReloaded = sessionStorage.getItem("hasReloaded_Page");
+
+      // If the page has not been reloaded yet
+      if (!hasReloaded) {
+        // Set the flag to true
+        sessionStorage.setItem("hasReloaded_Page", "true");
+        // Perform the hard reload
+        window.location.reload(true);
+      }
+    }
+  }, []);
   return (
     <div ref={main}>
       <HeaderComponent onContactClick={() => setContactFormOpen(true)} />
@@ -86,6 +102,7 @@ function Page() {
         <div id="smooth-content">
           <main>
             {/* <ProjectIntro /> */}
+            {/* <TestComponent /> */}
             <ProjectsComponent />
           </main>
           <FooterLayout onContactClick={() => setContactFormOpen(true)} />
