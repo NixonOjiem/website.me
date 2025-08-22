@@ -201,6 +201,7 @@ function WorkExperience() {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobileCardVisible, setIsMobileCardVisible] = useState(false); // State for mobile card visibility
   const activeIndexRef = useRef(0);
+  const desktopCardWrapperRef = useRef<HTMLDivElement | null>(null);
 
   const workData: WorkExperience[] = [
     {
@@ -370,7 +371,16 @@ function WorkExperience() {
           scrub: true,
           start: "top center",
           end: "bottom center",
-          // ✨ IMPORTANT: The old `onUpdate` callback is removed entirely.
+          pin: desktopCardWrapperRef.current, // ✨ ADD THIS LINE
+          // ✨ MODIFIED PINNED ELEMENT POSITIONING
+          pinSpacing: true,
+          pinType: "fixed",
+          onUpdate: (self) => {
+            const pinSpacer = self.pinSpacer;
+            if (pinSpacer) {
+              pinSpacer.style.height = `${self.duration}px`; // Make pin spacer the correct height
+            }
+          },
         },
       })
       .call(() => updateActiveCard(0)) // Set the initial card to 2021 (index 0) when the animation starts
@@ -496,7 +506,7 @@ function WorkExperience() {
       <div className="md:hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-sm px-4 pointer-events-none">
         <div
           ref={mobileCardRef}
-          className="backdrop-blur-sm rounded-xl shadow-lg p-4 opacity-0" // Removed static bg color
+          className="backdrop-blur-sm rounded-xl shadow-lg p-4 opacity-0"
         >
           <div className="flex items-center justify-between">
             <div className="bg-gray-800 text-white text-xs font-bold py-1 px-2 rounded-full">
@@ -509,7 +519,6 @@ function WorkExperience() {
           <h3 className="text-sm font-bold text-gray-800 mt-1 truncate">
             {workData[activeIndex].title}
           </h3>
-          {/* Maintained your change to show full description */}
           <p className="text-xs text-gray-700 mt-2 line-clamp-3">
             {workData[activeIndex].description}
           </p>
@@ -524,8 +533,9 @@ function WorkExperience() {
             id="svg-stage"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 600 1200"
-            className="w-full max-w-[600px]" // Maintained your className change
+            className="w-full max-w-[600px]"
           >
+            {/* SVG paths and text remain the same */}
             <path className="line01 line" d="M 10 200 600 200"></path>
             <path className="line02 line" d="M 10 400 600 400"></path>
             <path className="line03 line" d="M 10 600 600 600"></path>
@@ -561,9 +571,10 @@ function WorkExperience() {
           </svg>
         </div>
 
-        {/* Desktop Card */}
+        {/* Desktop Card --- ✨ MODIFIED SECTION --- */}
         <div className="hidden md:block md:col-span-1">
-          <div className="sticky top-24">
+          {/* This wrapper will be pinned by GSAP. The sticky div is gone. */}
+          <div ref={desktopCardWrapperRef} className="pt-24">
             <div className="flex flex-row gap-8 items-start">
               <TechStackDisplay
                 technologies={workData[activeIndex].technologies}
@@ -597,6 +608,7 @@ function WorkExperience() {
       </div>
 
       <style jsx global>{`
+        /* CSS remains the same */
         @font-face {
           font-display: block;
           font-family: Mori;
