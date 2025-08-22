@@ -187,7 +187,7 @@ function ServicesComponent() {
                 SEO & Performance Optimization
               </h3>
               <p className="text-gray-500 dark:text-gray-400">
-                Improving your site's visibility with on-page (technical,
+                Improving your site&apos;s visibility with on-page (technical,
                 content) and off-page (backlinks) SEO strategies, plus
                 performance tuning for faster load times.
               </p>

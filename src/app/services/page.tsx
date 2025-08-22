@@ -45,8 +45,8 @@ function Page() {
       <div id="smooth-wrapper">
         <div id="smooth-content">
           <ServicesComponent />
-          <FooterLayout onContactClick={() => setContactFormOpen(true)} />
         </div>
+        <FooterLayout onContactClick={() => setContactFormOpen(true)} />
       </div>
 
       <ContactForm

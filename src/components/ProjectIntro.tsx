@@ -148,14 +148,14 @@ function ProjectIntro() {
         </div>
       </div>
 
-      <img
+      {/* <img
         className="scroll"
         src="https://img.icons8.com/glyph-neue/128/ffffff/circled-down-2.png"
         alt="scroll down icon"
         width={64}
         height={64}
         loading="lazy"
-      />
+      /> */}
 
       <style jsx global>{`
         * {

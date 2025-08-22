@@ -14,7 +14,7 @@ const FooterLayout: React.FC<FooterLayoutProps> = ({ onContactClick }) => {
     setIsOpen(false); // Close mobile menu if open
   };
   return (
-    <footer className="bg-[#2B6879]  relative z-[100] flex flex-col items-center justify-center px-6 py-12">
+    <footer className="bg-[#2B6879] w-full mt-auto flex flex-col items-center justify-center px-6 py-12">
       {/* Contact Me */}
       <div className="max-w-3xl text-center">
         <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4">
