@@ -119,7 +119,7 @@ function ProjectIntro() {
 
   return (
     <div ref={main}>
-      <div id="wrapper">
+      <>
         <div id="content">
           <section className="hero" ref={heroRef}>
             <div className="hero__inner">
@@ -143,10 +143,9 @@ function ProjectIntro() {
               </div>
             </div>
           </div>
-
-          <section className="spacer"> </section>
+          <ProjectsComponent />
         </div>
-      </div>
+      </>
 
       {/* <img
         className="scroll"

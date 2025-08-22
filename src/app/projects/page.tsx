@@ -6,6 +6,9 @@ import HeaderComponent from "@/components/layout/HeaderComponent";
 import ProjectsComponent from "@/components/ProjectsComponent";
 import FooterLayout from "@/components/layout/FooterLayout";
 import ContactForm from "@/components/layout/ContactForm";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import ProjectIntro from "@/components/ProjectIntro";
 
 function Page() {
   const [isContactFormOpen, setContactFormOpen] = useState(false);
@@ -62,6 +65,7 @@ function Page() {
     <div ref={main}>
       <HeaderComponent onContactClick={() => setContactFormOpen(true)} />
       <main>
+        {/* <ProjectIntro /> */}
         <ProjectsComponent />
       </main>
       <FooterLayout onContactClick={() => setContactFormOpen(true)} />

@@ -1,4 +1,5 @@
 "use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger, DrawSVGPlugin, MotionPathPlugin } from "gsap/all";
@@ -23,46 +24,41 @@ type WorkExperience = {
 const TechIcons: { [key: string]: JSX.Element } = {
   React: (
     <svg viewBox="0 0 1139 1024" fill="currentColor">
-      {" "}
-      <path d="M634 512c0-11 4-22 12-30 8-8 19-12 30-12s22 4 30 12c8 8 12 19 12 30s-4 22-12 30c-8 8-19 12-30 12s-22-4-30-12c-8-8-12-19-12-30zm-122 0c0-48 18-91 53-125 35-35 78-53 125-53s90 18 125 53c35 34 53 77 53 125s-18 91-53 125c-35 35-78 53-125 53s-90-18-125-53c-35-34-53-77-53-125zm122 396c-134-2-250-52-348-151s-148-214-148-348 50-250 148-348c98-99 214-149 348-151v151c-100 2-186 38-259 109s-109 159-109 259 36 186 109 259c73 71 159 107 259 109v151zm0-320c-55 0-104 20-143 58-39 39-58 87-58 143s19 104 58 143c39 38 88 58 143 58v-32c-47 0-88-16-124-48s-53-71-53-119 18-87 53-119c36-31 77-47 124-47v-32zm396 320c134-2 250-52 348-151s148-214 148-348-50-250-148-348c-98-99-214-149-348-151v151c100 2 186 38 259 109s109 159 109 259-36 186-109 259c-73 71-159 107-259 109v151zm0-320c55 0 104 20 143 58 39 39 58 87 58 143s-19 104-58 143c-39 38-88 58-143 58v-32c47 0 88-16 124-48s53-71 53-119-18-87-53-119c-36-31-77-47-124-47v-32z" />{" "}
+      <path d="M634 512c0-11 4-22 12-30 8-8 19-12 30-12s22 4 30 12c8 8 12 19 12 30s-4 22-12 30c-8 8-19 12-30 12s-22-4-30-12c-8-8-12-19-12-30zm-122 0c0-48 18-91 53-125 35-35 78-53 125-53s90 18 125 53c35 34 53 77 53 125s-18 91-53 125c-35 35-78 53-125 53s-90-18-125-53c-35-34-53-77-53-125zm122 396c-134-2-250-52-348-151s-148-214-148-348 50-250 148-348c98-99 214-149 348-151v151c-100 2-186 38-259 109s-109 159-109 259 36 186 109 259c73 71 159 107 259 109v151zm0-320c-55 0-104 20-143 58-39 39-58 87-58 143s19 104 58 143c39 38 88 58 143 58v-32c-47 0-88-16-124-48s-53-71-53-119 18-87 53-119c36-31 77-47 124-47v-32zm396 320c134-2 250-52 348-151s148-214 148-348-50-250-148-348c-98-99-214-149-348-151v151c100 2 186 38 259 109s109 159 109 259-36 186-109 259c-73 71-159 107-259 109v151zm0-320c55 0 104 20 143 58 39 39 58 87 58 143s-19 104-58 143c-39 38-88 58-143 58v-32c47 0 88-16 124-48s53-71 53-119-18-87-53-119c-36-31-77-47-124-47v-32z" />
     </svg>
   ),
   TypeScript: (
     <svg viewBox="0 0 128 128" fill="none">
-      {" "}
-      <path fill="#007ACC" d="M0 0h128v128H0z" />{" "}
-      <path fill="#fff" d="M26 26h76v76H26z" />{" "}
-      <path fill="#007ACC" d="M91 34H37v51h15V55h24v30h15V34z" />{" "}
+      <path fill="#007ACC" d="M0 0h128v128H0z" />
+      <path fill="#fff" d="M26 26h76v76H26z" />
+      <path fill="#007ACC" d="M91 34H37v51h15V55h24v30h15V34z" />
       <path
         fill="#fff"
         d="M83.5 101h-5l-4-9h-16l-4 9h-5l14.5-31h5L83.5 101zm-14.5-13.5h9l-4.5-10-4.5 10z"
-      />{" "}
+      />
     </svg>
   ),
   NodeJS: (
     <svg viewBox="0 0 24 24" fill="currentColor">
-      {" "}
-      <path d="M9 22.54a1.27 1.27 0 01-1.27-1.27v-3.3a1.88 1.88 0 00-.73-1.48 9.38 9.38 0 01-2.48-2.65 8.1 8.1 0 01-1-3.61V8.16a1.27 1.27 0 011.27-1.27h.84a1.27 1.27 0 011.27 1.27v7.07a4.67 4.67 0 00.51 2.22 4.41 4.41 0 001.35 1.73 4.2 4.2 0 002 .89v.33a1.27 1.27 0 01-1.27 1.27zm10.7-16.6a1.27 1.27 0 00-1.27-1.27h-.84a1.27 1.27 0 00-1.27 1.27v11.37a1.27 1.27 0 01-1.27 1.27H13.8a1.27 1.27 0 01-1.27-1.27V5.94a1.27 1.27 0 00-1.27-1.27h-.84a1.27 1.27 0 00-1.27 1.27v11.37a1.27 1.27 0 01-1.27 1.27h-1.3a1.27 1.27 0 01-1.27-1.27V9.73a1.27 1.27 0 00-1.27-1.27H3.27A1.27 1.27 0 002 9.73v4.54a7.53 7.53 0 001.43 4.58 10.38 10.38 0 004.28 3.82 5.58 5.58 0 003.35.6v.33a1.27 1.27 0 001.27 1.27h1.31a1.27 1.27 0 001.27-1.27v-.33a5.57 5.57 0 004.62-4.42 5.37 5.37 0 00.41-2V5.94z" />{" "}
+      <path d="M9 22.54a1.27 1.27 0 01-1.27-1.27v-3.3a1.88 1.88 0 00-.73-1.48 9.38 9.38 0 01-2.48-2.65 8.1 8.1 0 01-1-3.61V8.16a1.27 1.27 0 011.27-1.27h.84a1.27 1.27 0 011.27 1.27v7.07a4.67 4.67 0 00.51 2.22 4.41 4.41 0 001.35 1.73 4.2 4.2 0 002 .89v.33a1.27 1.27 0 01-1.27 1.27zm10.7-16.6a1.27 1.27 0 00-1.27-1.27h-.84a1.27 1.27 0 00-1.27 1.27v11.37a1.27 1.27 0 01-1.27 1.27H13.8a1.27 1.27 0 01-1.27-1.27V5.94a1.27 1.27 0 00-1.27-1.27h-.84a1.27 1.27 0 00-1.27 1.27v11.37a1.27 1.27 0 01-1.27 1.27h-1.3a1.27 1.27 0 01-1.27-1.27V9.73a1.27 1.27 0 00-1.27-1.27H3.27A1.27 1.27 0 002 9.73v4.54a7.53 7.53 0 001.43 4.58 10.38 10.38 0 004.28 3.82 5.58 5.58 0 003.35.6v.33a1.27 1.27 0 001.27 1.27h1.31a1.27 1.27 0 001.27-1.27v-.33a5.57 5.57 0 004.62-4.42 5.37 5.37 0 00.41-2V5.94z" />
     </svg>
   ),
   NextJS: (
     <svg viewBox="0 0 128 128" fill="none">
-      {" "}
       <path
         fill="#000"
         d="M114 128H14A14 14 0 010 114V14A14 14 0 0114 0h100a14 14 0 0114 14v100a14 14 0 01-14 14z"
-      />{" "}
+      />
       <path
         fill="#fff"
         d="M53.4 104.5V45.2h10l25 35.8V45.2H99v59.3H89L64 68.7v35.8H53.4zm-24.8 0V23.5h10.1v81H28.6z"
-      />{" "}
+      />
     </svg>
   ),
   GSAP: (
     <svg viewBox="0 0 200 200" fill="currentColor">
-      {" "}
-      <path d="M129.5,41.2c-31.6,0-57.2,25.6-57.2,57.2c0,31.6,25.6,57.2,57.2,57.2c31.6,0,57.2-25.6,57.2-57.2C186.7,66.8,161.1,41.2,129.5,41.2z M129.5,142.3c-24,0-43.5-19.5-43.5-43.5s19.5-43.5,43.5-43.5s43.5,19.5,43.5,43.5S153.5,142.3,129.5,142.3z" />{" "}
-      <path d="M13.3,155.6h55.9c3.7,0,6.7-3,6.7-6.7V51.7c0-3.7-3-6.7-6.7-6.7H13.3c-3.7,0-6.7,3-6.7,6.7v97.2C6.7,152.6,9.6,155.6,13.3,155.6z" />{" "}
+      <path d="M129.5,41.2c-31.6,0-57.2,25.6-57.2,57.2c0,31.6,25.6,57.2,57.2,57.2c31.6,0,57.2-25.6,57.2-57.2C186.7,66.8,161.1,41.2,129.5,41.2z M129.5,142.3c-24,0-43.5-19.5-43.5-43.5s19.5-43.5,43.5-43.5s43.5,19.5,43.5,43.5S153.5,142.3,129.5,142.3z" />
+      <path d="M13.3,155.6h55.9c3.7,0,6.7-3,6.7-6.7V51.7c0-3.7-3-6.7-6.7-6.7H13.3c-3.7,0-6.7,3-6.7,6.7v97.2C6.7,152.6,9.6,155.6,13.3,155.6z" />
     </svg>
   ),
   VueJS: (
@@ -173,7 +169,7 @@ function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
         }
       );
     }
-  }, [technologies]); // Rerun animation when technologies change
+  }, [technologies]);
 
   return (
     <div
@@ -197,10 +193,11 @@ function WorkExperience() {
   const mainContainerRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
-  const mobileCardRef = useRef<HTMLDivElement | null>(null); // Ref for mobile card animation
+  const mobileCardRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isMobileCardVisible, setIsMobileCardVisible] = useState(false); // State for mobile card visibility
+  const [isMobileCardVisible, setIsMobileCardVisible] = useState(false);
   const activeIndexRef = useRef(0);
+  const [isMobile, setIsMobile] = useState(false);
 
   const workData: WorkExperience[] = [
     {
@@ -292,10 +289,27 @@ function WorkExperience() {
     </span>
   ));
 
+  // Check if mobile on mount and resize
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+    };
+  }, []);
+
   // Main timeline animation effect
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
     gsap.defaults({ ease: "none" });
+
+    // Initialize the line as not drawn
+    gsap.set(".theLine", { drawSVG: "0% 0%" });
 
     const pulses = gsap
       .timeline({
@@ -412,8 +426,8 @@ function WorkExperience() {
     // Trigger to control visibility
     const visibilityTrigger = ScrollTrigger.create({
       trigger: mainContainerRef.current,
-      start: "top top",
-      end: "bottom bottom",
+      start: "top 50%",
+      end: "bottom 50%",
       onEnter: () => setIsMobileCardVisible(true),
       onLeave: () => setIsMobileCardVisible(false),
       onEnterBack: () => setIsMobileCardVisible(true),
@@ -422,7 +436,7 @@ function WorkExperience() {
 
     // Animation for the card itself
     const card = mobileCardRef.current;
-    if (isMobileCardVisible) {
+    if (isMobileCardVisible && isMobile) {
       gsap.to(card, {
         autoAlpha: 1,
         scale: 1,
@@ -443,9 +457,9 @@ function WorkExperience() {
     return () => {
       visibilityTrigger.kill();
     };
-  }, [isMobileCardVisible]);
+  }, [isMobileCardVisible, isMobile]);
 
-  // **NEW**: Mobile card color change effect
+  // Mobile card color change effect
   useEffect(() => {
     if (mobileCardRef.current) {
       gsap.to(mobileCardRef.current, {
@@ -454,10 +468,10 @@ function WorkExperience() {
         ease: "power2.out",
       });
     }
-  }, [activeIndex]); // This runs whenever the active index changes
+  }, [activeIndex]);
 
   return (
-    <div ref={mainContainerRef}>
+    <div ref={mainContainerRef} className="relative pb-20">
       <h1
         ref={headingRef}
         className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] pt-10 overflow-hidden ml-[5vw]"
@@ -469,7 +483,7 @@ function WorkExperience() {
       <div className="md:hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-sm px-4 pointer-events-none">
         <div
           ref={mobileCardRef}
-          className="backdrop-blur-sm rounded-xl shadow-lg p-4 opacity-0" // Removed static bg color
+          className="backdrop-blur-sm rounded-xl shadow-lg p-4 opacity-0 bg-white/90 border border-gray-200"
         >
           <div className="flex items-center justify-between">
             <div className="bg-gray-800 text-white text-xs font-bold py-1 px-2 rounded-full">
@@ -482,8 +496,7 @@ function WorkExperience() {
           <h3 className="text-sm font-bold text-gray-800 mt-1 truncate">
             {workData[activeIndex].title}
           </h3>
-          {/* Maintained your change to show full description */}
-          <p className="text-xs text-gray-700 mt-2 line-clamp-3">
+          <p className="text-xs text-gray-700 mt-2">
             {workData[activeIndex].description}
           </p>
         </div>
@@ -497,7 +510,7 @@ function WorkExperience() {
             id="svg-stage"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 600 1200"
-            className="w-full max-w-[600px]" // Maintained your className change
+            className="w-full max-w-[600px] mx-auto"
           >
             <path className="line01 line" d="M 10 200 600 200"></path>
             <path className="line02 line" d="M 10 400 600 400"></path>
@@ -536,7 +549,7 @@ function WorkExperience() {
 
         {/* Desktop Card */}
         <div className="hidden md:block md:col-span-1">
-          <div className="sticky top-24">
+          <div className="sticky top-24 h-[500px] overflow-y-auto">
             <div className="flex flex-row gap-8 items-start">
               <TechStackDisplay
                 technologies={workData[activeIndex].technologies}
