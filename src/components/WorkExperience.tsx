@@ -372,15 +372,6 @@ function WorkExperience() {
           start: "top center",
           end: "bottom center",
           pin: desktopCardWrapperRef.current, // ✨ ADD THIS LINE
-          // ✨ MODIFIED PINNED ELEMENT POSITIONING
-          pinSpacing: true,
-          pinType: "fixed",
-          onUpdate: (self) => {
-            const pinSpacer = self.pinSpacer;
-            if (pinSpacer) {
-              pinSpacer.style.height = `${self.duration}px`; // Make pin spacer the correct height
-            }
-          },
         },
       })
       .call(() => updateActiveCard(0)) // Set the initial card to 2021 (index 0) when the animation starts
