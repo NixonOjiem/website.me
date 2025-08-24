@@ -1,29 +1,33 @@
 "use client";
 
 import React, { useState } from "react";
-import HeaderComponent from "@/components/layout/HeaderComponent";
 import HeroSection from "@/components/HeroSection";
 import IntroSection from "@/components/IntroSection";
 import EducationComponent from "@/components/EducationTimeline";
 import WorkExperience from "@/components/WorkExperience";
 import FooterLayout from "@/components/layout/FooterLayout";
-import ContactForm from "@/components/layout/ContactForm";
-
+import PageLoader from "@/components/layout/PageLoader";
 export default function Home() {
   const [isContactFormOpen, setContactFormOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  React.useEffect(() => {
+    setTimeout(() => setLoading(true), 6000);
+  }, []);
 
   return (
-    <div className="">
-      {/* <HeaderComponent onContactClick={() => setContactFormOpen(true)} /> */}
-      <HeroSection />
-      <IntroSection />
-      <WorkExperience />
-      <EducationComponent />
-      <FooterLayout onContactClick={() => setContactFormOpen(true)} />
-      {/* <ContactForm
-        show={isContactFormOpen}
-        onClose={() => setContactFormOpen(false)}
-      /> */}
-    </div>
+    <>
+      {!loading ? (
+        <>
+          <HeroSection />
+          <IntroSection />
+          <WorkExperience />
+          <EducationComponent />
+          <FooterLayout onContactClick={() => setContactFormOpen(true)} />
+        </>
+      ) : (
+        <PageLoader />
+      )}
+    </>
   );
 }
