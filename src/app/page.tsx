@@ -14,16 +14,16 @@ export default function Home() {
 
   return (
     <div className="">
-      <HeaderComponent onContactClick={() => setContactFormOpen(true)} />
+      {/* <HeaderComponent onContactClick={() => setContactFormOpen(true)} /> */}
       <HeroSection />
       <IntroSection />
       <WorkExperience />
       <EducationComponent />
       <FooterLayout onContactClick={() => setContactFormOpen(true)} />
-      <ContactForm
+      {/* <ContactForm
         show={isContactFormOpen}
         onClose={() => setContactFormOpen(false)}
-      />
+      /> */}
     </div>
   );
 }

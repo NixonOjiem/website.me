@@ -11,7 +11,7 @@ function Page() {
 
   return (
     <div className="relative">
-      <HeaderComponent onContactClick={() => setContactFormOpen(true)} />
+      {/* <HeaderComponent onContactClick={() => setContactFormOpen(true)} /> */}
       <ServicesComponent />
       <FooterLayout onContactClick={() => setContactFormOpen(true)} />
       <ContactForm

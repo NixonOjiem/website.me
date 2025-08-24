@@ -63,7 +63,7 @@ function Page() {
 
   return (
     <div ref={main}>
-      <HeaderComponent onContactClick={() => setContactFormOpen(true)} />
+      {/* <HeaderComponent onContactClick={() => setContactFormOpen(true)} /> */}
       <main>
         {/* <ProjectIntro /> */}
         <ProjectsComponent />

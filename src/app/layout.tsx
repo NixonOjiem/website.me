@@ -1,11 +1,13 @@
 // app/layout.tsx (or create a new layout if needed)
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import "./globals.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
+import HeaderComponent from "@/components/layout/HeaderComponent";
+import ContactForm from "@/components/layout/ContactForm";
 
 // Register GSAP plugins once
 if (typeof window !== "undefined") {
@@ -35,13 +37,19 @@ export default function RootLayout({
       }
     };
   }, []);
+  const [isContactFormOpen, setContactFormOpen] = useState(false);
 
   return (
     <html lang="en">
       <body>
+        <HeaderComponent onContactClick={() => setContactFormOpen(true)} />
         <div id="smooth-wrapper">
           <div id="smooth-content">{children}</div>
         </div>
+        <ContactForm
+          show={isContactFormOpen}
+          onClose={() => setContactFormOpen(false)}
+        />
       </body>
     </html>
   );
