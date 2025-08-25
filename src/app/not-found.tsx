@@ -35,10 +35,10 @@ function Custom404() {
                 <div className="screen_out">
                   <div className="screen_out1">
                     <div className="screen">
-                      <span className="notfound_text"> NOT FOUND</span>
+                      <span className="notfound_text"> PAGE NOT FOUND</span>
                     </div>
                     <div className="screenM">
-                      <span className="notfound_text"> NOT FOUND</span>
+                      <span className="notfound_text"> PAGE NOT FOUND</span>
                     </div>
                   </div>
                 </div>
