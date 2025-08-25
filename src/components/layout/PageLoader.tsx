@@ -2,7 +2,7 @@ import React from "react";
 
 function PageLoader() {
   return (
-    <>
+    <div className="flex items-center justify-center h-screen">
       <svg className="pl" width="240" height="240" viewBox="0 0 240 240">
         <circle
           className="pl__ring pl__ring--a"
@@ -268,7 +268,7 @@ function PageLoader() {
           }
         }
       `}</style>
-    </>
+    </div>
   );
 }
 

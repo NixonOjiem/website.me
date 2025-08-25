@@ -8,6 +8,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollSmoother } from "gsap/ScrollSmoother";
 import HeaderComponent from "@/components/layout/HeaderComponent";
 import ContactForm from "@/components/layout/ContactForm";
+import PageLoader from "@/components/layout/PageLoader";
 
 // Register GSAP plugins once
 if (typeof window !== "undefined") {
@@ -37,19 +38,35 @@ export default function RootLayout({
       }
     };
   }, []);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 6000);
+  }, []);
+
   const [isContactFormOpen, setContactFormOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   return (
     <html lang="en">
       <body>
-        <HeaderComponent onContactClick={() => setContactFormOpen(true)} />
-        <div id="smooth-wrapper">
-          <div id="smooth-content">{children}</div>
-        </div>
-        <ContactForm
-          show={isContactFormOpen}
-          onClose={() => setContactFormOpen(false)}
-        />
+        <>
+          {!loading ? (
+            <>
+              <HeaderComponent
+                onContactClick={() => setContactFormOpen(true)}
+              />
+              <div id="smooth-wrapper">
+                <div id="smooth-content">{children}</div>
+              </div>
+              <ContactForm
+                show={isContactFormOpen}
+                onClose={() => setContactFormOpen(false)}
+              />
+            </>
+          ) : (
+            <PageLoader />
+          )}
+        </>
       </body>
     </html>
   );
