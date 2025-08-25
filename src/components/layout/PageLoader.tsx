@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 
-function LoadingComponent() {
+function LoadingComponent({ pageName = "Page" }) {
   return (
     <>
       <div className="container_center">
@@ -35,10 +35,14 @@ function LoadingComponent() {
                 <div className="screen_out">
                   <div className="screen_out1">
                     <div className="screen">
-                      <span className="loading_text">LOADING...</span>
+                      <span className="loading_text">
+                        LOADING {pageName}...
+                      </span>
                     </div>
                     <div className="screenM">
-                      <span className="loading_text">LOADING...</span>
+                      <span className="loading_text">
+                        LOADING {pageName}...
+                      </span>
                     </div>
                   </div>
                 </div>
