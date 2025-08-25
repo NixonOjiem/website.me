@@ -18,11 +18,7 @@ export default function Home() {
       <IntroSection />
       <WorkExperience onActiveIndexChange={(index) => setCardIndex(index)} />
       <EducationComponent />
-      <FloatingCard
-        data={workData[cardIndex]}
-        isVisible={true} // For now, we'll keep it visible.
-        // You'd hook this up to scroll logic.
-      />
+      <FloatingCard data={workData[cardIndex]} isVisible={true} />
       <FooterLayout onContactClick={() => setContactFormOpen(true)} />
     </>
   );
