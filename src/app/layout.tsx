@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { gsap } from "gsap";
 import "./globals.css";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,12 +21,11 @@ export default function RootLayout({
 }) {
   const [isContactFormOpen, setContactFormOpen] = useState(false);
   const [loading, setLoading] = useState(true);
-
-  // Use a state to store the ScrollSmoother instance
   const [smoother, setSmoother] = useState<ScrollSmoother | null>(null);
 
+  const pathname = usePathname();
+
   useEffect(() => {
-    // Set loading to false after a delay
     const timer = setTimeout(() => {
       setLoading(false);
     }, 2000);
@@ -33,7 +33,6 @@ export default function RootLayout({
   }, []);
 
   useEffect(() => {
-    // Initialize ScrollSmoother only when not loading
     if (!loading) {
       const smootherInstance = ScrollSmoother.create({
         smooth: 1.5,
@@ -42,21 +41,31 @@ export default function RootLayout({
       });
       setSmoother(smootherInstance);
     }
-    // Cleanup function to kill the smoother instance
     return () => {
       if (smoother) {
         smoother.kill();
         setSmoother(null);
       }
     };
-  }, [loading]); // The key change is to add `loading` as a dependency
+  }, [loading]);
+
+  // 👇 Helper function to format the pathname into a display name
+  const getPageName = (path: string) => {
+    if (path === "/") {
+      return "Home";
+    }
+    // Remove the leading slash, then capitalize the first letter
+    const name = path.substring(1);
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  };
 
   return (
     <html lang="en">
       <body>
         <>
           {loading ? (
-            <PageLoader />
+            // 👇 Pass the formatted page name as a prop
+            <PageLoader pageName={getPageName(pathname)} />
           ) : (
             <>
               <HeaderComponent

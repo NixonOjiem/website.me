@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
-function PageLoader() {
+
+function PageLoader({ pageName = "Page" }) {
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex flex-col items-center justify-center h-screen">
       <svg className="pl" width="240" height="240" viewBox="0 0 240 240">
         <circle
           className="pl__ring pl__ring--a"
@@ -51,7 +52,10 @@ function PageLoader() {
           strokeLinecap="round"
         ></circle>
       </svg>
+      <br />
+      <h2>Loading {pageName}...</h2>{" "}
       <style jsx>{`
+        /* CSS styles remain the same */
         .pl {
           width: 6em;
           height: 6em;

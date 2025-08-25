@@ -11,17 +11,6 @@ export default function Home() {
 
   return (
     <>
-      {/* {!loading ? (
-        <>
-          <HeroSection />
-          <IntroSection />
-          <WorkExperience />
-          <EducationComponent />
-          <FooterLayout onContactClick={() => setContactFormOpen(true)} />
-        </>
-      ) : (
-        <PageLoader />
-      )} */}
       <HeroSection />
       <IntroSection />
       <WorkExperience />
