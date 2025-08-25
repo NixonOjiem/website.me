@@ -8,11 +8,6 @@ import WorkExperience from "@/components/WorkExperience";
 import FooterLayout from "@/components/layout/FooterLayout";
 export default function Home() {
   const [isContactFormOpen, setContactFormOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
-
-  React.useEffect(() => {
-    setTimeout(() => setLoading(false), 6000);
-  }, []);
 
   return (
     <>

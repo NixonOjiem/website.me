@@ -1,6 +1,4 @@
-// app/layout.tsx (or create a new layout if needed)
 "use client";
-
 import { useEffect, useState } from "react";
 import { gsap } from "gsap";
 import "./globals.css";
@@ -20,37 +18,46 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  useEffect(() => {
-    // Initialize ScrollSmoother only once
-    let smoother: ScrollSmoother | null = null;
+  const [isContactFormOpen, setContactFormOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-    if (ScrollSmoother) {
-      smoother = ScrollSmoother.create({
+  // Use a state to store the ScrollSmoother instance
+  const [smoother, setSmoother] = useState<ScrollSmoother | null>(null);
+
+  useEffect(() => {
+    // Set loading to false after a delay
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    // Initialize ScrollSmoother only when not loading
+    if (!loading) {
+      const smootherInstance = ScrollSmoother.create({
         smooth: 1.5,
         effects: true,
         smoothTouch: 0.1,
       });
+      setSmoother(smootherInstance);
     }
-
+    // Cleanup function to kill the smoother instance
     return () => {
       if (smoother) {
         smoother.kill();
+        setSmoother(null);
       }
     };
-  }, []);
-
-  useEffect(() => {
-    setTimeout(() => setLoading(false), 6000);
-  }, []);
-
-  const [isContactFormOpen, setContactFormOpen] = useState(false);
-  const [loading, setLoading] = useState(true);
+  }, [loading]); // The key change is to add `loading` as a dependency
 
   return (
     <html lang="en">
       <body>
         <>
-          {!loading ? (
+          {loading ? (
+            <PageLoader />
+          ) : (
             <>
               <HeaderComponent
                 onContactClick={() => setContactFormOpen(true)}
@@ -63,8 +70,6 @@ export default function RootLayout({
                 onClose={() => setContactFormOpen(false)}
               />
             </>
-          ) : (
-            <PageLoader />
           )}
         </>
       </body>
