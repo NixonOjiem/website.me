@@ -1,3 +1,5 @@
+"use client";
+import { TechIcons } from "./TechIcons";
 export const workData = [
   {
     year: "2021",

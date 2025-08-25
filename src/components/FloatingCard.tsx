@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 
 export interface FloatingCardProps {
@@ -7,7 +8,7 @@ export interface FloatingCardProps {
     company: string;
     description: string;
     color: string;
-    technologies: Technology[];
+    //technologies: Technology[];
   };
   isVisible: boolean;
 }
