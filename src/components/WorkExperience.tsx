@@ -193,13 +193,12 @@ function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
   );
 }
 
-function WorkExperience() {
+function WorkExperience({ onActiveIndexChange }) {
   const mainContainerRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
   const contentRef = useRef<HTMLDivElement | null>(null);
   const mobileCardRef = useRef<HTMLDivElement | null>(null); // Ref for mobile card animation
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isMobileCardVisible, setIsMobileCardVisible] = useState(false); // State for mobile card visibility
   const activeIndexRef = useRef(0);
   const desktopCardWrapperRef = useRef<HTMLDivElement | null>(null);
 
@@ -307,6 +306,10 @@ function WorkExperience() {
       activeIndexRef.current = index;
       setActiveIndex(index); // This triggers the re-render with new data
 
+      //notify the parent component on change
+      if (onActiveIndexChange) {
+        onActiveIndexChange(index);
+      }
       // Animate desktop card content fade-in
       if (contentRef.current) {
         gsap.fromTo(
@@ -446,41 +449,40 @@ function WorkExperience() {
   useEffect(() => {
     gsap.registerPlugin(ScrollTrigger);
 
-    // Trigger to control visibility
-    const visibilityTrigger = ScrollTrigger.create({
-      trigger: mainContainerRef.current,
-      start: "top top",
-      end: "bottom bottom",
-      onEnter: () => setIsMobileCardVisible(true),
-      onLeave: () => setIsMobileCardVisible(false),
-      onEnterBack: () => setIsMobileCardVisible(true),
-      onLeaveBack: () => setIsMobileCardVisible(false),
-    });
-
-    // Animation for the card itself
     const card = mobileCardRef.current;
-    if (isMobileCardVisible) {
-      gsap.to(card, {
+    if (!card) return;
+
+    // Animate the card from a hidden state to a visible state
+    const mobileCardAnim = gsap.fromTo(
+      card,
+      { autoAlpha: 0, scale: 0.9, y: 20 }, // from: hidden
+      {
         autoAlpha: 1,
         scale: 1,
-        y: 0,
-        duration: 0.4,
+        y: 0, // to: visible
+        duration: 0.5,
         ease: "back.out(1.7)",
-      });
-    } else {
-      gsap.to(card, {
-        autoAlpha: 0,
-        scale: 0.9,
-        y: 20,
-        duration: 0.3,
-        ease: "power2.in",
-      });
-    }
+        paused: true, // Start the animation in a paused state
+      }
+    );
 
+    // Use ScrollTrigger to control the animation playback
+    const trigger = ScrollTrigger.create({
+      trigger: mainContainerRef.current,
+      start: "top 20%", // A little buffer so it doesn't appear immediately
+      end: "bottom 80%", // A little buffer before it disappears
+      // onEnter: play the animation forward
+      // onLeaveBack: reverse the animation to hide it
+      // onLeave and onEnterBack do nothing
+      toggleActions: "play none none reverse",
+      animation: mobileCardAnim,
+    });
+
+    // Cleanup function to kill the trigger when the component unmounts
     return () => {
-      visibilityTrigger.kill();
+      trigger.kill();
     };
-  }, [isMobileCardVisible]);
+  }, []); // Empty dependency array ensures this runs only once
 
   // **NEW**: Mobile card color change effect
   useEffect(() => {
@@ -503,7 +505,7 @@ function WorkExperience() {
       </h1>
 
       {/* Mobile Floating Card */}
-      <div className="md:hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-sm px-4 pointer-events-none">
+      {/* <div className="md:hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-sm px-4 pointer-events-none">
         <div
           ref={mobileCardRef}
           className="backdrop-blur-sm rounded-xl shadow-lg p-4 opacity-0"
@@ -523,7 +525,7 @@ function WorkExperience() {
             {workData[activeIndex].description}
           </p>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Content */}
       <div className="relative md:grid md:grid-cols-2 md:gap-x-12">
