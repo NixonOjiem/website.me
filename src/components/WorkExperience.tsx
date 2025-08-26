@@ -132,8 +132,6 @@ function WorkExperience() {
           start: "top center",
           end: "bottom center",
           pin: desktopCardWrapperRef.current, // ✨ ADD THIS LINE
-          pinSpacing: true,
-          pinType: "fixed",
         },
       })
       .call(() => updateActiveCard(0)) // Set the initial card to 2021 (index 0) when the animation starts
