@@ -13,8 +13,8 @@ export default function Home() {
     <>
       <HeroSection />
       <IntroSection />
-      {/* <WorkExperience /> */}
-      <TestComponent />
+      <WorkExperience />
+      {/* <TestComponent /> */}
       <EducationComponent />
       <FooterLayout onContactClick={() => setContactFormOpen(true)} />
     </>
