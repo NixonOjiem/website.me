@@ -66,6 +66,7 @@ function WorkExperience() {
   const activeIndexRef = useRef(0);
   const desktopCardWrapperRef = useRef<HTMLDivElement | null>(null);
   const [isMobileCardVisible, setIsMobileCardVisible] = useState(false);
+  const activeWorkItem = activeIndex >= 0 ? workData[activeIndex] : null;
 
   const headingText = "Work Experience";
   const letters = headingText.split("").map((char, i) => (
@@ -290,9 +291,9 @@ function WorkExperience() {
         <div className="hidden md:block md:col-span-1">
           <div ref={desktopCardWrapperRef} className="pt-0">
             <div className="flex flex-row gap-8 items-start">
-              <TechStackDisplay
-                technologies={workData[activeIndex].technologies}
-              />
+              {activeWorkItem?.technologies && (
+                <TechStackDisplay technologies={activeWorkItem.technologies} />
+              )}{" "}
               <div
                 ref={contentRef}
                 className={`z-10 p-7 md:p-9 rounded-xl shadow-lg w-full max-w-lg transition-colors duration-500 ${
@@ -301,18 +302,18 @@ function WorkExperience() {
               >
                 <div className="mb-4 flex items-center">
                   <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
-                    {workData[activeIndex].year}
+                    {activeWorkItem?.year}
                   </div>
                   <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
                   <div className="text-sm font-medium text-[#140202]">
-                    {workData[activeIndex].company}
+                    {activeWorkItem?.company}
                   </div>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-[#140202] mb-3">
-                  {workData[activeIndex].title}
+                  {activeWorkItem?.title}
                 </h3>
                 <p className="text-[#140202]/90 leading-relaxed text-base md:text-lg">
-                  {workData[activeIndex].description}
+                  {activeWorkItem?.description}
                 </p>
               </div>
             </div>
