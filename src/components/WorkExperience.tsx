@@ -3,15 +3,12 @@ import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger, DrawSVGPlugin, MotionPathPlugin } from "gsap/all";
 import { workData } from "@/app/data/workData";
-import { TechIcons } from "@/app/data/TechIcons";
 
-// Define a type for technology
 type Technology = {
   name: string;
   icon: JSX.Element;
 };
 
-// Added 'technologies' to the data structure
 type WorkExperience = {
   year: string;
   title: string;
