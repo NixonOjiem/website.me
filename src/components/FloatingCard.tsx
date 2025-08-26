@@ -8,22 +8,23 @@ export interface FloatingCardProps {
     company: string;
     description: string;
     color: string;
-    //technologies: Technology[];
   };
   isVisible: boolean;
 }
 
 export default function FloatingCard({ data, isVisible }: FloatingCardProps) {
   if (!data) return null;
+
   return (
     <div
-      className={`md:hidden fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-50 w-full max-w-sm px-4 pointer-events-none transition-all duration-500 ease-in-out ${
+      // MODIFIED: Changed positioning from top-1/2 to bottom-10 for better mobile UX.
+      className={`md:hidden fixed bottom-10 left-1/2 -translate-x-1/2 z-999 w-full max-w-sm px-4 pointer-events-none transition-all duration-500 ease-in-out ${
         isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
       }`}
     >
       <div
         className="backdrop-blur-sm rounded-xl shadow-lg p-4 transition-colors duration-500"
-        style={{ backgroundColor: data.color }} // Get color from props
+        style={{ backgroundColor: data.color }}
       >
         <div className="flex items-center justify-between">
           <div className="bg-gray-800 text-white text-xs font-bold py-1 px-2 rounded-full">

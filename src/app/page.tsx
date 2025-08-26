@@ -6,19 +6,16 @@ import IntroSection from "@/components/IntroSection";
 import EducationComponent from "@/components/EducationTimeline";
 import WorkExperience from "@/components/WorkExperience";
 import FooterLayout from "@/components/layout/FooterLayout";
-import FloatingCard from "@/components/FloatingCard";
-import { workData } from "./data/workData";
+import TestComponent from "@/components/TestComponent";
 export default function Home() {
   const [isContactFormOpen, setContactFormOpen] = useState(false);
-  const [cardIndex, setCardIndex] = useState(0);
-  const [isCardVisible, setIsCardVisible] = useState(false);
   return (
     <>
       <HeroSection />
       <IntroSection />
-      <WorkExperience onActiveIndexChange={(index) => setCardIndex(index)} />
+      <WorkExperience />
+      {/* <TestComponent /> */}
       <EducationComponent />
-      <FloatingCard data={workData[cardIndex]} isVisible={true} />
       <FooterLayout onContactClick={() => setContactFormOpen(true)} />
     </>
   );
