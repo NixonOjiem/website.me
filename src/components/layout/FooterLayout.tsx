@@ -13,7 +13,6 @@ const FooterLayout: React.FC<FooterLayoutProps> = () => {
       <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_top_left,_var(--tw-gradient-stops))] from-indigo-500 via-[#8b718a] to-transparent animate-pulse"></div>
 
       <div className="relative max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
-        
         {/* Brand / About */}
         <div className="flex flex-col items-start space-y-3">
           {/* SVG Logo */}
@@ -44,17 +43,23 @@ const FooterLayout: React.FC<FooterLayoutProps> = () => {
           <h3 className="text-lg font-semibold text-white mb-4">Quick Links</h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <Link href="/projects" className="hover:text-[#8b718a] transition-colors">
+              <Link
+                href="/projects"
+                className="hover:text-[#8b718a] transition-colors"
+              >
                 Projects
               </Link>
             </li>
             <li>
-              <Link href="/service" className="hover:text-[#8b718a] transition-colors">
+              <Link
+                href="/services"
+                className="hover:text-[#8b718a] transition-colors"
+              >
                 Services
               </Link>
             </li>
             <li>
-              <Link href="/contact" className="hover:text-[#8b718a] transition-colors">
+              <Link href="#" className="hover:text-[#8b718a] transition-colors">
                 Contact
               </Link>
             </li>

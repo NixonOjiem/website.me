@@ -65,7 +65,6 @@ function WorkExperience() {
   const [activeIndex, setActiveIndex] = useState(0);
   const activeIndexRef = useRef(0);
   const desktopCardWrapperRef = useRef<HTMLDivElement | null>(null);
-  const [isMobileCardVisible, setIsMobileCardVisible] = useState(false);
   const activeWorkItem = activeIndex >= 0 ? workData[activeIndex] : null;
 
   const headingText = "Work Experience";
@@ -79,7 +78,7 @@ function WorkExperience() {
   useEffect(() => {
     gsap.defaults({ ease: "none" });
 
-    const updateActiveCard = (index) => {
+    const updateActiveCard = (index: number) => {
       if (index === activeIndexRef.current) return;
       activeIndexRef.current = index;
       setActiveIndex(index);
@@ -131,11 +130,10 @@ function WorkExperience() {
           trigger: "#svg-stage",
           scrub: true,
           start: "top center",
-          //end: "bottom center",
           end: "+=800",
           pin: desktopCardWrapperRef.current,
           pinSpacing: false,
-          pinType: "transform", // Changed to transform for better performance
+          pinType: "transform",
         },
       })
       .call(() => updateActiveCard(0))
@@ -203,25 +201,6 @@ function WorkExperience() {
     return () => {
       anim.scrollTrigger?.kill();
       anim.kill();
-    };
-  }, []);
-
-  // Mobile card visibility and animation effect
-  useEffect(() => {
-    if (!mainContainerRef.current) return;
-
-    const trigger = ScrollTrigger.create({
-      trigger: mainContainerRef.current,
-      start: "top 20%",
-      end: "bottom 80%",
-      onEnter: () => setIsMobileCardVisible(true),
-      onLeave: () => setIsMobileCardVisible(false),
-      onEnterBack: () => setIsMobileCardVisible(true),
-      onLeaveBack: () => setIsMobileCardVisible(false),
-    });
-
-    return () => {
-      trigger.kill();
     };
   }, []);
 
@@ -320,10 +299,34 @@ function WorkExperience() {
           </div>
         </div>
       </div>
-      <FloatingCard
-        data={workData[activeIndex]}
-        isVisible={isMobileCardVisible}
-      />
+
+      {/* Mobile Card - Always visible on mobile */}
+      <div className="md:hidden mt-8 mx-4">
+        {activeWorkItem && (
+          <div
+            className={`rounded-xl shadow-lg p-5 transition-colors duration-500 ${
+              gradients[activeIndex % gradients.length]
+            }`}
+          >
+            <div className="mb-4 flex items-center">
+              <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
+                {activeWorkItem.year}
+              </div>
+              <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
+              <div className="text-sm font-medium text-[#140202]">
+                {activeWorkItem.company}
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-[#140202] mb-3">
+              {activeWorkItem.title}
+            </h3>
+            <p className="text-[#140202]/90 leading-relaxed text-sm">
+              {activeWorkItem.description}
+            </p>
+          </div>
+        )}
+      </div>
+
       <style jsx global>{`
         @font-face {
           font-display: block;
