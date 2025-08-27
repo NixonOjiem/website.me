@@ -218,13 +218,13 @@ function WorkExperience() {
     <div ref={mainContainerRef} className="relative">
       <h1
         ref={headingRef}
-        className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] pt-10 overflow-hidden ml-[5vw]"
+        className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] pt-10  ml-[5vw]"
       >
         {letters}
       </h1>
 
       {/* Mobile Card - Sticky at the top on mobile */}
-      <div className="md:hidden sticky top-4 z-50 px-4 mb-4">
+      <div className="md:hidden fixed top-4 z-50 px-4 mb-4">
         {activeWorkItem && (
           <div
             className={`rounded-xl shadow-lg p-5 transition-colors duration-500 ${
