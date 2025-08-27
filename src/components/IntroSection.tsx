@@ -141,10 +141,10 @@ function IntroSection() {
         A Fullstack Developer.
       </p>
       <section className="container mx-auto ">
-        {/* Skills cards container */}
+        {/* Skills cards container*/}
         <div
           ref={cardsRef}
-          // UPDATED: Adjusted grid columns to make cards wider
+          // grid columns to make cards wider
           className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto px-5 sm:px-0"
         >
           {skills.map((skill, index) => (
