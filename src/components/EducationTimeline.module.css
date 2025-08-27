@@ -49,11 +49,12 @@
   z-index: 1;
 }
 
-.timeline .institution {
+.timeline,
+.institution {
   font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 600;
-  margin-bottom: 0.5rem;
-  color: #ffffff;
+  margin-bottom: 10px;
+  color: #fef6e6;
 }
 
 .qualification {

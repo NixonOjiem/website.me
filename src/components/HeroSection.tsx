@@ -773,7 +773,7 @@ function HeroSection() {
       <div className="stage" ref={stageRef}>
         <p
           className="instruction text-10xl font-bold text-green"
-          ref={instructionRef}
+          // ref={instructionRef}
         >
           Drag and drop the sleeping creatures!
         </p>

@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 
 export default function ProjectsComponent() {
   const [isMobile, setIsMobile] = useState(false);
+  const [expandedProject, setExpandedProject] = useState(null);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -17,6 +18,14 @@ export default function ProjectsComponent() {
     };
   }, []);
 
+  const toggleExpand = (index) => {
+    if (expandedProject === index) {
+      setExpandedProject(null);
+    } else {
+      setExpandedProject(index);
+    }
+  };
+
   const projects = [
     {
       title: "LoveHomeMarts Ecommerce site",
@@ -25,6 +34,7 @@ export default function ProjectsComponent() {
       imageUrl: "/images/ScreenshotLovehomemart.png",
       altText: "LoveHomeMarts Ecommerce site",
       link: "https://lovehomemart.com/",
+      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
     },
     {
       title: "YiehBoats",
@@ -33,6 +43,7 @@ export default function ProjectsComponent() {
       imageUrl: "/images/ScreenshotYiehBoats.png",
       altText: "YiehBoats",
       link: "https://yiehboat.co.ke/",
+      technologies: ["Vue.js", "CSS3", "PHP", "MySQL"],
     },
     {
       title: "KenyaHMIS Community Forum",
@@ -41,6 +52,7 @@ export default function ProjectsComponent() {
       imageUrl: "/images/ScreenshotKenyaHMIS.png",
       altText: "KenyaHMIS Community Forum",
       link: "https://community.kenyahmis.org/",
+      technologies: ["React", "Firebase", "Material UI", "Node.js"],
     },
     {
       title: "Anime-Manga Quiz App",
@@ -49,6 +61,7 @@ export default function ProjectsComponent() {
       imageUrl: "/images/Screenshot 2025-08-22 105353.png",
       altText: "Anime-Manga Quiz App",
       link: "https://anime-manga-quiz-8ad86.web.app/",
+      technologies: ["JavaScript", "Firebase", "HTML5", "CSS3"],
     },
     {
       title: "Video Chat App",
@@ -57,6 +70,7 @@ export default function ProjectsComponent() {
       imageUrl: "/images/videochat.jpg",
       altText: "Video Chat App",
       link: "https://nixonojiem.github.io/video-chat/",
+      technologies: ["WebRTC", "Socket.io", "Node.js", "React"],
     },
     {
       title: "Nutrition Analysis App",
@@ -65,6 +79,7 @@ export default function ProjectsComponent() {
       imageUrl: "/images/Screenshot Nutritional Analysis.png",
       altText: "Nutrition Analysis App",
       link: "https://nutritional-analysis-424f7.web.app/",
+      technologies: ["React", "Nutrition API", "Firebase", "Chart.js"],
     },
     {
       title: "Image Compression App",
@@ -73,6 +88,7 @@ export default function ProjectsComponent() {
       imageUrl: "/images/compresion.jpg",
       altText: "Image Compression App",
       link: "https://nixonojiem.github.io/Image-compressor/",
+      technologies: ["JavaScript", "Browser APIs", "HTML5", "CSS3"],
     },
     {
       title: "AI text Detection APP",
@@ -81,6 +97,7 @@ export default function ProjectsComponent() {
       imageUrl: "/images/AI detector.png",
       altText: "AI text Detection APP",
       link: "https://nixonojiem.github.io/AI-detector/",
+      technologies: ["TensorFlow.js", "React", "Node.js", "ML Algorithms"],
     },
     {
       title: "Movie info App",
@@ -90,248 +107,338 @@ export default function ProjectsComponent() {
         "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG1vdmllJTIwaW5mbyUyMGFwcHxlbnwwfHwwfHx8MA%3D%3D",
       altText: "Movie info App",
       link: "https://movie-info-68f8e.web.app/",
+      technologies: ["React", "OMDb API", "Firebase", "CSS3"],
     },
   ];
 
   return (
     <>
-      <div className="content">
-        <div className="content__hero">
-          <h1 className="content__heading gs_reveal">My projects</h1>
+      <div className="projects-container">
+        <div className="projects-hero">
+          <h1 className="projects-heading">My Projects</h1>
+          <p className="projects-subheading">
+            A collection of my recent work and personal projects
+          </p>
         </div>
-        <div className="features">
+
+        <div className="projects-grid">
           {projects.map((project, index) => (
             <div
               key={index}
-              className={`features__item gs_reveal ${
-                index % 2 === 0
-                  ? "features__item--left gs_reveal_fromLeft"
-                  : "features__item--right gs_reveal_fromRight"
+              className={`project-card ${
+                expandedProject === index ? "expanded" : ""
               }`}
             >
-              <div className="features__image">
-                <div className="features__card">
-                  <img
-                    className="features__img"
-                    src={project.imageUrl}
-                    alt={project.altText}
-                    onError={(e) => {
-                      // Fallback for broken images
-                      e.target.src =
-                        "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZTVlNWU1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+";
-                    }}
-                  />
+              <div className="project-image-container">
+                <img
+                  className="project-image"
+                  src={project.imageUrl}
+                  alt={project.altText}
+                  onError={(e) => {
+                    e.target.src =
+                      "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZTVlNWU1Ii8+PHRleHQgeD0iNTAlIiB5PSI1MCUiIGZvbnQtZmFtaWx5PSJtb25vc3BhY2UiIGZvbnQtc2l6ZT0iMjAiIGZpbGw9IiM5OTk5OTkiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGR5PSIuM2VtIj5JbWFnZSBub3QgZm91bmQ8L3RleHQ+PC9zdmc+";
+                  }}
+                />
+                <div className="project-overlay">
+                  <button
+                    className="view-project-btn"
+                    onClick={() => window.open(project.link, "_blank")}
+                  >
+                    Live Preview
+                  </button>
                 </div>
               </div>
-              <div className="features__content">
-                <h2 className="features__title gs_reveal">{project.title}</h2>
-                <p className="features__description gs_reveal">
-                  {project.description}
+
+              <div className="project-content">
+                <h3 className="project-title">{project.title}</h3>
+
+                <div className="tech-tags">
+                  {project.technologies.map((tech, i) => (
+                    <span key={i} className="tech-tag">
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="project-description">
+                  {expandedProject === index
+                    ? project.description
+                    : `${project.description.substring(0, 100)}...`}
                 </p>
-                {project.link && project.link !== "#" ? (
-                  <div className="features__link-container">
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="features__link"
+
+                <div className="project-actions">
+                  <button
+                    className="expand-btn"
+                    onClick={() => toggleExpand(index)}
+                  >
+                    {expandedProject === index ? "Read Less" : "Read More"}
+                  </button>
+
+                  <a
+                    href={project.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="project-link"
+                  >
+                    View Project
+                    <svg
+                      width="16"
+                      height="16"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      View Project
-                    </a>
-                  </div>
-                ) : null}
+                      <path
+                        d="M7 17L17 7M17 7H7M17 7V17"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
               </div>
             </div>
           ))}
         </div>
-        {/* <div className="spacer"></div> */}
       </div>
+
       <style jsx>{`
-        /* Global styles for ScrollSmoother */
-        .content {
-          max-width: 1240px;
+        .projects-container {
+          max-width: 1200px;
           margin: 0 auto;
-          padding: 1rem;
-          padding-top: 20vh;
+          padding: 2rem 1rem;
         }
 
-        .content__hero {
-          height: 30vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-
-        .content__heading {
+        .projects-hero {
           text-align: center;
-          font-size: 3rem;
-          margin: 0;
+          margin-bottom: 3rem;
         }
 
-        .features {
+        .projects-heading {
+          font-size: 2.5rem;
+          font-weight: 700;
+          background: linear-gradient(135deg, #2b6879 0%, #16353d 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
+          margin-bottom: 0.5rem;
+        }
+
+        .projects-subheading {
+          font-size: 1.1rem;
+          color: #666;
+          max-width: 600px;
+          margin: 0 auto;
+        }
+
+        .projects-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+          gap: 2rem;
+        }
+
+        .project-card {
+          background: #fff;
+          border-radius: 12px;
+          overflow: hidden;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+          transition: all 0.3s ease;
           display: flex;
           flex-direction: column;
-          gap: 3rem;
+          height: auto;
         }
 
-        .features__item {
-          display: flex;
-          flex-wrap: wrap;
-          align-items: center;
-          gap: 2rem;
-          min-height: 70vh;
-          border-top: dashed 2px grey;
-          padding: 2rem 0;
+        .project-card:hover {
+          transform: translateY(-5px);
+          box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
         }
 
-        .features__item--left {
-          flex-direction: row;
+        .project-card.expanded {
+          grid-column: 1 / -1;
         }
 
-        .features__item--right {
-          flex-direction: row-reverse;
-        }
-
-        .features__image {
-          flex: 1 1 30%;
-          min-width: 300px;
-          position: relative;
-        }
-
-        .features__card {
-          border-radius: 8px;
-          overflow: hidden;
+        .project-image-container {
           position: relative;
           width: 100%;
-          height: 0;
-          padding-top: 100%; /* Creates a square aspect ratio */
-          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-          transition: transform 0.3s ease, box-shadow 0.3s ease;
+          height: 200px;
+          overflow: hidden;
         }
 
-        .features__card:hover {
-          transform: translateY(-5px);
-          box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-
-        .features__img {
-          position: absolute;
-          top: 0;
-          left: 0;
+        .project-image {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          display: block;
+          transition: transform 0.5s ease;
         }
 
-        .features__content {
-          flex: 1 1 65%;
-          min-width: 300px;
+        .project-card:hover .project-image {
+          transform: scale(1.05);
         }
 
-        .features__title {
-          font-size: 1.8em;
-          margin-block-end: 1rem;
+        .project-overlay {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background: rgba(0, 0, 0, 0.7);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          opacity: 0;
+          transition: opacity 0.3s ease;
         }
 
-        .features__description {
+        .project-card:hover .project-overlay {
+          opacity: 1;
+        }
+
+        .view-project-btn {
+          background: #fff;
+          color: #2b6879;
+          border: none;
+          padding: 0.6rem 1.2rem;
+          border-radius: 4px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.2s ease;
+        }
+
+        .view-project-btn:hover {
+          background: #2b6879;
+          color: #fff;
+        }
+
+        .project-content {
+          padding: 1.5rem;
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .project-title {
+          font-size: 1.3rem;
+          font-weight: 600;
+          margin-bottom: 0.75rem;
+          color: #333;
+        }
+
+        .tech-tags {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 0.5rem;
+          margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+          background: #e9f5f8;
+          color: #2b6879;
+          padding: 0.25rem 0.6rem;
+          border-radius: 20px;
+          font-size: 0.75rem;
+          font-weight: 500;
+        }
+
+        .project-description {
+          color: #666;
           line-height: 1.6;
-          font-size: 1.2rem;
+          margin-bottom: 1.5rem;
+          flex-grow: 1;
         }
 
-        .features__link-container {
-          margin-top: 1rem;
+        .project-actions {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: auto;
         }
 
-        .features__link {
-          display: inline-block;
-          background-color: #2b6879;
+        .expand-btn {
+          background: none;
+          border: none;
+          color: #2b6879;
+          cursor: pointer;
+          font-weight: 500;
+          padding: 0.5rem 0;
+        }
+
+        .expand-btn:hover {
+          text-decoration: underline;
+        }
+
+        .project-link {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background: #2b6879;
           color: white;
-          padding: 0.8rem 1.5rem;
+          padding: 0.6rem 1.2rem;
           border-radius: 4px;
           text-decoration: none;
-          font-weight: bold;
-          transition: background-color 0.3s ease;
+          font-weight: 500;
+          transition: background 0.2s ease;
         }
 
-        .features__link:hover {
-          background-color: #16353dff;
-        }
-
-        .gs_reveal {
-          opacity: 0;
-          visibility: hidden;
-          will-change: transform, opacity;
-        }
-
-        .spacer {
-          height: 50vh;
+        .project-link:hover {
+          background: #16353d;
         }
 
         /* Mobile-first responsive adjustments */
         @media (max-width: 768px) {
-          .content {
-            padding-top: 15vh;
+          .projects-container {
+            padding: 1rem 0.5rem;
           }
 
-          .content__hero {
-            height: 20vh;
+          .projects-heading {
+            font-size: 2rem;
           }
 
-          .content__heading {
-            font-size: 2.2rem;
-          }
-
-          .features__item {
-            flex-direction: column !important;
-            text-align: center;
-            min-height: auto;
-            height: auto;
+          .projects-grid {
+            grid-template-columns: 1fr;
             gap: 1.5rem;
-            padding: 1.5rem 0;
           }
 
-          .features__image,
-          .features__content {
-            flex: 1 1 100%;
-            min-width: 100%;
+          .project-card.expanded {
+            grid-column: auto;
           }
 
-          .features__card {
-            padding-top: 75%; /* Slightly rectangular aspect ratio for mobile */
+          .project-image-container {
+            height: 180px;
           }
 
-          .features__title {
-            font-size: 1.6rem;
+          .project-content {
+            padding: 1.2rem;
           }
 
-          .features__description {
-            font-size: 1rem;
-            text-align: left;
+          .project-actions {
+            flex-direction: column;
+            gap: 1rem;
+            align-items: flex-start;
           }
 
-          .features__link {
-            padding: 0.7rem 1.2rem;
-            font-size: 0.9rem;
+          .project-link {
+            width: 100%;
+            justify-content: center;
           }
         }
 
         /* Extra small devices */
         @media (max-width: 480px) {
-          .content__heading {
+          .projects-heading {
             font-size: 1.8rem;
           }
 
-          .features__item {
-            padding: 1rem 0;
-            gap: 1rem;
+          .projects-subheading {
+            font-size: 1rem;
           }
 
-          .features__title {
-            font-size: 1.4rem;
+          .project-title {
+            font-size: 1.2rem;
           }
 
-          .features__description {
+          .project-description {
             font-size: 0.9rem;
           }
         }
