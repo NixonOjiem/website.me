@@ -23,7 +23,6 @@ body {
 /* Fix for potential layout issues */
 body {
   margin: 0;
-  /* overflow: hidden; */
 }
 
 html {

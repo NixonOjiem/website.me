@@ -140,7 +140,7 @@ function IntroSection() {
       >
         A Fullstack Developer.
       </p>
-      <section className="container mx-auto">
+      <section className="container mx-auto ">
         {/* Skills cards container */}
         <div
           ref={cardsRef}
