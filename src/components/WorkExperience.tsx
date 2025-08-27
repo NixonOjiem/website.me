@@ -370,6 +370,7 @@ function WorkExperience() {
 
       <style jsx global>{`
         /* ... your existing font-face and other global styles ... */
+
         @font-face {
           font-display: block;
           font-family: Mori;
