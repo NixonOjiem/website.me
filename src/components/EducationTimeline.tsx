@@ -127,25 +127,32 @@ const EducationTimeline = () => {
   }, []);
 
   return (
-    <div className={styles.container} ref={component}>
-      <div className={styles.timelineWrapper} ref={slider}>
-        {educationData.map((item, index) => (
-          <section key={index} className={styles.timelineItem}>
-            <div className={styles.timelineContent}>
-              {/* SVG Icon Added Here */}
-              <GraduationCapIcon />
+    <>
+      <div className={styles.container} ref={component}>
+        <div className={styles.timelineWrapper} ref={slider}>
+          {educationData.map((item, index) => (
+            <section key={index} className={styles.timelineItem}>
+              {index === 0 && (
+                <h1 className="top-0 text-4xl md:text-5xl font-bold text-left text-[#FEF6E6] pt-10 overflow-hidden ml-[5vw]">
+                  Educational Background
+                </h1>
+              )}
+              <div className={styles.timelineContent}>
+                {/* SVG Icon Added Here */}
+                <GraduationCapIcon />
 
-              <div className={styles.timelineYear}>{item.year}</div>
-              <div className={styles.timelineDetails}>
-                <h2 className={styles.institution}>{item.institution}</h2>
-                <h3 className={styles.qualification}>{item.qualification}</h3>
-                <p className={styles.date}>{item.date}</p>
+                <div className={styles.timelineYear}>{item.year}</div>
+                <div className={styles.timelineDetails}>
+                  <h2 className={styles.institution}>{item.institution}</h2>
+                  <h3 className={styles.qualification}>{item.qualification}</h3>
+                  <p className={styles.date}>{item.date}</p>
+                </div>
               </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
