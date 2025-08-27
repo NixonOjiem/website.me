@@ -251,9 +251,9 @@ function ServicesComponent() {
 
   return (
     <>
-      <section className="services-section">
+      <section className="services-section ">
         {/* Hero Section */}
-        <div className="services-hero pt-[3rem]">
+        <div className="services-hero ">
           <h1 className="services-heading">
             Digital Solutions That Drive Growth
           </h1>
@@ -388,6 +388,7 @@ function ServicesComponent() {
           padding: 3rem 2rem;
           border-radius: 16px;
           color: white;
+          margin-top: 4rem;
         }
 
         .services-heading {
