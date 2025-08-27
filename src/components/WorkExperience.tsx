@@ -1,8 +1,11 @@
 "use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger, DrawSVGPlugin, MotionPathPlugin } from "gsap/all";
 import { workData } from "@/app/data/workData";
+
+gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
 
 type Technology = {
   name: string;
@@ -36,7 +39,7 @@ function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
         }
       );
     }
-  }, [technologies]); // Rerun animation when technologies change
+  }, [technologies]);
 
   return (
     <div
@@ -56,14 +59,16 @@ function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
   );
 }
 
-function WorkExperience({ onActiveIndexChange }) {
+function WorkExperience() {
   const mainContainerRef = useRef<HTMLDivElement | null>(null);
   const headingRef = useRef<HTMLHeadingElement | null>(null);
-  const contentRef = useRef<HTMLDivElement | null>(null);
-  const mobileCardRef = useRef<HTMLDivElement | null>(null); // Ref for mobile card animation
+  const desktopContentRef = useRef<HTMLDivElement | null>(null);
+  const mobileContentRef = useRef<HTMLDivElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const activeIndexRef = useRef(0);
   const desktopCardWrapperRef = useRef<HTMLDivElement | null>(null);
+  const mobileCardWrapperRef = useRef<HTMLDivElement | null>(null);
+  const activeWorkItem = activeIndex >= 0 ? workData[activeIndex] : null;
 
   const headingText = "Work Experience";
   const letters = headingText.split("").map((char, i) => (
@@ -74,44 +79,28 @@ function WorkExperience({ onActiveIndexChange }) {
 
   // Main timeline animation effect
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
     gsap.defaults({ ease: "none" });
 
-    // ✨ HELPER FUNCTION to update the card content and trigger animations
-    // This keeps our code clean and avoids repetition.
-    const updateActiveCard = (index) => {
-      // Prevent re-animating the same card if the index hasn't changed
+    const updateActiveCard = (index: number) => {
       if (index === activeIndexRef.current) return;
-
       activeIndexRef.current = index;
-      setActiveIndex(index); // This triggers the re-render with new data
+      setActiveIndex(index);
 
-      //notify the parent component on change
-      if (onActiveIndexChange) {
-        onActiveIndexChange(index);
-      }
       // Animate desktop card content fade-in
-      if (contentRef.current) {
+      if (desktopContentRef.current) {
         gsap.fromTo(
-          contentRef.current,
+          desktopContentRef.current,
           { autoAlpha: 0, y: 20 },
           { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }
         );
       }
 
       // Animate mobile card content fade-in
-      if (mobileCardRef.current) {
-        const mobileCardContent = mobileCardRef.current.children;
+      if (mobileContentRef.current) {
         gsap.fromTo(
-          mobileCardContent,
-          { autoAlpha: 0, y: 15 },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 0.4,
-            stagger: 0.1,
-            ease: "power2.out",
-          }
+          mobileContentRef.current,
+          { autoAlpha: 0, y: 20 },
+          { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }
         );
       }
     };
@@ -127,23 +116,35 @@ function WorkExperience({ onActiveIndexChange }) {
       },
     });
 
-    // ✨ SETUP PULSES WITH PRECISE CALLBACKS
-    // We use .call() to trigger the card update at the exact same time as the pulse animation.
+    // Setup pulses with callbacks
     pulses
       .to(".ball02, .text01", {}, 0.2)
-      .call(() => updateActiveCard(0), [], 0.2) // On arrival at 2021 (index 0)
-
+      .call(() => updateActiveCard(0), [], 0.2)
       .to(".ball03, .text02", {}, 0.33)
-      .call(() => updateActiveCard(1), [], 0.33) // On arrival at 2022 (index 1)
-
+      .call(() => updateActiveCard(1), [], 0.33)
       .to(".ball04, .text03", {}, 0.46)
-      .call(() => updateActiveCard(2), [], 0.46) // On arrival at 2023 (index 2)
-
+      .call(() => updateActiveCard(2), [], 0.46)
       .to(".ball05, .text04", {}, 0.59)
-      .call(() => updateActiveCard(3), [], 0.59) // On arrival at 2024 (index 3)
-
+      .call(() => updateActiveCard(3), [], 0.59)
       .to(".ball06, .text05", {}, 0.76)
-      .call(() => updateActiveCard(4), [], 0.76); // On arrival at 2025 (index 4)
+      .call(() => updateActiveCard(4), [], 0.76);
+
+    // Make sure cards are visible before animation starts
+    if (desktopContentRef.current) {
+      gsap.set(desktopContentRef.current, { autoAlpha: 1 });
+    }
+    if (mobileContentRef.current) {
+      gsap.set(mobileContentRef.current, { autoAlpha: 1 });
+    }
+
+    // Determine which card wrapper to pin based on screen size
+    const getPinElement = () => {
+      if (window.innerWidth < 768) {
+        return mobileCardWrapperRef.current;
+      } else {
+        return desktopCardWrapperRef.current;
+      }
+    };
 
     // The main timeline that is controlled by scrolling
     const main = gsap
@@ -153,20 +154,13 @@ function WorkExperience({ onActiveIndexChange }) {
           trigger: "#svg-stage",
           scrub: true,
           start: "top center",
-          end: "bottom center",
-          pin: desktopCardWrapperRef.current, // ✨ ADD THIS LINE
-          // ✨ MODIFIED PINNED ELEMENT POSITIONING
-          pinSpacing: true,
-          pinType: "fixed",
-          onUpdate: (self) => {
-            const pinSpacer = self.pinSpacer;
-            if (pinSpacer) {
-              pinSpacer.style.height = `${self.duration}px`; // Make pin spacer the correct height
-            }
-          },
+          end: "+=800",
+          pin: getPinElement(),
+          pinSpacing: false,
+          pinType: "transform",
         },
       })
-      .call(() => updateActiveCard(0)) // Set the initial card to 2021 (index 0) when the animation starts
+      .call(() => updateActiveCard(0))
       .to(".ball01", { duration: 0.01, autoAlpha: 1 })
       .to(
         ".ball01",
@@ -187,7 +181,24 @@ function WorkExperience({ onActiveIndexChange }) {
       )
       .add(pulses, 0);
 
+    // Handle window resize to update pin element
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+
+    window.addEventListener("resize", handleResize);
+
     return () => {
+      window.removeEventListener("resize", handleResize);
+      ScrollTrigger.getAll().forEach((trigger) => {
+        if (
+          trigger.trigger === mainContainerRef.current ||
+          trigger.trigger === headingRef.current ||
+          trigger.trigger === document.querySelector("#svg-stage")
+        ) {
+          trigger.kill();
+        }
+      });
       main.kill();
     };
   }, []);
@@ -225,58 +236,16 @@ function WorkExperience({ onActiveIndexChange }) {
     };
   }, []);
 
-  // Mobile card visibility and animation effect
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-
-    const card = mobileCardRef.current;
-    if (!card) return;
-
-    // Animate the card from a hidden state to a visible state
-    const mobileCardAnim = gsap.fromTo(
-      card,
-      { autoAlpha: 0, scale: 0.9, y: 20 }, // from: hidden
-      {
-        autoAlpha: 1,
-        scale: 1,
-        y: 0, // to: visible
-        duration: 0.5,
-        ease: "back.out(1.7)",
-        paused: true, // Start the animation in a paused state
-      }
-    );
-
-    // Use ScrollTrigger to control the animation playback
-    const trigger = ScrollTrigger.create({
-      trigger: mainContainerRef.current,
-      start: "top 20%", // A little buffer so it doesn't appear immediately
-      end: "bottom 80%", // A little buffer before it disappears
-      // onEnter: play the animation forward
-      // onLeaveBack: reverse the animation to hide it
-      // onLeave and onEnterBack do nothing
-      toggleActions: "play none none reverse",
-      animation: mobileCardAnim,
-    });
-
-    // Cleanup function to kill the trigger when the component unmounts
-    return () => {
-      trigger.kill();
-    };
-  }, []); // Empty dependency array ensures this runs only once
-
-  // **NEW**: Mobile card color change effect
-  useEffect(() => {
-    if (mobileCardRef.current) {
-      gsap.to(mobileCardRef.current, {
-        backgroundColor: workData[activeIndex].color,
-        duration: 0.5,
-        ease: "power2.out",
-      });
-    }
-  }, [activeIndex]); // This runs whenever the active index changes
+  const gradients = [
+    "bg-gradient-to-br from-teal-600 to-blue-700",
+    "bg-gradient-to-br from-pink-600 to-red-600",
+    "bg-gradient-to-br from-purple-600 to-indigo-700",
+    "bg-gradient-to-br from-green-600 to-teal-700",
+    "bg-gradient-to-br from-yellow-600 to-orange-600",
+  ];
 
   return (
-    <div ref={mainContainerRef}>
+    <div ref={mainContainerRef} className="relative work-experience-container">
       <h1
         ref={headingRef}
         className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] pt-10 overflow-hidden ml-[5vw]"
@@ -284,17 +253,49 @@ function WorkExperience({ onActiveIndexChange }) {
         {letters}
       </h1>
 
-      {/* Main Content */}
+      {/* Main Content Layout */}
       <div className="relative md:grid md:grid-cols-2 md:gap-x-12">
-        {/* SVG Timeline */}
-        <div className="md:col-span-1 mt-16 md:mt-0">
+        {/* ================================================================
+        MOBILE & DESKTOP COLUMN 1: SVG Timeline (Visible on all sizes) 
+        ================================================================
+      */}
+        <div className="md:col-span-1">
+          {/* --- Mobile Card Wrapper (Pinned on scroll) --- */}
+          <div ref={mobileCardWrapperRef} className="md:hidden">
+            {activeWorkItem && (
+              <div
+                ref={mobileContentRef}
+                className={`mobile-card rounded-xl shadow-lg p-5 transition-colors duration-500 ${
+                  gradients[activeIndex % gradients.length]
+                }`}
+              >
+                <div className="mb-4 flex items-center">
+                  <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
+                    {activeWorkItem.year}
+                  </div>
+                  <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
+                  <div className="text-sm font-medium text-[#140202]">
+                    {activeWorkItem.company}
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-[#140202] mb-3">
+                  {activeWorkItem.title}
+                </h3>
+                <p className="text-[#140202]/90 leading-relaxed text-sm">
+                  {activeWorkItem.description}
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* --- SVG Timeline --- */}
           <svg
             id="svg-stage"
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 600 1200"
             className="w-full max-w-[600px]"
           >
-            {/* SVG paths and text remain the same */}
+            {/* All your SVG <path>, <text>, and <circle> elements go here */}
             <path className="line01 line" d="M 10 200 600 200"></path>
             <path className="line02 line" d="M 10 400 600 400"></path>
             <path className="line03 line" d="M 10 600 600 600"></path>
@@ -330,35 +331,36 @@ function WorkExperience({ onActiveIndexChange }) {
           </svg>
         </div>
 
-        {/* Desktop Card --- ✨ MODIFIED SECTION --- */}
+        {/* ================================================================
+        DESKTOP COLUMN 2: Pinned Card (Hidden on mobile)
+        ================================================================
+      */}
         <div className="hidden md:block md:col-span-1">
-          {/* This wrapper will be pinned by GSAP. The sticky div is gone. */}
-          <div ref={desktopCardWrapperRef} className="pt-24">
+          <div ref={desktopCardWrapperRef} className="pt-0">
             <div className="flex flex-row gap-8 items-start">
-              <TechStackDisplay
-                technologies={workData[activeIndex].technologies}
-              />
+              {activeWorkItem?.technologies && (
+                <TechStackDisplay technologies={activeWorkItem.technologies} />
+              )}
               <div
-                ref={contentRef}
-                className="z-10 p-7 md:p-9 rounded-xl shadow-lg w-full max-w-lg transition-colors duration-500"
-                style={{
-                  backgroundColor: workData[activeIndex].color,
-                }}
+                ref={desktopContentRef}
+                className={`z-10 p-7 md:p-9 rounded-xl shadow-lg w-full max-w-lg transition-colors duration-500 ${
+                  gradients[activeIndex % gradients.length]
+                }`}
               >
                 <div className="mb-4 flex items-center">
                   <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
-                    {workData[activeIndex].year}
+                    {activeWorkItem?.year}
                   </div>
                   <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
                   <div className="text-sm font-medium text-[#140202]">
-                    {workData[activeIndex].company}
+                    {activeWorkItem?.company}
                   </div>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-[#140202] mb-3">
-                  {workData[activeIndex].title}
+                  {activeWorkItem?.title}
                 </h3>
                 <p className="text-[#140202]/90 leading-relaxed text-base md:text-lg">
-                  {workData[activeIndex].description}
+                  {activeWorkItem?.description}
                 </p>
               </div>
             </div>
@@ -367,7 +369,8 @@ function WorkExperience({ onActiveIndexChange }) {
       </div>
 
       <style jsx global>{`
-        /* CSS remains the same */
+        /* ... your existing font-face and other global styles ... */
+
         @font-face {
           font-display: block;
           font-family: Mori;
@@ -385,7 +388,6 @@ function WorkExperience({ onActiveIndexChange }) {
           font-family: "Mori", sans-serif;
           padding: 0;
           margin: 0;
-          overflow-x: hidden;
         }
         #svg-stage {
           max-width: 600px;
@@ -408,13 +410,22 @@ function WorkExperience({ onActiveIndexChange }) {
         .theLine {
           stroke: var(--light);
         }
-        .pin-spacer {
-          height: auto !important;
-        }
 
+        /* --- Mobile Styles --- */
         @media (max-width: 767px) {
           #svg-stage {
-            margin-top: 60px;
+            /* Add some space between the pinned card and the SVG */
+            margin-top: 20px;
+          }
+
+          .work-experience-container {
+            padding-bottom: 20px;
+          }
+
+          .mobile-card {
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 20px;
           }
         }
       `}</style>
