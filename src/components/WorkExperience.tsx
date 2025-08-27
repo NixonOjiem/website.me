@@ -1,9 +1,11 @@
 "use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger, DrawSVGPlugin, MotionPathPlugin } from "gsap/all";
 import { workData } from "@/app/data/workData";
 import FloatingCard from "./FloatingCard";
+
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
 
 type Technology = {
@@ -213,13 +215,40 @@ function WorkExperience() {
   ];
 
   return (
-    <div ref={mainContainerRef}>
+    <div ref={mainContainerRef} className="relative">
       <h1
         ref={headingRef}
         className="text-4xl md:text-5xl font-bold text-left text-[#ADD8E6] pt-10 overflow-hidden ml-[5vw]"
       >
         {letters}
       </h1>
+
+      {/* Mobile Card - Sticky at the top on mobile */}
+      <div className="md:hidden sticky top-4 z-50 px-4 mb-4">
+        {activeWorkItem && (
+          <div
+            className={`rounded-xl shadow-lg p-5 transition-colors duration-500 ${
+              gradients[activeIndex % gradients.length]
+            }`}
+          >
+            <div className="mb-4 flex items-center">
+              <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
+                {activeWorkItem.year}
+              </div>
+              <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
+              <div className="text-sm font-medium text-[#140202]">
+                {activeWorkItem.company}
+              </div>
+            </div>
+            <h3 className="text-xl font-bold text-[#140202] mb-3">
+              {activeWorkItem.title}
+            </h3>
+            <p className="text-[#140202]/90 leading-relaxed text-sm">
+              {activeWorkItem.description}
+            </p>
+          </div>
+        )}
+      </div>
 
       {/* Main Content */}
       <div className="relative md:grid md:grid-cols-2 md:gap-x-12">
@@ -300,33 +329,6 @@ function WorkExperience() {
         </div>
       </div>
 
-      {/* Mobile Card - Always visible on mobile */}
-      <div className="md:hidden mt-8 mx-4">
-        {activeWorkItem && (
-          <div
-            className={`rounded-xl shadow-lg p-5 transition-colors duration-500 ${
-              gradients[activeIndex % gradients.length]
-            }`}
-          >
-            <div className="mb-4 flex items-center">
-              <div className="bg-[#140202] text-white text-sm font-bold py-1 px-3 rounded-full">
-                {activeWorkItem.year}
-              </div>
-              <div className="w-8 h-0.5 bg-[#140202] mx-4"></div>
-              <div className="text-sm font-medium text-[#140202]">
-                {activeWorkItem.company}
-              </div>
-            </div>
-            <h3 className="text-xl font-bold text-[#140202] mb-3">
-              {activeWorkItem.title}
-            </h3>
-            <p className="text-[#140202]/90 leading-relaxed text-sm">
-              {activeWorkItem.description}
-            </p>
-          </div>
-        )}
-      </div>
-
       <style jsx global>{`
         @font-face {
           font-display: block;
@@ -345,7 +347,7 @@ function WorkExperience() {
           font-family: "Mori", sans-serif;
           padding: 0;
           margin: 0;
-          overflow-x: hidden;
+          // overflow-x: hidden;
         }
         #svg-stage {
           max-width: 600px;
