@@ -3,6 +3,15 @@ import React, { useState } from "react";
 function ServicesComponent() {
   const [annualBilling, setAnnualBilling] = useState(false);
 
+  // Define your array of gradients
+  const gradients = [
+    "from-teal-600 to-blue-700",
+    "from-pink-600 to-red-600",
+    "from-purple-600 to-indigo-700",
+    "from-green-600 to-teal-700",
+    "from-yellow-600 to-orange-600",
+  ];
+
   const pricingTiers = [
     {
       title: "Frontend Only",
@@ -19,6 +28,7 @@ function ServicesComponent() {
       ],
       cta: "Get Started",
       popular: false,
+      gradient: gradients[0],
       icon: (
         <svg
           className="w-12 h-12"
@@ -51,6 +61,7 @@ function ServicesComponent() {
       ],
       cta: "Get Started",
       popular: true,
+      gradient: gradients[1],
       icon: (
         <svg
           className="w-12 h-12"
@@ -84,6 +95,7 @@ function ServicesComponent() {
       ],
       cta: "Get Started",
       popular: false,
+      gradient: gradients[2],
       icon: (
         <svg
           className="w-12 h-12"
@@ -96,6 +108,141 @@ function ServicesComponent() {
             strokeLinejoin="round"
             strokeWidth="1.5"
             d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"
+          ></path>
+        </svg>
+      ),
+    },
+  ];
+
+  const services = [
+    {
+      title: "Dynamic Frontend Development",
+      description:
+        "Building responsive, accessible, and scalable user interfaces with modern frameworks like React, Next.js, and Vue.js to deliver a seamless user experience.",
+      gradient: gradients[0],
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+            d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+          ></path>
+        </svg>
+      ),
+    },
+    {
+      title: "Backend & API Development",
+      description:
+        "Engineering robust server-side solutions using Node.js, Express, and Laravel. I design and integrate RESTful APIs and GraphQL for efficient data communication.",
+      gradient: gradients[1],
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+            d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
+          ></path>
+        </svg>
+      ),
+    },
+    {
+      title: "Full-Stack Solutions",
+      description:
+        "From concept to deployment, I build complete, end-to-end applications, including e-commerce platforms and specialized systems for sectors like healthcare.",
+      gradient: gradients[2],
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+            d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+          ></path>
+        </svg>
+      ),
+    },
+    {
+      title: "Database Management",
+      description:
+        "Managing structured and unstructured data with expertise in MySQL, PostgreSQL, and MongoDB to ensure data integrity, security, and performance.",
+      gradient: gradients[3],
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+            d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7a8 8 0 0116 0"
+          ></path>
+        </svg>
+      ),
+    },
+    {
+      title: "DevOps & Automation",
+      description:
+        "Implementing CI/CD pipelines with GitHub Actions and using Docker for containerization to streamline development workflows and enhance deployment reliability.",
+      gradient: gradients[4],
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+            d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
+          ></path>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+          ></path>
+        </svg>
+      ),
+    },
+    {
+      title: "SEO & Performance Optimization",
+      description:
+        "Improving your site's visibility with on-page (technical, content) and off-page (backlinks) SEO strategies, plus performance tuning for faster load times.",
+      gradient: gradients[0],
+      icon: (
+        <svg
+          className="w-10 h-10"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+            d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
           ></path>
         </svg>
       ),
@@ -186,7 +333,11 @@ function ServicesComponent() {
                   ))}
                 </ul>
 
-                <button className="card-cta">{tier.cta}</button>
+                <button
+                  className={`card-cta bg-gradient-to-r ${tier.gradient}`}
+                >
+                  {tier.cta}
+                </button>
               </div>
             ))}
           </div>
@@ -202,161 +353,17 @@ function ServicesComponent() {
           </p>
 
           <div className="services-grid">
-            {/* Service 1: Frontend Development */}
-            <div className="service-item">
-              <div className="service-icon">
-                <svg
-                  className="w-10 h-10"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+            {services.map((service, index) => (
+              <div key={index} className="service-item">
+                <div
+                  className={`service-icon-container bg-gradient-to-br ${service.gradient}`}
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  ></path>
-                </svg>
+                  <div className="service-icon">{service.icon}</div>
+                </div>
+                <h3 className="service-title">{service.title}</h3>
+                <p className="service-description">{service.description}</p>
               </div>
-              <h3 className="service-title">Dynamic Frontend Development</h3>
-              <p className="service-description">
-                Building responsive, accessible, and scalable user interfaces
-                with modern frameworks like React, Next.js, and Vue.js to
-                deliver a seamless user experience.
-              </p>
-            </div>
-
-            {/* Service 2: Backend & API Development */}
-            <div className="service-item">
-              <div className="service-icon">
-                <svg
-                  className="w-10 h-10"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01"
-                  ></path>
-                </svg>
-              </div>
-              <h3 className="service-title">Backend & API Development</h3>
-              <p className="service-description">
-                Engineering robust server-side solutions using Node.js, Express,
-                and Laravel. I design and integrate RESTful APIs and GraphQL for
-                efficient data communication.
-              </p>
-            </div>
-
-            {/* Service 3: Full-Stack Solutions */}
-            <div className="service-item">
-              <div className="service-icon">
-                <svg
-                  className="w-10 h-10"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-                  ></path>
-                </svg>
-              </div>
-              <h3 className="service-title">Full-Stack Solutions</h3>
-              <p className="service-description">
-                From concept to deployment, I build complete, end-to-end
-                applications, including e-commerce platforms and specialized
-                systems for sectors like healthcare.
-              </p>
-            </div>
-
-            {/* Service 4: Database Management */}
-            <div className="service-item">
-              <div className="service-icon">
-                <svg
-                  className="w-10 h-10"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7a8 8 0 0116 0"
-                  ></path>
-                </svg>
-              </div>
-              <h3 className="service-title">Database Management</h3>
-              <p className="service-description">
-                Managing structured and unstructured data with expertise in
-                MySQL, PostgreSQL, and MongoDB to ensure data integrity,
-                security, and performance.
-              </p>
-            </div>
-
-            {/* Service 5: DevOps & Automation */}
-            <div className="service-item">
-              <div className="service-icon">
-                <svg
-                  className="w-10 h-10"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                  ></path>
-                </svg>
-              </div>
-              <h3 className="service-title">DevOps & Automation</h3>
-              <p className="service-description">
-                Implementing CI/CD pipelines with GitHub Actions and using
-                Docker for containerization to streamline development workflows
-                and enhance deployment reliability.
-              </p>
-            </div>
-
-            {/* Service 6: SEO & Performance */}
-            <div className="service-item">
-              <div className="service-icon">
-                <svg
-                  className="w-10 h-10"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="1.5"
-                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
-                  ></path>
-                </svg>
-              </div>
-              <h3 className="service-title">SEO & Performance Optimization</h3>
-              <p className="service-description">
-                Improving your site's visibility with on-page (technical,
-                content) and off-page (backlinks) SEO strategies, plus
-                performance tuning for faster load times.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
@@ -372,24 +379,29 @@ function ServicesComponent() {
         .services-hero {
           text-align: center;
           margin-bottom: 4rem;
+          background: linear-gradient(
+            135deg,
+            #0f766e 0%,
+            #0d9488 50%,
+            #06b6d4 100%
+          );
+          padding: 3rem 2rem;
+          border-radius: 16px;
+          color: white;
         }
 
         .services-heading {
           font-size: 2.5rem;
           font-weight: 800;
-          background: linear-gradient(135deg, #2b6879 0%, #16353d 100%);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
           margin-bottom: 1rem;
         }
 
         .services-subheading {
           font-size: 1.2rem;
-          color: #666;
           max-width: 700px;
           margin: 0 auto;
           line-height: 1.6;
+          opacity: 0.9;
         }
 
         /* Pricing Section */
@@ -405,7 +417,10 @@ function ServicesComponent() {
         .pricing-title {
           font-size: 2rem;
           font-weight: 700;
-          color: #2b6879;
+          background: linear-gradient(135deg, #2b6879 0%, #16353d 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
           margin-bottom: 0.5rem;
         }
 
@@ -452,7 +467,7 @@ function ServicesComponent() {
           left: 0;
           right: 0;
           bottom: 0;
-          background-color: #ccc;
+          background: linear-gradient(to right, #0d9488, #06b6d4);
           transition: 0.4s;
           border-radius: 34px;
         }
@@ -470,7 +485,7 @@ function ServicesComponent() {
         }
 
         input:checked + .toggle-slider {
-          background-color: #2b6879;
+          background: linear-gradient(to right, #06b6d4, #0d9488);
         }
 
         input:checked + .toggle-slider:before {
@@ -478,8 +493,8 @@ function ServicesComponent() {
         }
 
         .discount-badge {
-          background: #ffd700;
-          color: #333;
+          background: linear-gradient(to right, #f59e0b, #ef4444);
+          color: white;
           padding: 0.25rem 0.75rem;
           border-radius: 20px;
           font-size: 0.8rem;
@@ -496,7 +511,7 @@ function ServicesComponent() {
 
         .pricing-card {
           background: white;
-          border-radius: 12px;
+          border-radius: 16px;
           padding: 2rem;
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
           position: relative;
@@ -504,6 +519,23 @@ function ServicesComponent() {
           border: 1px solid #eaeaea;
           display: flex;
           flex-direction: column;
+          overflow: hidden;
+        }
+
+        .pricing-card::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 6px;
+          background: linear-gradient(to right, #0d9488, #06b6d4);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .pricing-card:hover::before {
+          opacity: 1;
         }
 
         .pricing-card:hover {
@@ -521,12 +553,13 @@ function ServicesComponent() {
           top: -12px;
           left: 50%;
           transform: translateX(-50%);
-          background: #2b6879;
+          background: linear-gradient(to right, #ec4899, #ef4444);
           color: white;
           padding: 0.5rem 1.5rem;
           border-radius: 20px;
           font-size: 0.8rem;
           font-weight: 600;
+          box-shadow: 0 4px 10px rgba(236, 72, 153, 0.3);
         }
 
         .card-header {
@@ -559,7 +592,10 @@ function ServicesComponent() {
         .price-amount {
           font-size: 2.5rem;
           font-weight: 800;
-          color: #2b6879;
+          background: linear-gradient(135deg, #2b6879 0%, #16353d 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
         }
 
         .price-billing {
@@ -590,19 +626,20 @@ function ServicesComponent() {
         }
 
         .card-cta {
-          background: #2b6879;
           color: white;
           border: none;
           padding: 1rem 2rem;
           border-radius: 8px;
           font-weight: 600;
           cursor: pointer;
-          transition: background 0.3s ease;
+          transition: all 0.3s ease;
           margin-top: auto;
+          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
         .card-cta:hover {
-          background: #16353d;
+          transform: translateY(-2px);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
         /* Services Grid */
@@ -614,7 +651,10 @@ function ServicesComponent() {
           text-align: center;
           font-size: 2rem;
           font-weight: 700;
-          color: #2b6879;
+          background: linear-gradient(135deg, #2b6879 0%, #16353d 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          background-clip: text;
           margin-bottom: 0.5rem;
         }
 
@@ -633,9 +673,27 @@ function ServicesComponent() {
         .service-item {
           background: white;
           padding: 2rem;
-          border-radius: 12px;
+          border-radius: 16px;
           box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
           transition: transform 0.3s ease, box-shadow 0.3s ease;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .service-item::after {
+          content: "";
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          right: 0;
+          height: 4px;
+          background: linear-gradient(to right, #0d9488, #06b6d4);
+          opacity: 0;
+          transition: opacity 0.3s ease;
+        }
+
+        .service-item:hover::after {
+          opacity: 1;
         }
 
         .service-item:hover {
@@ -643,9 +701,15 @@ function ServicesComponent() {
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
-        .service-icon {
-          color: #2b6879;
-          margin-bottom: 1rem;
+        .service-icon-container {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          width: 70px;
+          height: 70px;
+          border-radius: 16px;
+          margin-bottom: 1.5rem;
+          color: white;
         }
 
         .service-title {
@@ -664,6 +728,10 @@ function ServicesComponent() {
         @media (max-width: 768px) {
           .services-heading {
             font-size: 2rem;
+          }
+
+          .services-hero {
+            padding: 2rem 1rem;
           }
 
           .pricing-cards {
