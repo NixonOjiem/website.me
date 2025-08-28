@@ -1,5 +1,5 @@
 .animationContainer {
-  height: 100vh;
+  height: 80vh;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -40,6 +40,7 @@
   max-width: 1400px;
   width: 100vw;
   margin: 0 auto;
+  margin-top: 0;
   height: 90vh;
   margin-bottom: 10vh;
   display: grid;
@@ -55,7 +56,8 @@
   display: block;
   text-align: left;
   font-family: "Bandeins Sans & Strange Variable", sans-serif;
-  font-size: clamp(4rem, 12vw, 12rem);
+  /* font-size: clamp(4rem, 12vw, 12rem); */
+  font-size: 4rem;
   font-weight: 900;
   font-variation-settings: "wdth" var(--width);
   margin: 0;
@@ -131,20 +133,7 @@
   grid-template-rows: repeat(10, 1fr);
 }
 
-.overlay__imgCont {
-  position: relative;
-  overflow: hidden;
-  margin: 0;
-  grid-area: 4 / 3 / 9 / 11;
-}
-
-.overlay__imgCont .image {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 50% 50%;
-}
+/* Removed .overlay__imgCont styles as it no longer contains an image */
 
 .overlay__count {
   grid-area: 3 / 10 / 4 / 10;
@@ -164,9 +153,7 @@
     margin-top: 10vh;
     height: 80vh;
   }
-  .overlay__imgCont {
-    grid-area: 5 / 4 / 10 / 11;
-  }
+  /* Removed .overlay__imgCont styles as it no longer contains an image */
   .overlay__count {
     grid-area: 3 / 10 / 4 / 11;
   }

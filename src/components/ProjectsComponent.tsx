@@ -131,7 +131,6 @@ const ProjectsComponent = () => {
 
   return (
     <div ref={mainRef}>
-      {/* The container holds the entire GSAP animation */}
       <div className={styles.animationContainer}>
         {projects.map((project, index) => (
           <section className={styles.slide} key={project.title}>
@@ -143,7 +142,10 @@ const ProjectsComponent = () => {
                     backgroundColor: slideColors[index % slideColors.length],
                   }}
                 >
-                  <div className={styles.slide__container}>
+                  <div
+                    className={styles.slide__container}
+                    style={{ marginTop: 0 }}
+                  >
                     <h2 className={styles.slide__heading}>{project.title}</h2>
                     <figure className={styles.slide__imgCont}>
                       <img
@@ -170,6 +172,8 @@ const ProjectsComponent = () => {
           </section>
         ))}
 
+        {/* This is the overlay with the project count.
+            The image inside it has been removed. */}
         <section className={styles.overlay}>
           <div className={styles.overlay__content}>
             <p className={styles.overlay__count}>
@@ -178,13 +182,7 @@ const ProjectsComponent = () => {
                 {currentProjectIndex + 1}
               </span>
             </p>
-            <figure className={styles.overlay__imgCont}>
-              <img
-                className={styles.image}
-                src={projects[currentProjectIndex].imageUrl}
-                alt={projects[currentProjectIndex].altText}
-              />
-            </figure>
+            {/* The overlay image has been removed from here */}
           </div>
         </section>
       </div>
