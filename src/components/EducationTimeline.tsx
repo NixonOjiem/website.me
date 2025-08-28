@@ -3,35 +3,8 @@ import React, { useLayoutEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import styles from "./EducationTimeline.module.css";
-
+import { educationData } from "@/app/data/educationData";
 gsap.registerPlugin(ScrollTrigger);
-
-const educationData = [
-  {
-    year: "2023",
-    institution: "Microsoft & LinkedIn Learning",
-    qualification: "Certificate in Search Engine Optimization",
-    date: "Aug 2023",
-  },
-  {
-    year: "2022",
-    institution: "United States International University: Cybershujaa",
-    qualification: "Certificate in Cloud & Network Technology Azure",
-    date: "Nov 2022",
-  },
-  {
-    year: "2021",
-    institution: "Multimedia University of Kenya",
-    qualification: "Degree in Information Technology",
-    date: "Dec 2021",
-  },
-  {
-    year: "2016",
-    institution: "Maranda High school",
-    qualification: "Kenya Certificate of Secondary Education",
-    date: "Nov 2016",
-  },
-];
 
 // SVG component for the graduation cap icon
 const GraduationCapIcon = () => (
@@ -50,6 +23,7 @@ const GraduationCapIcon = () => (
 const EducationTimeline = () => {
   const component = useRef<HTMLDivElement | null>(null);
   const slider = useRef<HTMLDivElement | null>(null);
+  const titleRef = useRef<HTMLHeadingElement | null>(null);
 
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
@@ -71,6 +45,21 @@ const EducationTimeline = () => {
             }`,
         },
       });
+
+      // Animate the main title
+      if (titleRef.current) {
+        gsap.from(titleRef.current, {
+          y: 100,
+          opacity: 0,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: component.current,
+            start: "top 80%", // Animate when the top of the component is 80% from the top of the viewport
+            toggleActions: "play none none none",
+          },
+        });
+      }
 
       panels.forEach((panel) => {
         if (!(panel instanceof HTMLElement)) return;
@@ -133,9 +122,15 @@ const EducationTimeline = () => {
           {educationData.map((item, index) => (
             <section key={index} className={styles.timelineItem}>
               {index === 0 && (
-                <h1 className="top-0 text-4xl md:text-5xl font-bold text-left text-[#FEF6E6] pt-10 overflow-hidden ml-[5vw]">
-                  Educational Background
-                </h1>
+                <>
+                  <h1
+                    ref={titleRef}
+                    className="top-0 text-4xl md:text-5xl font-bold text-left text-[#FEF6E6] pt-10 overflow-hidden ml-[5vw] mb-0"
+                  >
+                    Educational Background
+                  </h1>
+                  <br />
+                </>
               )}
               <div className={styles.timelineContent}>
                 {/* SVG Icon Added Here */}
