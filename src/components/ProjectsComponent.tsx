@@ -8,7 +8,7 @@ import { projects } from "@/app/data/projectsData"; // Your project data
 import styles from "./ProjectsComponent.module.css"; // CSS styles
 
 const ProjectsComponent = () => {
-  const mainRef = useRef(null);
+  const mainRef = useRef<HTMLDivElement | null>(null);
   const animating = useRef(false);
   const currentIndex = useRef(0);
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
@@ -28,11 +28,17 @@ const ProjectsComponent = () => {
     gsap.registerPlugin(Observer);
 
     const context = gsap.context(() => {
-      const sections = gsap.utils.toArray(`.${styles.slide}`);
-      const slideImages = gsap.utils.toArray(`.${styles.slide__img}`);
-      const outerWrappers = gsap.utils.toArray(`.${styles.slide__outer}`);
-      const innerWrappers = gsap.utils.toArray(`.${styles.slide__inner}`);
-      const count = mainRef.current.querySelector(".count-js");
+      const sections = gsap.utils.toArray<HTMLElement>(`.${styles.slide}`);
+      const slideImages = gsap.utils.toArray<HTMLElement>(
+        `.${styles.slide__img}`
+      );
+      const outerWrappers = gsap.utils.toArray<HTMLElement>(
+        `.${styles.slide__outer}`
+      );
+      const innerWrappers = gsap.utils.toArray<HTMLElement>(
+        `.${styles.slide__inner}`
+      );
+      const count = mainRef.current?.querySelector(".count-js");
       const wrap = gsap.utils.wrap(0, sections.length);
 
       gsap.set(outerWrappers, { xPercent: 100 });
@@ -44,13 +50,13 @@ const ProjectsComponent = () => {
         xPercent: 0,
       });
 
-      function gotoSection(index, direction) {
+      function gotoSection(index: number, direction: "next" | "prev") {
         if (animating.current) return;
         animating.current = true;
 
         index = wrap(index);
 
-        let tl = gsap.timeline({
+        const tl = gsap.timeline({
           defaults: { duration: 1, ease: "expo.inOut" },
           onComplete: () => {
             animating.current = false;
@@ -58,10 +64,12 @@ const ProjectsComponent = () => {
           },
         });
 
-        let currentSection = sections[currentIndex.current];
-        let heading = currentSection.querySelector(`.${styles.slide__heading}`);
-        let nextSection = sections[index];
-        let nextHeading = nextSection.querySelector(
+        const currentSection = sections[currentIndex.current];
+        const heading = currentSection?.querySelector(
+          `.${styles.slide__heading}`
+        );
+        const nextSection = sections[index];
+        const nextHeading = nextSection?.querySelector(
           `.${styles.slide__heading}`
         );
 
@@ -69,23 +77,29 @@ const ProjectsComponent = () => {
         gsap.set(sections[currentIndex.current], { zIndex: 1, autoAlpha: 1 });
         gsap.set(sections[index], { zIndex: 2, autoAlpha: 1 });
 
-        tl.set(count, { text: index + 1 }, 0.32)
-          .fromTo(
-            outerWrappers[index],
-            { xPercent: 100 * direction },
-            { xPercent: 0 },
-            0
-          )
+        const dir = direction === "next" ? 1 : -1;
+        const safeCount = count as Element | null;
+
+        if (safeCount) {
+          tl.set(safeCount, { text: String(index + 1) }, 0.32);
+        }
+
+        tl.fromTo(
+          outerWrappers[index],
+          { xPercent: 100 * dir },
+          { xPercent: 0 },
+          0
+        )
           .fromTo(
             innerWrappers[index],
-            { xPercent: -100 * direction },
+            { xPercent: -100 * dir },
             { xPercent: 0 },
             0
           )
-          .to(heading, { "--width": 800, xPercent: 30 * direction }, 0)
+          .to(heading as HTMLElement, { "--width": 800, xPercent: 30 * dir }, 0)
           .fromTo(
-            nextHeading,
-            { "--width": 800, xPercent: -30 * direction },
+            nextHeading as HTMLElement,
+            { "--width": 800, xPercent: -30 * dir },
             { "--width": 200, xPercent: 0 },
             0
           )
@@ -99,14 +113,14 @@ const ProjectsComponent = () => {
         type: "wheel,touch,pointer",
         preventDefault: true,
         wheelSpeed: -1,
-        onUp: () => gotoSection(currentIndex.current + 1, +1),
-        onDown: () => gotoSection(currentIndex.current - 1, -1),
+        onUp: () => gotoSection(currentIndex.current + 1, "next"),
+        onDown: () => gotoSection(currentIndex.current - 1, "prev"),
         tolerance: 10,
       });
 
-      function handleKeyDown(e) {
+      function handleKeyDown(e: KeyboardEvent) {
         if (e.code === "ArrowUp" || e.code === "ArrowLeft") {
-          gotoSection(currentIndex.current - 1, -1);
+          gotoSection(currentIndex.current - 1, "prev");
         }
         if (
           e.code === "ArrowDown" ||
@@ -114,7 +128,7 @@ const ProjectsComponent = () => {
           e.code === "Space" ||
           e.code === "Enter"
         ) {
-          gotoSection(currentIndex.current + 1, 1);
+          gotoSection(currentIndex.current + 1, "next");
         }
       }
 
