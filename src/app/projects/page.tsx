@@ -1,4 +1,3 @@
-// app/projects/page.tsx
 "use client";
 
 import React, { useState, useLayoutEffect, useRef } from "react";
