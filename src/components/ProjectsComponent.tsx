@@ -15,13 +15,11 @@ const ProjectsComponent = () => {
 
   // Define background colors for the slides
   const slideColors = [
-    "#6d597a",
-    "#355070",
-    "#b56576",
-    "#9a8c98",
-    "#4a4e69",
-    "#eaac8b",
-    "#6d6875",
+    "bg-gradient-to-br from-teal-600 to-blue-700",
+    "bg-gradient-to-br from-pink-600 to-red-600",
+    "bg-gradient-to-br from-purple-600 to-indigo-700",
+    "bg-gradient-to-br from-green-600 to-teal-700",
+    "bg-gradient-to-br from-yellow-600 to-orange-600",
   ];
 
   useEffect(() => {
