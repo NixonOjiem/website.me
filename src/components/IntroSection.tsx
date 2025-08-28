@@ -62,7 +62,7 @@ function IntroSection() {
       gsap.to(cardElements, {
         y: 0,
         opacity: 1,
-        duration: 0.4,
+        duration: 0.3,
         stagger: 0.15,
         ease: "back.out(1.7)",
       });
