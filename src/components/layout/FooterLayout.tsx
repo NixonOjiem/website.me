@@ -1,12 +1,13 @@
 import Link from "next/link";
 import React from "react";
 import { FaGithub, FaLinkedin, FaTwitter } from "react-icons/fa";
-
+import { useContactForm } from "@/app/context/ContactFormContext";
 interface FooterLayoutProps {
   onContactClick?: () => void;
 }
 
 const FooterLayout: React.FC<FooterLayoutProps> = () => {
+  const { openContactForm } = useContactForm();
   return (
     <footer className="w-full bg-gradient-to-br from-[#2b6879ff] via-[#357f94] to-black text-gray-300 px-6 py-12 relative overflow-hidden">
       {/* Animated background accent */}
@@ -58,10 +59,11 @@ const FooterLayout: React.FC<FooterLayoutProps> = () => {
                 Services
               </Link>
             </li>
-            <li>
-              <Link href="#" className="hover:text-[#8b718a] transition-colors">
-                Contact
-              </Link>
+            <li
+              className="hover:text-[#8b718a] transition-colors"
+              onClick={openContactForm}
+            >
+              Contact
             </li>
           </ul>
         </div>

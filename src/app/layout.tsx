@@ -8,7 +8,7 @@ import { ScrollSmoother } from "gsap/ScrollSmoother";
 import HeaderComponent from "@/components/layout/HeaderComponent";
 import ContactForm from "@/components/layout/ContactForm";
 import PageLoader from "@/components/layout/PageLoader";
-
+import ContactFormContext from "./context/ContactFormContext";
 // Register GSAP plugins once
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -22,8 +22,9 @@ export default function RootLayout({
   const [isContactFormOpen, setContactFormOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [smoother, setSmoother] = useState<ScrollSmoother | null>(null);
-
   const pathname = usePathname();
+  // function to pass to the context provider
+  const openContactForm = () => setContactFormOpen(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -62,14 +63,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <>
+        {/* 👇 ✨ 3. Wrap your components with the Provider */}
+        <ContactFormContext.Provider value={{ openContactForm }}>
           {loading ? (
-            // 👇 Pass the formatted page name as a prop
             <PageLoader pageName={getPageName(pathname)} />
           ) : (
             <>
               <HeaderComponent
-                onContactClick={() => setContactFormOpen(true)}
+                onContactClick={openContactForm} // You can use the new function here too
               />
               <div id="smooth-wrapper">
                 <div id="smooth-content">{children}</div>
@@ -80,7 +81,7 @@ export default function RootLayout({
               />
             </>
           )}
-        </>
+        </ContactFormContext.Provider>
       </body>
     </html>
   );
