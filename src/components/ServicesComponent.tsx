@@ -1,12 +1,14 @@
+"use client";
 import React, { useState } from "react";
 import { services } from "../app/data/servicesData";
 import { getPricingTiers } from "../app/data/pricingData";
+import { useContactForm } from "@/app/context/ContactFormContext";
 
 function ServicesComponent() {
   const [annualBilling, setAnnualBilling] = useState(false);
-
   // Get the pricing tiers based on the current billing state
   const pricingTiers = getPricingTiers(annualBilling);
+  const { openContactForm } = useContactForm();
 
   return (
     <>
@@ -44,7 +46,7 @@ function ServicesComponent() {
                 <span className="toggle-slider"></span>
               </label>
               <span className={annualBilling ? "active" : ""}>
-                Annual Billing
+                Annual Maintenance Billing
               </span>
               <span className="discount-badge">Save 20%</span>
             </div>
@@ -93,6 +95,7 @@ function ServicesComponent() {
                 </ul>
 
                 <button
+                  onClick={openContactForm}
                   className={`card-cta bg-gradient-to-r ${tier.gradient}`}
                 >
                   {tier.cta}
