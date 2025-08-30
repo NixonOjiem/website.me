@@ -104,51 +104,48 @@ const ContactForm: React.FC<ContactFormProps> = ({ show, onClose }) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!window.emailjs) {
-      console.error("EmailJS SDK not loaded.");
+    setStatus({ state: "sending", message: "Sending..." });
+
+    try {
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        // Handle server-side errors (e.g., validation failed)
+        throw new Error(data.message || "Something went wrong");
+      }
+
+      // --- SUCCESS ---
+      console.log("SUCCESS!", data.message);
+      setStatus({
+        state: "success",
+        message: "Message sent successfully!",
+      });
+      setFormData({ from_name: "", from_email: "", message: "" });
+
+      // Close the modal after a delay
+      setTimeout(() => {
+        onClose();
+        // Reset status after the closing animation finishes
+        setTimeout(() => setStatus({ state: "idle", message: "" }), 500);
+      }, 2000);
+    } catch (error: unknown) {
+      const err = error as Error;
+      console.log("FAILED...", err);
       setStatus({
         state: "error",
-        message: "An error occurred. Please refresh.",
+        message: err.message || "Failed to send. Please try again.",
       });
-      return;
     }
-    setStatus({ state: "sending", message: "Sending..." });
-    const EMAILJS_PUBLIC_KEY =
-      process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY || "YOUR_PUBLIC_KEY";
-    const EMAILJS_SERVICE_ID =
-      process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || "YOUR_SERVICE_ID";
-    const EMAILJS_TEMPLATE_ID =
-      process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || "YOUR_TEMPLATE_ID";
-    window.emailjs
-      .send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        formData,
-        EMAILJS_PUBLIC_KEY
-      )
-      .then(
-        (response: { status: number; text: string }) => {
-          console.log("SUCCESS!", response.status, response.text);
-          setStatus({
-            state: "success",
-            message: "Message sent successfully!",
-          });
-          setFormData({ from_name: "", from_email: "", message: "" });
-          setTimeout(() => {
-            onClose();
-            setTimeout(() => setStatus({ state: "idle", message: "" }), 500);
-          }, 2000);
-        },
-        (error: unknown) => {
-          console.log("FAILED...", error);
-          setStatus({
-            state: "error",
-            message: "Failed to send. Please try again.",
-          });
-        }
-      );
   };
   return (
     <div
