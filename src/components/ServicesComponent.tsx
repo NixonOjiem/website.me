@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { services } from "../app/data/servicesData"; // Adjust path if needed
-import { getPricingTiers } from "../app/data/pricingData"; // Adjust path if needed
+import { services } from "../app/data/servicesData";
+import { getPricingTiers } from "../app/data/pricingData";
 
 function ServicesComponent() {
   const [annualBilling, setAnnualBilling] = useState(false);
