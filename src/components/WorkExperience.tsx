@@ -9,7 +9,7 @@ gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
 
 type Technology = {
   name: string;
-  icon: JSX.Element;
+  icon: React.ReactNode;
 };
 
 type WorkExperience = {
