@@ -5,7 +5,7 @@ export const getPricingTiers = (annualBilling) => [
   {
     title: "Frontend Only",
     description: "Perfect for static websites and content presentation",
-    price: annualBilling ? "$799" : "$999",
+    price: annualBilling ? "KES 12000" : "KES15000",
     billing: annualBilling ? "/year" : "/project",
     features: [
       "Responsive Design",
@@ -37,7 +37,7 @@ export const getPricingTiers = (annualBilling) => [
   {
     title: "Full Stack Basic",
     description: "Dynamic websites with backend functionality",
-    price: annualBilling ? "$1,999" : "$2,499",
+    price: annualBilling ? "KES 12000" : "KES25000",
     billing: annualBilling ? "/year" : "/project",
     features: [
       "Everything in Frontend Only",
@@ -70,7 +70,7 @@ export const getPricingTiers = (annualBilling) => [
   {
     title: "E-Commerce & Payments",
     description: "Complete online stores with payment processing",
-    price: annualBilling ? "$3,999" : "$4,999",
+    price: annualBilling ? "KES15000" : "KES45000",
     billing: annualBilling ? "/year" : "/project",
     features: [
       "Everything in Full Stack",

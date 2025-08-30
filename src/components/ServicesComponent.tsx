@@ -33,7 +33,7 @@ function ServicesComponent() {
 
             <div className="billing-toggle">
               <span className={!annualBilling ? "active" : ""}>
-                Monthly Billing
+                Project Billing
               </span>
               <label className="toggle-switch">
                 <input
