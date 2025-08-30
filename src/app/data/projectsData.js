@@ -21,7 +21,7 @@ export const projects = [
   {
     title: "KenyaHMIS Community Forum",
     description:
-      "Empower healthcare professionals with the KenyaHMIS Community Forum, a dynamic platform designed for seamless knowledge exchange among EMR users. Whether seeking solutions, sharing insights, or navigating system enhancements, this interactive space fosters collaboration and expertise. Engage, ask, and elevate healthcare technology—one conversation at a time.",
+      "Empower healthcare professionals with the KenyaHMIS Community Forum, a dynamic platform designed for seamless knowledge exchange among EMR users. Whether seeking solutions, sharing insights, or navigating system enhancements, this interactive space fosters collaboration and expertise.",
     imageUrl: "/images/ScreenshotKenyaHMIS.png",
     altText: "KenyaHMIS Community Forum",
     link: "https://community.kenyahmis.org/",

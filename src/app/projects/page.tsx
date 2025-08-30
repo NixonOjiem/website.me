@@ -1,13 +1,11 @@
 "use client";
 
-import React, { useState, useLayoutEffect, useRef } from "react";
+import React, { useLayoutEffect, useRef } from "react";
 import ProjectsComponent from "@/components/ProjectsComponent";
-import ContactForm from "@/components/layout/ContactForm";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 function Page() {
-  const [isContactFormOpen, setContactFormOpen] = useState(false);
   const main = useRef(null);
 
   useLayoutEffect(() => {
@@ -62,10 +60,6 @@ function Page() {
       <main>
         <ProjectsComponent />
       </main>
-      <ContactForm
-        show={isContactFormOpen}
-        onClose={() => setContactFormOpen(false)}
-      />
     </div>
   );
 }
