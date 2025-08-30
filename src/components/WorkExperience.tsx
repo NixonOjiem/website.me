@@ -6,10 +6,12 @@ import { ScrollTrigger, DrawSVGPlugin, MotionPathPlugin } from "gsap/all";
 import { workData } from "@/app/data/workData";
 
 gsap.registerPlugin(ScrollTrigger, DrawSVGPlugin, MotionPathPlugin);
-
+{
+  /*This is the edited JSX */
+}
 type Technology = {
   name: string;
-  icon: JSX.Element;
+  icon: React.ReactNode;
 };
 
 type WorkExperience = {
