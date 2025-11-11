@@ -28,6 +28,15 @@ export const projects = [
     technologies: ["React", "Firebase", "Material UI", "Node.js"],
   },
   {
+    title: "Rental Car Management System",
+    description:
+      "Calling all anime and manga lovers! Dive into the ultimate trivia experience with our fun and interactive quiz app. Challenge yourself with randomly generated questions about your favorite anime and manga series, and see how you stack up with a personalized score.",
+    imageUrl: "/images/Screenshot 2025-08-22 105353.png",
+    altText: "Anime-Manga Quiz App",
+    link: "https://anime-manga-quiz-8ad86.web.app/",
+    technologies: ["JavaScript", "Firebase", "HTML5", "CSS3"],
+  },
+  {
     title: "Anime-Manga Quiz App",
     description:
       "Calling all anime and manga lovers! Dive into the ultimate trivia experience with our fun and interactive quiz app. Challenge yourself with randomly generated questions about your favorite anime and manga series, and see how you stack up with a personalized score.",
