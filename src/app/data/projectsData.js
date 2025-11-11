@@ -28,6 +28,16 @@ export const projects = [
     technologies: ["React", "Firebase", "Material UI", "Node.js"],
   },
   {
+    title: "Malonza Construction LTD",
+    description:
+      "A comprehensive management solution tailored for construction project lifecycle management. Key features include real-time tracking of site progress, equipment and inventory management, contractor/sub-contractor scheduling, budget vs. actual cost reporting, and dedicated dashboards for project managers and site foremen.",
+    imageUrl: "/images/Construction-Project.png",
+    altText:
+      "Construction Project Management Dashboard showing timeline and budget status",
+    link: "https://malonzaconstruction.co.ke/",
+    technologies: ["Next.js", "MySQL", "HTML5", "CSS3", "Node.js"],
+  },
+  {
     title: "Rental Car Management System",
     description:
       "A robust, full-stack solution designed for efficient management of car rental operations. Features include real-time vehicle availability tracking, customer booking and reservation management, automated pricing calculations, payment integration, and a dedicated admin dashboard for fleet performance and utilization analysis.",
