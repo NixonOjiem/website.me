@@ -30,11 +30,12 @@ export const projects = [
   {
     title: "Rental Car Management System",
     description:
-      "Calling all anime and manga lovers! Dive into the ultimate trivia experience with our fun and interactive quiz app. Challenge yourself with randomly generated questions about your favorite anime and manga series, and see how you stack up with a personalized score.",
-    imageUrl: "/images/Screenshot 2025-08-22 105353.png",
-    altText: "Anime-Manga Quiz App",
-    link: "https://anime-manga-quiz-8ad86.web.app/",
-    technologies: ["JavaScript", "Firebase", "HTML5", "CSS3"],
+      "A robust, full-stack solution designed for efficient management of car rental operations. Features include real-time vehicle availability tracking, customer booking and reservation management, automated pricing calculations, payment integration, and a dedicated admin dashboard for fleet performance and utilization analysis.",
+    imageUrl: "/images/car-project.png",
+    altText:
+      "Car Rental Management Dashboard showing fleet status and bookings",
+    link: "https://carrentalwithnode.netlify.app",
+    technologies: ["Nextjs", "MongoDB", "HTML5", "CSS3", "Node.js"],
   },
   {
     title: "Anime-Manga Quiz App",
