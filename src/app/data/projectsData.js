@@ -92,14 +92,14 @@ export const projects = [
     link: "https://nixonojiem.github.io/AI-detector/",
     technologies: ["TensorFlow.js", "React", "Node.js", "ML Algorithms"],
   },
-  {
-    title: "Movie info App",
-    description:
-      "The Movie and TV Show Search application is a user-friendly tool designed to help users quickly find information about their favorite films and series. By simply entering a title, the app fetches key details such as the IMDb score and the release year, providing a concise overview for users to make informed viewing choices.",
-    imageUrl:
-      "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG1vdmllJTIwaW5mbyUyMGFwcHxlbnwwfHwwfHx8MA%3D%3D",
-    altText: "Movie info App",
-    link: "https://movie-info-68f8e.web.app/",
-    technologies: ["React", "OMDb API", "Firebase", "CSS3"],
-  },
+  // {
+  //   title: "Movie info App",
+  //   description:
+  //     "The Movie and TV Show Search application is a user-friendly tool designed to help users quickly find information about their favorite films and series. By simply entering a title, the app fetches key details such as the IMDb score and the release year, providing a concise overview for users to make informed viewing choices.",
+  //   imageUrl:
+  //     "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTd8fG1vdmllJTIwaW5mbyUyMGFwcHxlbnwwfHwwfHx8MA%3D%3D",
+  //   altText: "Movie info App",
+  //   link: "https://movie-info-68f8e.web.app/",
+  //   technologies: ["React", "OMDb API", "Firebase", "CSS3"],
+  // },
 ];
