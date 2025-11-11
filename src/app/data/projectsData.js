@@ -48,15 +48,6 @@ export const projects = [
     technologies: ["Nextjs", "MongoDB", "HTML5", "CSS3", "Node.js"],
   },
   {
-    title: "Anime-Manga Quiz App",
-    description:
-      "Calling all anime and manga lovers! Dive into the ultimate trivia experience with our fun and interactive quiz app. Challenge yourself with randomly generated questions about your favorite anime and manga series, and see how you stack up with a personalized score.",
-    imageUrl: "/images/Screenshot 2025-08-22 105353.png",
-    altText: "Anime-Manga Quiz App",
-    link: "https://anime-manga-quiz-8ad86.web.app/",
-    technologies: ["JavaScript", "Firebase", "HTML5", "CSS3"],
-  },
-  {
     title: "Video Chat App",
     description:
       "Introducing my video call app! Seamlessly connect with friends, family, and colleagues through high-quality video and audio. Whether for work or play, our app ensures a smooth and engaging communication experience. Stay connected, no matter where you are!",
@@ -82,6 +73,15 @@ export const projects = [
     altText: "Image Compression App",
     link: "https://nixonojiem.github.io/Image-compressor/",
     technologies: ["JavaScript", "Browser APIs", "HTML5", "CSS3"],
+  },
+  {
+    title: "Anime-Manga Quiz App",
+    description:
+      "Calling all anime and manga lovers! Dive into the ultimate trivia experience with our fun and interactive quiz app. Challenge yourself with randomly generated questions about your favorite anime and manga series, and see how you stack up with a personalized score.",
+    imageUrl: "/images/Screenshot 2025-08-22 105353.png",
+    altText: "Anime-Manga Quiz App",
+    link: "https://anime-manga-quiz-8ad86.web.app/",
+    technologies: ["JavaScript", "Firebase", "HTML5", "CSS3"],
   },
   {
     title: "AI text Detection APP",
