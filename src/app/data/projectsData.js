@@ -37,16 +37,16 @@ export const projects = [
     link: "https://malonzaconstruction.co.ke/",
     technologies: ["Next.js", "MySQL", "HTML5", "CSS3", "Node.js"],
   },
-  {
-    title: "Rental Car Management System",
-    description:
-      "A robust, full-stack solution designed for efficient management of car rental operations. Features include real-time vehicle availability tracking, customer booking and reservation management, automated pricing calculations, payment integration, and a dedicated admin dashboard for fleet performance and utilization analysis.",
-    imageUrl: "/images/car-project.png",
-    altText:
-      "Car Rental Management Dashboard showing fleet status and bookings",
-    link: "https://carrentalwithnode.netlify.app",
-    technologies: ["Nextjs", "MongoDB", "HTML5", "CSS3", "Node.js"],
-  },
+  // {
+  //   title: "Rental Car Management System",
+  //   description:
+  //     "A robust, full-stack solution designed for efficient management of car rental operations. Features include real-time vehicle availability tracking, customer booking and reservation management, automated pricing calculations, payment integration, and a dedicated admin dashboard for fleet performance and utilization analysis.",
+  //   imageUrl: "/images/car-project.png",
+  //   altText:
+  //     "Car Rental Management Dashboard showing fleet status and bookings",
+  //   link: "https://carrentalwithnode.netlify.app",
+  //   technologies: ["Nextjs", "MongoDB", "HTML5", "CSS3", "Node.js"],
+  // },
   {
     title: "Video Chat App",
     description:
