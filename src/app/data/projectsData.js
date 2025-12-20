@@ -28,6 +28,15 @@ export const projects = [
     technologies: ["React", "Firebase", "Material UI", "Node.js"],
   },
   {
+    title: "Cuisine Élégante",
+    description:
+      "Experience the pinnacle of fine dining with Cuisine Élégante. Our platform offers a seamless journey from browsing our curated seasonal menus to secure M-Pesa integrated checkouts. Indulge in a sophisticated culinary experience designed for those who appreciate the art of gastronomy and modern convenience.",
+    imageUrl: "/images/ScreenshotCuisineElegante.png",
+    altText: "Cuisine Élégante - Modern Restaurant Platform",
+    link: "https://restaurantprod.netlify.app", // Using the Netlify URL from your previous message
+    technologies: ["Vue.js", "Node.js", "Express", "MongoDB", "Tailwind CSS"],
+  },
+  {
     title: "Malonza Construction LTD",
     description:
       "A comprehensive management solution tailored for construction project lifecycle management. Key features include real-time tracking of site progress, equipment and inventory management, contractor/sub-contractor scheduling, budget vs. actual cost reporting, and dedicated dashboards for project managers and site foremen.",
