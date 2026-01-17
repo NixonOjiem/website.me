@@ -336,7 +336,7 @@ function WorkExperience() {
             <circle className="ball ball04" r="20" cx="203" cy="601"></circle>
             <circle className="ball ball05" r="20" cx="130" cy="801"></circle>
             <circle className="ball ball06" r="20" cx="300" cy="1001"></circle>
-            <circle className="ball ball07" r="20" cx="175" cy="1150"></circle>
+            <circle className="ball ball07" r="20" cx="300" cy="1150"></circle>
           </svg>
         </div>
 
