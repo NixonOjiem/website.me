@@ -81,4 +81,20 @@ export const workData = [
       { name: "MongoDB", icon: TechIcons.MongoDB },
     ],
   },
+  {
+    year: "2026",
+    title: "FullStack Developer",
+    company: "LoveHomeMart",
+    description:
+      "Developed a full e-commerce platform using React, Next.js, and Laravel. Integrated GraphQL, MySQL, and MongoDB for efficient data handling. Applied accessibility and performance optimizations. Led architecture decisions and collaborated cross-functionally to deliver scalable, SEO-friendly solutions aligned with business goals.",
+    color: "#73788a",
+    technologies: [
+      { name: "React", icon: TechIcons.React },
+      { name: "Next.js", icon: TechIcons.NextJS },
+      { name: "Laravel", icon: TechIcons.Laravel },
+      { name: "MySQL", icon: TechIcons.MySQL },
+      { name: "GraphQL", icon: TechIcons.GraphQL },
+      { name: "MongoDB", icon: TechIcons.MongoDB },
+    ],
+  },
 ];

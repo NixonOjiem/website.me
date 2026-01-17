@@ -38,7 +38,7 @@ function TechStackDisplay({ technologies }: { technologies: Technology[] }) {
           duration: 0.5,
           stagger: 0.1,
           ease: "power2.out",
-        }
+        },
       );
     }
   }, [technologies]);
@@ -93,7 +93,7 @@ function WorkExperience() {
         gsap.fromTo(
           desktopContentRef.current,
           { autoAlpha: 0, y: 20 },
-          { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }
+          { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" },
         );
       }
 
@@ -102,7 +102,7 @@ function WorkExperience() {
         gsap.fromTo(
           mobileContentRef.current,
           { autoAlpha: 0, y: 20 },
-          { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }
+          { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" },
         );
       }
     };
@@ -129,7 +129,9 @@ function WorkExperience() {
       .to(".ball05, .text04", {}, 0.59)
       .call(() => updateActiveCard(3), [], 0.59)
       .to(".ball06, .text05", {}, 0.76)
-      .call(() => updateActiveCard(4), [], 0.76);
+      .call(() => updateActiveCard(4), [], 0.76)
+      .to(".ball07, .text06", {}, 0.9)
+      .call(() => updateActiveCard(5), [], 0.9);
 
     // Make sure cards are visible before animation starts
     if (desktopContentRef.current) {
@@ -179,7 +181,7 @@ function WorkExperience() {
             });
           },
         },
-        0
+        0,
       )
       .add(pulses, 0);
 
@@ -230,7 +232,7 @@ function WorkExperience() {
           start: "top 80%",
           toggleActions: "play none none none",
         },
-      }
+      },
     );
     return () => {
       anim.scrollTrigger?.kill();
@@ -303,6 +305,7 @@ function WorkExperience() {
             <path className="line03 line" d="M 10 600 600 600"></path>
             <path className="line04 line" d="M 10 800 600 800"></path>
             <path className="line05 line" d="M 10 1000 600 1000"></path>
+            <path className="line06 line" d="M 10 1150 600 1150"></path>
             <text className="text01" x="30" y="190">
               2021
             </text>
@@ -318,6 +321,9 @@ function WorkExperience() {
             <text className="text05" x="30" y="990">
               2025
             </text>
+            <text className="text06" x="30" y="1140">
+              2026
+            </text>
             <path
               className="theLine"
               d="M -5,0 Q 450 230 300 450 T 130 750 Q 100 850 300 1000 T 150 1200"
@@ -330,6 +336,7 @@ function WorkExperience() {
             <circle className="ball ball04" r="20" cx="203" cy="601"></circle>
             <circle className="ball ball05" r="20" cx="130" cy="801"></circle>
             <circle className="ball ball06" r="20" cx="300" cy="1001"></circle>
+            <circle className="ball ball07" r="20" cx="300" cy="1150"></circle>
           </svg>
         </div>
 
